@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ | Dispo Buddy - JV Disposition Partner for Wholesalers</title>
+  <meta name="description" content="Everything you need to know before you send us a deal. Answers on the basics, partnership splits, submitting deals, process &amp; timeline, money, and getting started.">
+  <link rel="icon" href="assets/img/favicon.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/design-system.css">
+  <style>
+    /* Preserve clean viewport sticky context (avoid body overflow-x: hidden forcing overflow-y: auto) */
+    html {
+      scroll-padding-top: 176px;
+    }
+
+    body {
+      overflow-x: clip;
+    }
+
+    /* Clean eyebrow without decorative dashes */
+    .eyebrow::before {
+      display: none;
+    }
+
+    /* ── FAQ HERO ────────────────────────────────────────────────────────── */
+    .faq-hero {
+      padding: 80px 0 68px;
+    }
+
+    .faq-hero h1 {
+      max-width: 720px;
+      margin-bottom: 16px;
+    }
+
+    .faq-hero p.lead {
+      max-width: 560px;
+    }
+
+    /* ── CATEGORY NAVIGATION BAR ─────────────────────────────────────────── */
+    .faq-cat-nav {
+      position: sticky;
+      top: var(--nav-h);
+      z-index: 120;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.95);
+      box-shadow: 0 6px 20px rgba(13, 31, 60, 0.04);
+    }
+
+    .faq-cat-nav .container {
+      padding-top: 14px;
+      padding-bottom: 14px;
+    }
+
+    .faq-cat-list {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .faq-cat-list::-webkit-scrollbar {
+      display: none;
+    }
+
+    .faq-cat-tab {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      background: var(--surface-alt);
+      color: var(--ink-secondary);
+      font-size: 13.5px;
+      font-weight: 600;
+      line-height: 1.2;
+      white-space: nowrap;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background-color 0.22s var(--ease), color 0.22s var(--ease), border-color 0.22s var(--ease), box-shadow 0.22s var(--ease), transform 0.22s var(--ease);
+    }
+
+    .faq-cat-tab:hover {
+      background: var(--blue-tint);
+      border-color: rgba(41, 171, 226, 0.42);
+      color: var(--navy);
+      transform: translateY(-1px);
+    }
+
+    .faq-cat-tab.is-active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: var(--white);
+      box-shadow:
+        0 8px 20px rgba(13, 31, 60, 0.16),
+        inset 0 -3px 0 var(--orange);
+    }
+
+    .faq-cat-tab.is-active:hover {
+      background: var(--navy-mid);
+      border-color: var(--navy-mid);
+      color: var(--white);
+      transform: none;
+    }
+
+    /* ── FAQ GROUPS & ACCORDIONS ─────────────────────────────────────────── */
+    .faq-content-section {
+      background: var(--surface-alt);
+      padding: 68px 0 88px;
+    }
+
+    .faq-group {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 48px;
+      align-items: start;
+      padding-bottom: 52px;
+      margin-bottom: 52px;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.95);
+      scroll-margin-top: 176px;
+    }
+
+    .faq-group:last-child {
+      padding-bottom: 0;
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+
+    .faq-group-aside {
+      position: sticky;
+      top: 176px;
+    }
+
+    .faq-group-title {
+      font-size: 1.48rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.022em;
+      line-height: 1.25;
+    }
+
+    .faq-content-section .accordion-list {
+      gap: 14px;
+    }
+
+    .faq-content-section .accordion-item {
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: 16px;
+      box-shadow:
+        0 4px 16px rgba(13, 31, 60, 0.035),
+        0 1px 2px rgba(13, 31, 60, 0.02);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .faq-content-section .accordion-item:hover {
+      border-color: rgba(41, 171, 226, 0.34);
+    }
+
+    .faq-content-section .accordion-item.is-open {
+      border-color: rgba(41, 171, 226, 0.44);
+      box-shadow:
+        0 12px 28px rgba(13, 31, 60, 0.075),
+        0 3px 8px rgba(41, 171, 226, 0.06);
+    }
+
+    .faq-content-section .accordion-trigger {
+      padding: 22px 26px;
+      font-size: 15.8px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--navy);
+    }
+
+    .faq-content-section .accordion-trigger:hover {
+      color: var(--blue-hover);
+    }
+
+    .faq-content-section .accordion-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(145deg, #FFFFFF 0%, #EBF8FF 100%);
+      border: 1px solid rgba(41, 171, 226, 0.28);
+      color: #1686BA;
+    }
+
+    .faq-content-section .accordion-item.is-open .accordion-icon {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: var(--white);
+    }
+
+    .faq-content-section .accordion-body {
+      padding: 0 26px 24px;
+      font-size: 14.5px;
+      line-height: 1.8;
+      color: var(--ink-secondary);
+    }
+
+    .faq-content-section .accordion-body strong {
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    /* ── STILL HAVE QUESTIONS ────────────────────────────────────────────── */
+    .still-section {
+      background: var(--white);
+      border-top: 1px solid rgba(226, 232, 240, 0.95);
+      padding: 68px 0;
+    }
+
+    .still-card {
+      background: var(--surface-alt);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: 20px;
+      padding: 40px 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+      box-shadow: 0 6px 20px rgba(13, 31, 60, 0.04);
+    }
+
+    .still-copy h2 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .still-copy p {
+      font-size: 15px;
+      color: var(--ink-secondary);
+    }
+
+    .still-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .still-contact-card {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 20px 12px 14px;
+      border-radius: 14px;
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      box-shadow: 0 4px 12px rgba(13, 31, 60, 0.04);
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--navy);
+      transition: transform 0.22s var(--ease), border-color 0.22s ease, box-shadow 0.22s var(--ease), color 0.2s ease;
+    }
+
+    .still-contact-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(41, 171, 226, 0.42);
+      color: var(--blue-hover);
+      box-shadow: 0 10px 24px rgba(13, 31, 60, 0.075);
+    }
+
+    .still-contact-card .icon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 11px;
+    }
+
+    .still-contact-card .icon-box svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    @media (max-width: 960px) {
+      .faq-group {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding-bottom: 40px;
+        margin-bottom: 40px;
+      }
+      .faq-group-aside {
+        position: static;
+      }
+      .still-card {
+        padding: 34px 30px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      html {
+        scroll-padding-top: 148px;
+      }
+      .faq-hero {
+        padding: 52px 0 44px;
+      }
+      .faq-cat-nav .container {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+      .faq-cat-list {
+        gap: 8px;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x proximity;
+        padding-right: 4px;
+      }
+      .faq-cat-tab {
+        min-height: 42px;
+        padding: 9px 15px;
+        font-size: 12.8px;
+        scroll-snap-align: start;
+      }
+      .faq-content-section {
+        padding: 40px 0 56px;
+      }
+      .faq-group {
+        gap: 16px;
+        padding-bottom: 34px;
+        margin-bottom: 34px;
+        scroll-margin-top: 148px;
+      }
+      .faq-group-title {
+        font-size: 1.3rem;
+      }
+      .faq-content-section .accordion-trigger {
+        padding: 18px 18px;
+        font-size: 14.8px;
+        min-height: 54px;
+      }
+      .faq-content-section .accordion-body {
+        padding: 0 18px 18px;
+        font-size: 14px;
+        line-height: 1.72;
+      }
+      .still-section {
+        padding: 48px 0;
+      }
+      .still-card {
+        padding: 26px 20px;
+        gap: 20px;
+        border-radius: 16px;
+      }
+      .still-copy h2 {
+        font-size: 1.38rem;
+      }
+      .still-copy p {
+        font-size: 14.2px;
+      }
+      .still-actions {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+      .still-contact-card {
+        width: 100%;
+        min-height: 54px;
+        font-size: 14px;
+        overflow-wrap: anywhere;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-brand" aria-label="Dispo Buddy Home">
+        <img src="assets/img/logo-dark.svg" alt="Dispo Buddy">
+      </a>
+      <nav class="navbar-links" aria-label="Primary Navigation">
+        <a href="process.html">How It Works</a>
+        <a href="what-we-look-for.html">Criteria</a>
+        <a href="buyers-map.html">Active Buyers</a>
+        <a href="proof.html">Proof</a>
+        <a href="faq.html" class="active">FAQ</a>
+        <a href="https://termsforsale.com/deals.html" target="_blank" rel="noopener" class="external-link">
+          Buy Deals
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
+      </nav>
+      <div class="navbar-actions">
+        <a href="submit-deal.html" class="btn btn-primary">Submit a Deal</a>
+        <button class="hamburger" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" aria-hidden="true">
+    <a href="index.html">Home</a>
+    <a href="process.html">How It Works</a>
+    <a href="what-we-look-for.html">Criteria</a>
+    <a href="buyers-map.html">Active Buyers</a>
+    <a href="proof.html">Proof</a>
+    <a href="faq.html" class="active">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://termsforsale.com/deals.html" target="_blank" rel="noopener" class="external-link">Buy Deals ↗</a>
+    <div class="mobile-cta-wrap">
+      <a href="submit-deal.html" class="btn btn-primary btn-lg">Submit a Deal</a>
+      <a href="join.html" class="btn btn-secondary btn-lg">Join Network</a>
+    </div>
+  </div>
+
+  <main>
+    <!-- ── HERO ─────────────────────────────────────────────────────────── -->
+    <section class="page-hero faq-hero">
+      <div class="container">
+        <span class="eyebrow">FAQ</span>
+        <h1>Got questions? <em>Good.</em></h1>
+        <p class="lead">Everything you need to know before you send us a deal. No fluff, no fine print games.</p>
+      </div>
+    </section>
+
+    <!-- ── CATEGORY NAVIGATION ──────────────────────────────────────────── -->
+    <nav class="faq-cat-nav" id="faqCatNav" aria-label="FAQ Categories">
+      <div class="container">
+        <div class="faq-cat-list" role="tablist" aria-label="FAQ Category Navigation">
+          <button type="button" class="faq-cat-tab is-active" data-target="basics" aria-controls="basics" aria-current="true">The Basics</button>
+          <button type="button" class="faq-cat-tab" data-target="partnership" aria-controls="partnership" aria-current="false">The Partnership</button>
+          <button type="button" class="faq-cat-tab" data-target="submitting" aria-controls="submitting" aria-current="false">Submitting Deals</button>
+          <button type="button" class="faq-cat-tab" data-target="process" aria-controls="process" aria-current="false">Process &amp; Timeline</button>
+          <button type="button" class="faq-cat-tab" data-target="money" aria-controls="money" aria-current="false">Money</button>
+          <button type="button" class="faq-cat-tab" data-target="started" aria-controls="started" aria-current="false">Getting Started</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ── CATEGORIZED FAQ CONTENT ──────────────────────────────────────── -->
+    <section class="faq-content-section">
+      <div class="container">
+
+        <!-- 1. The Basics -->
+        <div class="faq-group" id="basics">
+          <div class="faq-group-aside">
+            <h2 class="faq-group-title">The Basics</h2>
+          </div>
+          <div class="accordion-list">
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>What is Dispo Buddy?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">Your JV disposition partner. You have a deal under contract, we find the buyer. We handle packaging, marketing, buyer outreach, negotiation, and closing coordination. You get 50% of the assignment fee at close. No upfront cost.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>Who runs this?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">Deal Pros LLC, based in Phoenix, Arizona. We also run the Terms For Sale buyer marketplace. Real company, real people, real deals.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>Is this a wholesaling company?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">No. We don't talk to sellers. We work the buyer side. You bring the contract, we bring the buyers. That's it.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>What types of deals do you work?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">Cash assignments, subject-to, seller finance, hybrid/creative, novation, and Morby method. If your deal doesn't fit a neat category, submit it anyway. We'll take a look.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. The Partnership -->
+        <div class="faq-group" id="partnership">
+          <div class="faq-group-aside">
+            <h2 class="faq-group-title">The Partnership</h2>
+          </div>
+          <div class="accordion-list">
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>What's the split?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">Core split is 50/50 of the net assignment fee, paid at close through title. No upfront fees, no monthly charges, no hidden costs. <strong>Proven partners get bumped to a 30/70 split</strong> once you hit $25K in funded fees to us OR close 3 deals with us in a single quarter — whichever comes first. The better you perform, the more you earn.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>Is the partnership exclusive?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">No. Non-exclusive. Keep marketing the deal yourself. Work with other dispo partners if you want. If you find your own buyer first, no hard feelings. Seriously.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>Do I keep the seller relationship?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">100%. Your seller, your contract, your relationship. We never contact your seller. We work the buyer side only.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>Do I need to sign a JV agreement?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">Yes. Once we accept your deal, we send a simple, non-exclusive JV agreement. It protects both of us, outlines the split, and covers transaction terms. Straightforward, no tricks.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>Can licensed agents submit deals?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">Yes. Just note that you're licensed on the form and make sure your brokerage is cool with assignment/JV transactions. We work with agents all the time.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Submitting Deals -->
+        <div class="faq-group" id="submitting">
+          <div class="faq-group-aside">
+            <h2 class="faq-group-title">Submitting Deals</h2>
+          </div>
+          <div class="accordion-list">
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>What info do I need to submit?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">At minimum: your contact info, property address, photos, contract price, asking price, ARV, close of escrow date, occupancy status, and access info. For creative deals (SubTo, seller finance), we need the loan details and terms too. More info = faster turnaround.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>Does the deal need to be under contract?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">Yes. No contract, no review. We can't sell what you don't control. Lock it up first, then submit.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>What if my submission is missing info?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">We'll still look at it, but it slows everything down. If we need more, we'll reach out. Want it moved fast? Send everything the first time.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>Can I submit multiple deals?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">Yes. One form per deal. If you've worked with us before, it's faster the second time around because we already have your info on file.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>What if my deal gets rejected?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">We'll tell you why. Usual reasons: pricing is off, photos are missing, or there's no buyer demand in that market. Fix it and resubmit, or send us a different deal.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Process & Timeline -->
+        <div class="faq-group" id="process">
+          <div class="faq-group-aside">
+            <h2 class="faq-group-title">Process &amp; Timeline</h2>
+          </div>
+          <div class="accordion-list">
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>How fast is the review?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">24-48 hours. If we need more info, we'll reach out. If you haven't heard back in 48 hours, follow up -- but that rarely happens.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>How do you actually market my deal?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">We build a professional deal presentation, list it on our Terms For Sale marketplace, send targeted alerts to matched buyers, and do direct outreach to our investor network. This isn't a Facebook post. It's a real sales process.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>How long to find a buyer?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">Depends on the deal, the market, and the price. Well-priced deals in active markets can move in days. Overpriced or complicated deals take longer. We'll be honest with you about timeline from day one.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>How will you keep me updated?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">Text and email. We'll update you on buyer interest, offers, and next steps. You can reach out anytime. We don't ghost partners.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Money -->
+        <div class="faq-group" id="money">
+          <div class="faq-group-aside">
+            <h2 class="faq-group-title">Money</h2>
+          </div>
+          <div class="accordion-list">
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>How do I get paid?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">Paid through the title company at close per your JV agreement. You get a settlement statement and your share directly from title. No invoicing, no chasing payments. Core split is 50/50, bumping to 30/70 once you hit $25K funded or 3 closed deals in a quarter.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>Any upfront fees?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">Zero. We don't charge for review, marketing, or anything else. We only make money when you make money. That's the whole point.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>What if the deal falls through?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">Nobody pays anything. That's the risk we both take. No penalties, no fees, no awkward conversations.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>Who handles the closing?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">We coordinate with the title company on the assignment and transaction details. You stay in the loop on everything. We push it to the finish line.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Getting Started -->
+        <div class="faq-group" id="started">
+          <div class="faq-group-aside">
+            <h2 class="faq-group-title">Getting Started</h2>
+          </div>
+          <div class="accordion-list">
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>How do I become a partner?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">Two ways: submit a deal right now, or join our partner network to stay connected and submit later. No cost, no obligation either way.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>What if I don't have a deal yet?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">Join the network. We'll keep you in the loop on what we're buying and share market updates. When you've got one, you'll know where to send it.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>Can I refer other wholesalers?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">Please do. If you know someone sitting on contracts with no buyers, send them our way. We're building a network of quality partners who actually close.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── STILL HAVE QUESTIONS ─────────────────────────────────────────── -->
+    <section class="still-section">
+      <div class="container">
+        <div class="still-card">
+          <div class="still-copy">
+            <h2>Still have questions?</h2>
+            <p>Real people, real answers. Not a chatbot.</p>
+          </div>
+          <div class="still-actions">
+            <a href="mailto:info@dispobuddy.com" class="still-contact-card">
+              <span class="icon-box icon-box-orange">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              </span>
+              <span>info@dispobuddy.com</span>
+            </a>
+            <a href="tel:+14808425332" class="still-contact-card">
+              <span class="icon-box icon-box-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </span>
+              <span>(480) 842-5332</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── BOTTOM CTA ───────────────────────────────────────────────────── -->
+    <section class="cta-band">
+      <div class="container">
+        <div class="cta-band-card">
+          <h2>Ready to send us your first deal?</h2>
+          <p>No upfront cost. No exclusivity. Just results.</p>
+          <div class="cta-band-actions">
+            <a href="submit-deal.html" class="btn btn-primary btn-lg">
+              Submit a Deal
+              <svg class="arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a href="what-we-look-for.html" class="btn btn-ghost-light btn-lg">What We Look For</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/img/logo-light.svg" alt="Dispo Buddy" loading="lazy" decoding="async">
+          <p>JV disposition partner for wholesalers, agents, and bird dogs. Fast review. Real buyers. Fair splits.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Product</h3>
+          <a href="index.html#how-it-works">How It Works</a>
+          <a href="index.html#fit">Is Your Deal a Fit?</a>
+          <a href="what-we-look-for.html">What We Look For</a>
+          <a href="submit-deal.html">Submit a Deal</a>
+        </div>
+        <div class="footer-col">
+          <h3>Company</h3>
+          <a href="process.html">Our Process</a>
+          <a href="proof.html">Proof</a>
+          <a href="join.html">Join Network</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <a href="terms.html">Terms of Service</a>
+          <a href="privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <div class="footer-contact-list">
+            <div class="footer-contact-item"><strong>Email:</strong> <a href="mailto:deals@dispobuddy.com">deals@dispobuddy.com</a></div>
+            <div class="footer-contact-item"><strong>Phone:</strong> <a href="tel:+14808425332">(480) 842-5332</a></div>
+            <div class="footer-contact-item"><strong>Hours:</strong> 9am–6pm AZ Time</div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Dispo Buddy by Deal Pros LLC. All rights reserved.</p>
+        <p>Also available: <a href="https://termsforsale.com/" target="_blank" rel="noopener">Terms For Sale</a></p>
+      </div>
+      <div class="footer-demo-note">
+        <span>Redesign Concept Demo Proposal for DispoBuddy.com. Not the live production website.</span>
+        <span>Interactive forms run locally in demo mode only.</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="demo-pill" role="status" aria-label="Redesign Concept Demo">
+    Redesign Concept Demo
+  </div>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/vendor/gsap.min.js"></script>
+  <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
+  <script src="assets/js/motion.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      var nav = document.getElementById('faqCatNav');
+      var catList = nav ? nav.querySelector('.faq-cat-list') : null;
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.faq-cat-tab'));
+      var groups = Array.prototype.slice.call(document.querySelectorAll('.faq-group'));
+      if (!tabs.length || !groups.length) return;
+
+      var clickLockUntil = 0;
+      var ticking = false;
+      var currentActiveId = groups[0].id;
+
+      function getStickyOffset() {
+        var navbar = document.querySelector('.navbar');
+        var navH = navbar ? navbar.offsetHeight : 76;
+        var catH = nav ? nav.offsetHeight : 72;
+        return navH + catH + 28;
+      }
+
+      function scrollTabIntoList(tab) {
+        if (!catList || !tab || catList.scrollWidth <= catList.clientWidth) return;
+        var tabLeft = tab.offsetLeft;
+        var tabRight = tabLeft + tab.offsetWidth;
+        var viewLeft = catList.scrollLeft;
+        var viewRight = viewLeft + catList.clientWidth;
+        if (tabLeft < viewLeft) {
+          catList.scrollTo({ left: Math.max(0, tabLeft - 12), behavior: 'smooth' });
+        } else if (tabRight > viewRight) {
+          catList.scrollTo({ left: tabRight - catList.clientWidth + 12, behavior: 'smooth' });
+        }
+      }
+
+      function setActiveTab(id) {
+        if (!id || id === currentActiveId) return;
+        currentActiveId = id;
+        tabs.forEach(function (tab) {
+          var isMatch = tab.getAttribute('data-target') === id;
+          tab.classList.toggle('is-active', isMatch);
+          tab.setAttribute('aria-current', isMatch ? 'true' : 'false');
+          if (isMatch) scrollTabIntoList(tab);
+        });
+      }
+
+      function scrollToGroup(id, smooth) {
+        var target = document.getElementById(id);
+        if (!target) return;
+        setActiveTab(id);
+        clickLockUntil = Date.now() + 750;
+        var top = target.getBoundingClientRect().top + window.pageYOffset - getStickyOffset();
+        window.scrollTo({
+          top: Math.max(0, top),
+          behavior: smooth ? 'smooth' : 'auto'
+        });
+        if (window.history && window.history.replaceState) {
+          window.history.replaceState(null, '', '#' + id);
+        }
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          var id = tab.getAttribute('data-target');
+          if (id) scrollToGroup(id, true);
+        });
+      });
+
+      function syncActiveOnScroll() {
+        ticking = false;
+        if (Date.now() < clickLockUntil) return;
+
+        var offset = getStickyOffset() + 20;
+        var activeId = groups[0].id;
+
+        // If near bottom of the FAQ section, keep the final category highlighted
+        var lastGroup = groups[groups.length - 1];
+        var lastRect = lastGroup.getBoundingClientRect();
+        if (window.innerHeight + window.pageYOffset >= document.documentElement.scrollHeight - 40 || lastRect.top <= offset) {
+          activeId = lastGroup.id;
+        } else {
+          for (var i = 0; i < groups.length; i++) {
+            if (groups[i].getBoundingClientRect().top <= offset) {
+              activeId = groups[i].id;
+            }
+          }
+        }
+
+        setActiveTab(activeId);
+      }
+
+      window.addEventListener('scroll', function () {
+        if (!ticking) {
+          ticking = true;
+          window.requestAnimationFrame(syncActiveOnScroll);
+        }
+      }, { passive: true });
+
+      // Handle direct hash navigation (e.g. /faq#money)
+      if (window.location.hash) {
+        var initialId = window.location.hash.replace(/^#/, '');
+        if (document.getElementById(initialId)) {
+          window.setTimeout(function () {
+            scrollToGroup(initialId, false);
+          }, 50);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
+

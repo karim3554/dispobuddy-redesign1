@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What We Look For | Dispo Buddy Deal Criteria &amp; Requirements</title>
+  <link rel="icon" href="assets/img/favicon.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/design-system.css">
+  <style>
+    /* Remove decorative eyebrow dashes not present on the live Criteria page */
+    .eyebrow::before {
+      display: none;
+    }
+
+    /* Restore original live Criteria dark-navy hero dimensions & proportions */
+    .page-hero.criteria-hero {
+      margin-top: 0;
+      padding: 148px 0 100px;
+      background: var(--navy);
+    }
+
+    .page-hero.criteria-hero::before {
+      display: none;
+    }
+
+    .page-hero.criteria-hero::after {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -100px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(247, 148, 29, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .page-hero.criteria-hero .container {
+      max-width: 1100px;
+    }
+
+    .criteria-hero-logo {
+      margin-bottom: 40px;
+    }
+
+    .criteria-hero-logo img {
+      height: 100px;
+      width: auto;
+      display: block;
+    }
+
+    .criteria-hero-content {
+      max-width: 680px;
+    }
+
+    .page-hero.criteria-hero h1 {
+      font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+      max-width: none;
+    }
+
+    .page-hero.criteria-hero .lead {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: rgba(255, 255, 255, 0.72);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 0;
+    }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: var(--r-pill);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .hero-pill b {
+      color: var(--orange);
+    }
+
+    /* ── RESTORED MOVING DEAL-TYPE TICKER (ORIGINAL LIVE CRITERIA MARQUEE) ── */
+    .criteria-ticker {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(90deg, #E68310 0%, #F7941D 35%, #F7941D 65%, #E68310 100%);
+      border-top: 1px solid rgba(255, 255, 255, 0.24);
+      border-bottom: 1px solid rgba(13, 31, 60, 0.14);
+      box-shadow: 0 6px 20px rgba(13, 31, 60, 0.08);
+      padding: 13px 0;
+    }
+
+    .criteria-ticker::before,
+    .criteria-ticker::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 64px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .criteria-ticker::before {
+      left: 0;
+      background: linear-gradient(90deg, #E68310 0%, rgba(230, 131, 16, 0) 100%);
+    }
+
+    .criteria-ticker::after {
+      right: 0;
+      background: linear-gradient(270deg, #E68310 0%, rgba(230, 131, 16, 0) 100%);
+    }
+
+    .criteria-ticker-track {
+      display: flex;
+      width: max-content;
+      will-change: transform;
+      animation: criteria-marquee 45s linear infinite;
+    }
+
+    .criteria-ticker:hover .criteria-ticker-track {
+      animation-play-state: paused;
+    }
+
+    .criteria-ticker-group {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      gap: 16px;
+      padding-right: 16px;
+    }
+
+    .criteria-ticker-item {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 18px;
+      border-radius: var(--r-pill);
+      background: rgba(13, 31, 60, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      color: var(--white);
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    @keyframes criteria-marquee {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .criteria-ticker-track {
+        animation: none;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 0 24px;
+      }
+      .criteria-ticker-group[aria-hidden="true"],
+      .criteria-ticker-item[aria-hidden="true"] {
+        display: none;
+      }
+      .criteria-ticker-group {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-right: 0;
+      }
+      .criteria-ticker::before,
+      .criteria-ticker::after {
+        display: none;
+      }
+    }
+
+    .req-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .req-card {
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: var(--r-lg);
+      padding: 26px 28px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      box-shadow: 0 6px 20px rgba(13, 31, 60, 0.045), 0 1px 3px rgba(13, 31, 60, 0.025);
+      transition: transform 0.26s var(--ease), box-shadow 0.26s var(--ease), border-color 0.24s ease;
+    }
+    .req-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(41, 171, 226, 0.34);
+      box-shadow: 0 14px 32px rgba(13, 31, 60, 0.08), 0 4px 10px rgba(41, 171, 226, 0.05);
+    }
+    .req-card.full {
+      grid-column: span 2;
+    }
+    .req-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 247, 236, 0.88) 55%, rgba(247, 148, 29, 0.18) 100%);
+      border: 1px solid rgba(247, 148, 29, 0.32);
+      box-shadow: 0 6px 14px rgba(247, 148, 29, 0.12), inset 0 1px 1.5px rgba(255, 255, 255, 0.96);
+      color: #D87A0B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .req-icon svg { width: 16px; height: 16px; }
+    .req-card p { font-size: 14.3px; color: var(--ink-secondary); line-height: 1.7; }
+    .req-card .req-head { display: block; margin-bottom: 4px; color: var(--ink-secondary); }
+    .req-card strong { color: var(--navy); font-weight: 700; }
+
+    .type-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .type-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 13px 22px;
+      border-radius: var(--r-pill);
+      background: var(--white);
+      border: 1.5px solid rgba(226, 232, 240, 0.95);
+      box-shadow: 0 3px 10px rgba(13, 31, 60, 0.035);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+      transition: all 0.25s var(--ease);
+    }
+    .type-pill:hover {
+      border-color: var(--orange);
+      background: var(--orange-soft);
+      color: var(--orange-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(247, 148, 29, 0.14);
+    }
+
+    .signals-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .signal-panel {
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: var(--r-lg);
+      padding: 34px;
+      box-shadow: 0 8px 24px rgba(13, 31, 60, 0.05), 0 1px 3px rgba(13, 31, 60, 0.025);
+    }
+    .signal-panel.good { border-top: 4px solid var(--success); }
+    .signal-panel.bad { border-top: 4px solid var(--danger); }
+    .signal-panel h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .signal-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .signal-item {
+      padding: 15px 18px;
+      border-radius: 10px;
+      font-size: 13.8px;
+      line-height: 1.65;
+      color: var(--ink-secondary);
+    }
+    .signal-item strong { color: var(--navy); display: block; margin-bottom: 3px; }
+    .signal-panel.good .signal-item { background: var(--success-soft); }
+    .signal-panel.bad .signal-item { background: var(--danger-soft); }
+
+    .markets-layout {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .state-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .state-pill {
+      padding: 11px 20px;
+      border-radius: var(--r-pill);
+      background: var(--white);
+      border: 1.5px solid rgba(226, 232, 240, 0.95);
+      box-shadow: 0 3px 10px rgba(13, 31, 60, 0.035);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+      transition: all 0.2s ease;
+    }
+    .state-pill:hover {
+      border-color: var(--blue);
+      color: var(--blue-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(41, 171, 226, 0.14);
+    }
+    .state-pill.expanding {
+      border-style: dashed;
+      border-color: var(--success);
+      color: var(--success);
+      background: var(--success-soft);
+    }
+
+    @media (max-width: 900px) {
+      .page-hero.criteria-hero {
+        padding: 118px 0 72px;
+      }
+      .criteria-hero-logo {
+        margin-bottom: 30px;
+      }
+      .criteria-hero-logo img {
+        height: 68px;
+      }
+      .markets-layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .signals-grid {
+        gap: 20px;
+      }
+      .signal-panel {
+        padding: 26px 24px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .page-hero.criteria-hero {
+        padding: 102px 0 54px;
+      }
+      .criteria-hero-logo {
+        margin-bottom: 24px;
+      }
+      .criteria-hero-logo img {
+        height: 54px;
+      }
+      .page-hero.criteria-hero h1 {
+        font-size: clamp(1.9rem, 7.6vw, 2.4rem);
+        margin-bottom: 18px;
+      }
+      .page-hero.criteria-hero .lead {
+        font-size: 0.96rem;
+        margin-bottom: 28px;
+      }
+      .hero-pills {
+        gap: 10px;
+      }
+      .hero-pill {
+        padding: 7px 14px;
+        font-size: 12.5px;
+      }
+      .criteria-ticker {
+        padding: 11px 0;
+      }
+      .criteria-ticker::before,
+      .criteria-ticker::after {
+        width: 28px;
+      }
+      .criteria-ticker-group {
+        gap: 10px;
+        padding-right: 10px;
+      }
+      .criteria-ticker-item {
+        padding: 6px 14px;
+        font-size: 11.5px;
+      }
+      .req-grid,
+      .signals-grid,
+      .markets-layout {
+        grid-template-columns: 1fr;
+      }
+      .req-grid {
+        gap: 14px;
+      }
+      .req-card {
+        padding: 20px 18px;
+        gap: 14px;
+      }
+      .req-card.full {
+        grid-column: span 1;
+      }
+      .type-tags {
+        gap: 10px;
+      }
+      .type-pill {
+        padding: 10px 16px;
+        font-size: 13px;
+      }
+      .signal-panel {
+        padding: 24px 18px;
+      }
+      .signal-item {
+        padding: 13px 15px;
+      }
+      .state-pill {
+        padding: 9px 15px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-brand" aria-label="Dispo Buddy Home">
+        <img src="assets/img/logo-dark.svg" alt="Dispo Buddy">
+      </a>
+      <nav class="navbar-links" aria-label="Primary Navigation">
+        <a href="process.html">How It Works</a>
+        <a href="what-we-look-for.html" class="active">Criteria</a>
+        <a href="buyers-map.html">Active Buyers</a>
+        <a href="proof.html">Proof</a>
+        <a href="faq.html">FAQ</a>
+        <a href="https://termsforsale.com/deals.html" target="_blank" rel="noopener" class="external-link">
+          Buy Deals
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
+      </nav>
+      <div class="navbar-actions">
+        <a href="submit-deal.html" class="btn btn-primary">Submit a Deal</a>
+        <button class="hamburger" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" aria-hidden="true">
+    <a href="index.html">Home</a>
+    <a href="process.html">How It Works</a>
+    <a href="what-we-look-for.html" class="active">Criteria</a>
+    <a href="buyers-map.html">Active Buyers</a>
+    <a href="proof.html">Proof</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://termsforsale.com/deals.html" target="_blank" rel="noopener" class="external-link">Buy Deals ↗</a>
+    <div class="mobile-cta-wrap">
+      <a href="submit-deal.html" class="btn btn-primary btn-lg">Submit a Deal</a>
+      <a href="join.html" class="btn btn-secondary btn-lg">Join Network</a>
+    </div>
+  </div>
+
+  <main>
+    <section class="page-hero criteria-hero">
+      <div class="container">
+        <div class="criteria-hero-logo">
+          <img src="assets/img/logo-light.svg" alt="Dispo Buddy">
+        </div>
+        <div class="criteria-hero-content">
+          <h1>Here's what gets<br>your deal <em>reviewed</em><br>and what doesn't</h1>
+          <p class="lead">We review every submission seriously. But we can't move a deal that doesn't have the fundamentals. Here's how to send us something we can actually sell</p>
+          <div class="hero-pills">
+            <span class="hero-pill"><b>24-48hr</b> review</span>
+            <span class="hero-pill"><b>Honest</b> feedback</span>
+            <span class="hero-pill"><b>No</b> ghosting</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── MOVING DEAL-TYPE TICKER (RESTORED FROM ORIGINAL CRITERIA PAGE) ── -->
+    <div class="criteria-ticker" role="region" aria-label="Deal types we buy">
+      <div class="criteria-ticker-track">
+        <div class="criteria-ticker-group">
+          <span class="criteria-ticker-item">Cash Deals</span>
+          <span class="criteria-ticker-item">Subject-To</span>
+          <span class="criteria-ticker-item">Seller Finance</span>
+          <span class="criteria-ticker-item">Hybrid</span>
+          <span class="criteria-ticker-item">Novation</span>
+          <span class="criteria-ticker-item">Morby Method</span>
+          <span class="criteria-ticker-item">Lease Option</span>
+          <span class="criteria-ticker-item">Wrap Mortgage</span>
+          <span class="criteria-ticker-item" aria-hidden="true">Cash Deals</span>
+          <span class="criteria-ticker-item" aria-hidden="true">Subject-To</span>
+          <span class="criteria-ticker-item" aria-hidden="true">Seller Finance</span>
+          <span class="criteria-ticker-item" aria-hidden="true">Hybrid</span>
+          <span class="criteria-ticker-item" aria-hidden="true">Novation</span>
+          <span class="criteria-ticker-item" aria-hidden="true">Morby Method</span>
+          <span class="criteria-ticker-item" aria-hidden="true">Lease Option</span>
+          <span class="criteria-ticker-item" aria-hidden="true">Wrap Mortgage</span>
+        </div>
+        <div class="criteria-ticker-group" aria-hidden="true">
+          <span class="criteria-ticker-item">Cash Deals</span>
+          <span class="criteria-ticker-item">Subject-To</span>
+          <span class="criteria-ticker-item">Seller Finance</span>
+          <span class="criteria-ticker-item">Hybrid</span>
+          <span class="criteria-ticker-item">Novation</span>
+          <span class="criteria-ticker-item">Morby Method</span>
+          <span class="criteria-ticker-item">Lease Option</span>
+          <span class="criteria-ticker-item">Wrap Mortgage</span>
+          <span class="criteria-ticker-item">Cash Deals</span>
+          <span class="criteria-ticker-item">Subject-To</span>
+          <span class="criteria-ticker-item">Seller Finance</span>
+          <span class="criteria-ticker-item">Hybrid</span>
+          <span class="criteria-ticker-item">Novation</span>
+          <span class="criteria-ticker-item">Morby Method</span>
+          <span class="criteria-ticker-item">Lease Option</span>
+          <span class="criteria-ticker-item">Wrap Mortgage</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Submission Standards</span>
+          <h2 class="section-title">The must-haves<br>Don't submit without these</h2>
+          <p class="section-desc">These aren't suggestions. If your submission is missing the basics, it's going to sit in review longer or get passed on entirely</p>
+        </div>
+        <div class="req-grid stagger-group">
+          <div class="req-card reveal">
+            <div class="req-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <p><span class="req-head"><strong>Clear property address</strong></span>full address, not just "house in Phoenix." We need to pull comps</p>
+          </div>
+          <div class="req-card reveal">
+            <div class="req-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <p><span class="req-head"><strong>Contract or asking price</strong></span>what's the number? We can't underwrite "make me an offer"</p>
+          </div>
+          <div class="req-card reveal">
+            <div class="req-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <p><span class="req-head"><strong>Deal structure</strong></span>cash assignment, subject-to, seller finance, novation, etc. We need to know what we're selling</p>
+          </div>
+          <div class="req-card reveal">
+            <div class="req-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <p><span class="req-head"><strong>ARV or comps</strong></span>show us the spread. If there's no margin, there's no deal for our buyers</p>
+          </div>
+          <div class="req-card reveal">
+            <div class="req-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <p><span class="req-head"><strong>Photos</strong></span>interior and exterior. Phone quality is fine. We need to see what we're marketing</p>
+          </div>
+          <div class="req-card reveal">
+            <div class="req-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <p><span class="req-head"><strong>Existing mortgage info</strong> (for creative deals)</span>balance, rate, monthly payment, lender</p>
+          </div>
+          <div class="req-card full reveal">
+            <div class="req-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <p><span class="req-head"><strong>Timeline</strong></span>when does the contract expire? When does the seller need to close?</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Supported Strategies</span>
+          <h2 class="section-title">Deal types we move</h2>
+          <p class="section-desc">We're not just cash deals. If your deal has a structure and a spread, we want to see it</p>
+        </div>
+        <div class="type-tags reveal">
+          <span class="type-pill">Cash Assignments</span>
+          <span class="type-pill">Subject-To</span>
+          <span class="type-pill">Seller Finance</span>
+          <span class="type-pill">Hybrid / Creative</span>
+          <span class="type-pill">Morby / Stack</span>
+          <span class="type-pill">Novation</span>
+          <span class="type-pill">Lease Option</span>
+          <span class="type-pill">Wrap Mortgage</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="signals-grid">
+          <div class="signal-panel good reveal">
+            <h3>What makes deals move fast</h3>
+            <div class="signal-list">
+              <div class="signal-item"><strong>Real spread</strong>If the numbers work for the buyer, the deal moves. Period</div>
+              <div class="signal-item"><strong>Clean photos and details</strong>Deals with complete info get marketed same-day</div>
+              <div class="signal-item"><strong>Motivated seller with a timeline</strong>Urgency sells. If the seller needs to close in 30 days, buyers pay attention</div>
+              <div class="signal-item"><strong>Desirable market</strong>Active investor markets with demand move faster than rural areas with no buyer pool</div>
+              <div class="signal-item"><strong>Clear title situation</strong>No liens, no probate drama, no clouded title. Clean and ready to close</div>
+              <div class="signal-item"><strong>Reasonable assignment fee</strong>A $5K fee on a $150K deal moves. A $30K fee on a $150K deal sits</div>
+            </div>
+          </div>
+
+          <div class="signal-panel bad reveal" style="--reveal-delay: 100ms;">
+            <h3>What gets deals rejected</h3>
+            <div class="signal-list">
+              <div class="signal-item"><strong>No contract</strong>If you don't have it locked up, we can't market it</div>
+              <div class="signal-item"><strong>Inflated numbers</strong>Padding the ARV to make the spread look better doesn't fool our underwriting</div>
+              <div class="signal-item"><strong>No photos</strong>Buyers want to see the property. "I'll get photos later" kills momentum</div>
+              <div class="signal-item"><strong>Unrealistic assignment fee</strong>If the fee eats the buyer's profit, nobody bites</div>
+              <div class="signal-item"><strong>Incomplete submission</strong>Missing address, missing price, missing structure. We need the basics to move</div>
+              <div class="signal-item"><strong>Expired or expiring contract</strong>If it closes in 5 days and you're just now submitting, it's too late</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="markets-layout">
+          <div class="reveal">
+            <span class="eyebrow">Buyer Coverage</span>
+            <h2 class="section-title">Where we have buyers</h2>
+            <p class="section-desc">Our network is strongest in these markets. We're always expanding, but if your deal is in one of these states, we probably already have a buyer match</p>
+            <div style="margin-top: 24px;">
+              <a href="buyers-map.html" class="btn btn-secondary">Explore Interactive Buyers Map</a>
+            </div>
+          </div>
+          <div class="state-pills reveal" style="--reveal-delay: 100ms;">
+            <span class="state-pill">Arizona</span>
+            <span class="state-pill">Texas</span>
+            <span class="state-pill">Florida</span>
+            <span class="state-pill">Kentucky</span>
+            <span class="state-pill">Tennessee</span>
+            <span class="state-pill">Georgia</span>
+            <span class="state-pill">Ohio</span>
+            <span class="state-pill">Indiana</span>
+            <span class="state-pill expanding">+ Expanding nationwide</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="container">
+        <div class="cta-band-card reveal">
+          <h2>Think your deal qualifies?</h2>
+          <p>Submit it. We'll review it within 24-48 hours and give you a straight answer. No upfront cost, no commitment</p>
+          <div class="cta-band-actions">
+            <a href="submit-deal.html" class="btn btn-primary btn-lg">Submit a Deal</a>
+            <a href="process.html" class="btn btn-ghost-light btn-lg">How It Works</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/img/logo-light.svg" alt="Dispo Buddy" loading="lazy" decoding="async">
+          <p>JV disposition partner for wholesalers, agents, and bird dogs. Fast review. Real buyers. Fair splits</p>
+        </div>
+        <div class="footer-col">
+          <h3>Product</h3>
+          <a href="index.html#how-it-works">How It Works</a>
+          <a href="index.html#fit">Is Your Deal a Fit?</a>
+          <a href="what-we-look-for.html">What We Look For</a>
+          <a href="submit-deal.html">Submit a Deal</a>
+        </div>
+        <div class="footer-col">
+          <h3>Company</h3>
+          <a href="process.html">Our Process</a>
+          <a href="proof.html">Proof</a>
+          <a href="join.html">Join Network</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <a href="terms.html">Terms of Service</a>
+          <a href="privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <div class="footer-contact-list">
+            <div class="footer-contact-item"><strong>Email:</strong> <a href="mailto:deals@dispobuddy.com">deals@dispobuddy.com</a></div>
+            <div class="footer-contact-item"><strong>Phone:</strong> <a href="tel:+14808425332">(480) 842-5332</a></div>
+            <div class="footer-contact-item"><strong>Hours:</strong> 9am to 6pm AZ Time</div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Dispo Buddy by Deal Pros LLC. All rights reserved</p>
+        <p>Also available: <a href="https://termsforsale.com/" target="_blank" rel="noopener">Terms For Sale</a></p>
+      </div>
+      <div class="footer-demo-note">
+        <span>Redesign Concept Demo Proposal for DispoBuddy.com. Not the live production website</span>
+        <span>Interactive forms run locally in demo mode only</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="demo-pill" role="status">Redesign Concept Demo</div>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/vendor/gsap.min.js"></script>
+  <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
+  <script src="assets/js/motion.js"></script>
+</body>
+</html>
+
