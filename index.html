@@ -1,0 +1,2547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dispo Buddy — We Move Your Deals | Redesign Concept</title>
+  <meta name="description" content="Partner with Dispo Buddy and get your locked-up real estate deals in front of 500+ active buyers across 15 states. 50/50 split, no upfront fees, 24-48hr review.">
+  <link rel="icon" href="assets/img/favicon.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/img/hero-house-photo.jpg" fetchpriority="high">
+  <link rel="stylesheet" href="assets/css/design-system.css">
+  <style>
+    /* Remove light navbar hairline directly above the dark navy hero at scroll top */
+    .navbar:not(.scrolled) {
+      border-bottom-color: transparent;
+    }
+
+    /* ── HOMEPAGE HERO (SPLIT ARCHITECTURAL COMPOSITION — REAL HTML/CSS + EXTRACTED HOUSE PHOTO) */
+    .hero {
+      margin-top: var(--nav-h);
+      min-height: clamp(610px, calc(100vh - var(--nav-h)), 740px);
+      padding: 56px 0 60px;
+      display: flex;
+      align-items: center;
+      background:
+        radial-gradient(700px 520px at 18% 28%, rgba(41, 171, 226, 0.17) 0%, transparent 70%),
+        linear-gradient(112deg, #05162C 0%, #0A254B 36%, #0E3A70 58%, #2E7FC0 80%, #D9EEFC 95%, #FFFFFF 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle blue geometric blueprint grid across the left & upper-middle hero zone */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(41, 171, 226, 0.11) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(41, 171, 226, 0.11) 1px, transparent 1px);
+      background-size: 56px 56px;
+      -webkit-mask-image: linear-gradient(108deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.58) 46%, transparent 68%);
+      mask-image: linear-gradient(108deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.58) 46%, transparent 68%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Prominent extracted house photograph anchored flush on the right (no top border/line) */
+    .hero-visual {
+      position: absolute;
+      top: -1px;
+      right: 0;
+      bottom: -1px;
+      width: 56%;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+      border: none;
+      outline: none;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.45) 14%, #000 30%, #000 100%);
+      mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.45) 14%, #000 30%, #000 100%);
+    }
+
+    .hero-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: left bottom;
+      display: block;
+      border: none;
+    }
+
+    /* Left blue-grid panel: spans 0% to 48% where the house begins to dominate, centering .hero-copy inside it */
+    .hero-left-panel {
+      width: 48%;
+      padding: 0 28px;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      z-index: 3;
+    }
+
+    .hero-copy {
+      width: 100%;
+      max-width: 540px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 4.4vw, 4.25rem);
+      font-weight: 900;
+      line-height: 1.03;
+      letter-spacing: -0.035em;
+      color: var(--white);
+      text-shadow: 0 8px 30px rgba(5, 18, 36, 0.36);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--orange);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.02rem, 1.38vw, 1.15rem);
+      color: rgba(255, 255, 255, 0.90);
+      line-height: 1.72;
+      max-width: 535px;
+      margin-bottom: 28px;
+      text-shadow: 0 2px 12px rgba(7, 20, 38, 0.30);
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .hero .btn-secondary {
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.36);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .hero .btn-secondary:hover {
+      background: var(--white);
+      color: var(--navy);
+      border-color: var(--white);
+    }
+
+    .hero-bridge {
+      display: inline-flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      padding: 10px 18px;
+      background: rgba(13, 31, 60, 0.56);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(41, 171, 226, 0.36);
+      border-radius: var(--r-pill);
+      margin-bottom: 30px;
+      font-size: 13px;
+    }
+
+    .hero-bridge span {
+      color: rgba(255, 255, 255, 0.84);
+      font-weight: 500;
+    }
+
+    .hero-bridge a {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: #63CBF5;
+      font-weight: 700;
+    }
+
+    .hero-bridge a:hover {
+      color: var(--white);
+    }
+
+    .hero-metrics {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      padding-top: 26px;
+      border-top: 1px solid rgba(255, 255, 255, 0.20);
+    }
+
+    .hero-metric {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .hero-metric strong {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .hero-metric strong span {
+      color: var(--orange);
+    }
+
+    .hero-metric small {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, 0.76);
+      font-weight: 500;
+    }
+
+    /* ── RISK REVERSAL STRIP ─────────────────────────────────────────────── */
+    .risk-strip {
+      background: var(--navy);
+      padding: 46px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.10);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    }
+
+    .risk-strip .container {
+      max-width: 1280px;
+    }
+
+    .risk-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .risk-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 4px 28px;
+      border-right: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .risk-item:first-child {
+      padding-left: 0;
+    }
+
+    .risk-item:last-child {
+      padding-right: 0;
+      border-right: none;
+    }
+
+    .risk-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 11px;
+      background: rgba(247, 148, 29, 0.22);
+      border: 1px solid rgba(247, 148, 29, 0.58);
+      color: #FFA538;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .risk-icon svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    .risk-item h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .risk-item p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.84);
+      line-height: 1.62;
+    }
+
+    /* ── MINI FAQ (3 CLEAN WHITE CARDS + GLASS ICON CONTAINERS) ─────────── */
+    #mini-faq .container {
+      max-width: 1280px;
+    }
+
+    .mini-faq-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .mini-faq-card {
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: var(--r-lg);
+      padding: 34px 32px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 6px 20px rgba(13, 31, 60, 0.045), 0 1px 3px rgba(13, 31, 60, 0.03);
+      transition: transform 0.32s var(--ease), box-shadow 0.32s var(--ease), border-color 0.25s ease;
+    }
+
+    .mini-faq-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(13, 31, 60, 0.09), 0 4px 10px rgba(13, 31, 60, 0.04);
+      border-color: rgba(41, 171, 226, 0.30);
+    }
+
+    /* Glassmorphism Icon Container (icon containers only — cards remain clean white) */
+    .glass-icon-wrap {
+      position: relative;
+      width: 56px;
+      height: 56px;
+      margin-bottom: 6px;
+      flex-shrink: 0;
+    }
+
+    .glass-icon-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 6px -2px -6px 6px;
+      border-radius: 16px;
+      filter: blur(11px);
+      opacity: 0.78;
+      pointer-events: none;
+      z-index: 0;
+      transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+    }
+
+    .mini-faq-card:hover .glass-icon-wrap::before {
+      opacity: 1;
+      transform: scale(1.06);
+    }
+
+    .glass-icon-wrap.is-blue::before {
+      background: radial-gradient(circle at 60% 60%, rgba(41, 171, 226, 0.38) 0%, rgba(41, 171, 226, 0.08) 72%, transparent 100%);
+    }
+
+    .glass-icon-wrap.is-orange::before {
+      background: radial-gradient(circle at 60% 60%, rgba(247, 148, 29, 0.38) 0%, rgba(247, 148, 29, 0.08) 72%, transparent 100%);
+    }
+
+    .glass-icon-wrap.is-navy::before {
+      background:
+        radial-gradient(circle at 35% 35%, rgba(13, 31, 60, 0.24) 0%, transparent 68%),
+        radial-gradient(circle at 82% 82%, rgba(247, 148, 29, 0.28) 0%, transparent 65%);
+    }
+
+    .glass-icon {
+      position: relative;
+      z-index: 1;
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: transform 0.32s var(--ease), box-shadow 0.32s var(--ease);
+    }
+
+    .mini-faq-card:hover .glass-icon {
+      transform: translateY(-1px);
+    }
+
+    .glass-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .glass-icon.glass-blue {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.88) 0%, rgba(235, 248, 255, 0.76) 52%, rgba(41, 171, 226, 0.16) 100%);
+      border: 1px solid rgba(41, 171, 226, 0.30);
+      box-shadow:
+        0 10px 22px rgba(41, 171, 226, 0.14),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.96),
+        inset 0 -1px 1px rgba(41, 171, 226, 0.10);
+      color: #1686BA;
+    }
+
+    .glass-icon.glass-orange {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 247, 236, 0.78) 52%, rgba(247, 148, 29, 0.17) 100%);
+      border: 1px solid rgba(247, 148, 29, 0.32);
+      box-shadow:
+        0 10px 22px rgba(247, 148, 29, 0.15),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.96),
+        inset 0 -1px 1px rgba(247, 148, 29, 0.10);
+      color: #D87A0B;
+    }
+
+    .glass-icon.glass-navy {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.88) 0%, rgba(235, 243, 252, 0.78) 55%, rgba(13, 31, 60, 0.12) 86%, rgba(247, 148, 29, 0.10) 100%);
+      border: 1px solid rgba(13, 31, 60, 0.20);
+      box-shadow:
+        0 10px 22px rgba(13, 31, 60, 0.11),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.96),
+        inset 0 -1px 1px rgba(13, 31, 60, 0.08);
+      color: var(--navy);
+    }
+
+    .mini-faq-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.012em;
+      line-height: 1.35;
+    }
+
+    .mini-faq-card p {
+      font-size: 14.5px;
+      color: var(--ink-secondary);
+      line-height: 1.72;
+    }
+
+    /* ── FIT CHECKLIST ───────────────────────────────────────────────────── */
+    #fit .container {
+      max-width: 1280px;
+    }
+
+    .fit-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .fit-card {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      padding: 26px 28px;
+      height: 100%;
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: var(--r-lg);
+      box-shadow: 0 5px 18px rgba(13, 31, 60, 0.045), 0 1px 3px rgba(13, 31, 60, 0.03);
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.25s ease;
+    }
+
+    .fit-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 32px rgba(13, 31, 60, 0.08), 0 4px 10px rgba(13, 31, 60, 0.04);
+      border-color: rgba(41, 171, 226, 0.34);
+    }
+
+    .fit-check {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.92) 0%, rgba(235, 248, 255, 0.80) 52%, rgba(41, 171, 226, 0.16) 100%);
+      border: 1px solid rgba(41, 171, 226, 0.30);
+      box-shadow:
+        0 6px 14px rgba(41, 171, 226, 0.14),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.96),
+        inset 0 -1px 1px rgba(41, 171, 226, 0.09);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #1686BA;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: transform 0.28s var(--ease), box-shadow 0.28s var(--ease);
+    }
+
+    .fit-card:hover .fit-check {
+      transform: translateY(-1px);
+      box-shadow:
+        0 8px 18px rgba(41, 171, 226, 0.20),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.98);
+    }
+
+    .fit-check svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .fit-card h3 {
+      font-size: 16.5px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.01em;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .fit-card p {
+      font-size: 14.5px;
+      color: var(--ink-secondary);
+      line-height: 1.65;
+    }
+
+    /* ── HOW IT WORKS (6-STEP CONNECTED WORKFLOW) ────────────────────────── */
+    #how-it-works .container {
+      max-width: 1280px;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      align-items: stretch;
+      position: relative;
+    }
+
+    .step-card {
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: var(--r-lg);
+      padding: 28px 28px 30px;
+      height: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 6px 20px rgba(13, 31, 60, 0.045), 0 1px 3px rgba(13, 31, 60, 0.03);
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.25s ease;
+    }
+
+    .step-card.is-final {
+      border-color: rgba(247, 148, 29, 0.35);
+    }
+
+    /* Restrained orange-to-blue top accent on hover */
+    .step-card::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 16px;
+      right: 16px;
+      height: 3px;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--orange), var(--blue));
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+    }
+
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(13, 31, 60, 0.09), 0 4px 10px rgba(13, 31, 60, 0.04);
+      border-color: rgba(41, 171, 226, 0.32);
+    }
+
+    .step-card.is-final:hover {
+      border-color: rgba(247, 148, 29, 0.52);
+    }
+
+    .step-card:hover::before {
+      opacity: 1;
+    }
+
+    .step-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .step-glass-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: transform 0.28s var(--ease), box-shadow 0.28s var(--ease);
+    }
+
+    .step-card:hover .step-glass-icon {
+      transform: translateY(-1px);
+    }
+
+    .step-glass-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .step-glass-icon.is-orange {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 247, 236, 0.80) 54%, rgba(247, 148, 29, 0.17) 100%);
+      border: 1px solid rgba(247, 148, 29, 0.32);
+      box-shadow:
+        0 8px 18px rgba(247, 148, 29, 0.14),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.96),
+        inset 0 -1px 1px rgba(247, 148, 29, 0.09);
+      color: #D87A0B;
+    }
+
+    .step-glass-icon.is-blue {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.92) 0%, rgba(235, 248, 255, 0.80) 54%, rgba(41, 171, 226, 0.16) 100%);
+      border: 1px solid rgba(41, 171, 226, 0.30);
+      box-shadow:
+        0 8px 18px rgba(41, 171, 226, 0.13),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.96),
+        inset 0 -1px 1px rgba(41, 171, 226, 0.09);
+      color: #1686BA;
+    }
+
+    .step-badge {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--ink-muted);
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: var(--r-pill);
+      white-space: nowrap;
+    }
+
+    .step-card.is-final .step-badge {
+      color: #C96F0A;
+      background: rgba(247, 148, 29, 0.10);
+      border-color: rgba(247, 148, 29, 0.28);
+    }
+
+    .step-card h3 {
+      font-size: 17.5px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.012em;
+      line-height: 1.32;
+      margin-bottom: 8px;
+    }
+
+    .step-card p {
+      font-size: 14.5px;
+      color: var(--ink-secondary);
+      line-height: 1.65;
+    }
+
+    #how-it-works .section-footer-link {
+      border-radius: var(--r-lg);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      box-shadow: 0 6px 20px rgba(13, 31, 60, 0.045), 0 1px 3px rgba(13, 31, 60, 0.03);
+    }
+
+    .section-footer-link {
+      margin-top: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 20px 26px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+    }
+
+    .section-footer-link p {
+      font-size: 14px;
+      color: var(--ink-secondary);
+      font-weight: 500;
+    }
+
+    /* ── DEAL TYPES (8 CARDS) ────────────────────────────────────────────── */
+    .deal-types-section .container {
+      max-width: 1280px;
+    }
+
+    .types-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .type-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: var(--r-lg);
+      padding: 22px 22px;
+      min-height: 92px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow:
+        0 6px 20px rgba(13, 31, 60, 0.045),
+        0 1px 3px rgba(13, 31, 60, 0.025);
+      transition: opacity 0.65s var(--ease), transform 0.28s var(--ease), border-color 0.25s ease, box-shadow 0.28s var(--ease);
+    }
+
+    .type-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2.5px;
+      background: linear-gradient(90deg, var(--blue) 0%, var(--orange) 100%);
+      opacity: 0;
+      transition: opacity 0.26s var(--ease);
+    }
+
+    .type-card.tone-orange::before {
+      background: linear-gradient(90deg, var(--orange) 0%, rgba(247, 148, 29, 0.55) 100%);
+    }
+
+    .type-card.tone-navy::before {
+      background: linear-gradient(90deg, var(--navy) 0%, var(--blue) 100%);
+    }
+
+    .type-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(41, 171, 226, 0.36);
+      box-shadow:
+        0 14px 30px rgba(13, 31, 60, 0.085),
+        0 4px 10px rgba(41, 171, 226, 0.07);
+    }
+
+    .type-card.tone-orange:hover {
+      border-color: rgba(247, 148, 29, 0.40);
+      box-shadow:
+        0 14px 30px rgba(13, 31, 60, 0.085),
+        0 4px 10px rgba(247, 148, 29, 0.09);
+    }
+
+    .type-card:hover::before {
+      opacity: 1;
+    }
+
+    .type-card .type-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: transform 0.28s var(--ease), box-shadow 0.28s var(--ease);
+    }
+
+    .type-card .type-icon.is-blue {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.92) 0%, rgba(235, 248, 255, 0.80) 54%, rgba(41, 171, 226, 0.16) 100%);
+      border: 1px solid rgba(41, 171, 226, 0.30);
+      box-shadow:
+        0 8px 18px rgba(41, 171, 226, 0.12),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.96),
+        inset 0 -1px 1px rgba(41, 171, 226, 0.09);
+      color: #1686BA;
+    }
+
+    .type-card .type-icon.is-orange {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 247, 236, 0.82) 54%, rgba(247, 148, 29, 0.17) 100%);
+      border: 1px solid rgba(247, 148, 29, 0.32);
+      box-shadow:
+        0 8px 18px rgba(247, 148, 29, 0.13),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.96),
+        inset 0 -1px 1px rgba(247, 148, 29, 0.09);
+      color: #D87A0B;
+    }
+
+    .type-card .type-icon.is-navy {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.94) 0%, rgba(237, 243, 251, 0.84) 55%, rgba(13, 31, 60, 0.11) 100%);
+      border: 1px solid rgba(13, 31, 60, 0.18);
+      box-shadow:
+        0 8px 18px rgba(13, 31, 60, 0.10),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.96),
+        inset 0 -1px 1px rgba(13, 31, 60, 0.06);
+      color: var(--navy);
+    }
+
+    .type-card:hover .type-icon {
+      transform: translateY(-1px);
+    }
+
+    .type-card .type-icon svg {
+      width: 21px;
+      height: 21px;
+    }
+
+    .type-card span {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.012em;
+      line-height: 1.3;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .type-card,
+      .type-card::before,
+      .type-card .type-icon {
+        transition: none;
+      }
+      .type-card:hover,
+      .type-card:hover .type-icon {
+        transform: none;
+      }
+    }
+
+    /* ── BUYERS MAP ──────────────────────────────────────────────────────── */
+    #buyers {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, #0D1F3C 0%, #09172E 100%);
+      padding: 64px 0 72px;
+    }
+
+    #buyers::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(620px 360px at 88% 8%, rgba(41, 171, 226, 0.12) 0%, transparent 70%),
+        radial-gradient(520px 340px at 10% 96%, rgba(247, 148, 29, 0.09) 0%, transparent 72%);
+      pointer-events: none;
+    }
+
+    #buyers .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1280px;
+    }
+
+    .map-header-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .map-header-row .section-header {
+      margin-bottom: 0;
+    }
+
+    #buyers .section-desc {
+      color: rgba(226, 232, 240, 0.84);
+      max-width: 580px;
+    }
+
+    #buyers .btn-ghost-light {
+      padding: 13px 22px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 8px 22px rgba(4, 12, 24, 0.20);
+    }
+
+    #buyers .btn-ghost-light:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(41, 171, 226, 0.55);
+      box-shadow: 0 12px 28px rgba(4, 12, 24, 0.28);
+    }
+
+    .map-frame-shell {
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow:
+        0 28px 64px rgba(4, 12, 24, 0.48),
+        0 0 0 1px rgba(41, 171, 226, 0.14);
+      height: 600px;
+    }
+
+    .map-frame-shell iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ── PROOF SECTION ───────────────────────────────────────────────────── */
+    #proof .container {
+      max-width: 1280px;
+    }
+
+    .proof-layout {
+      display: grid;
+      grid-template-columns: 1.24fr 0.76fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .testimonial-card {
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: 20px;
+      padding: 42px 44px;
+      box-shadow:
+        0 10px 30px rgba(13, 31, 60, 0.055),
+        0 1px 3px rgba(13, 31, 60, 0.03);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonial-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3.5px;
+      background: linear-gradient(90deg, var(--orange) 0%, var(--blue) 100%);
+    }
+
+    .testimonial-quote-mark {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 247, 236, 0.85) 55%, rgba(247, 148, 29, 0.18) 100%);
+      border: 1px solid rgba(247, 148, 29, 0.30);
+      box-shadow:
+        0 8px 20px rgba(247, 148, 29, 0.13),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.96);
+      color: #D87A0B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 26px;
+    }
+
+    .testimonial-quote-mark svg {
+      width: 21px;
+      height: 21px;
+    }
+
+    .testimonial-quote {
+      font-size: 1.24rem;
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: -0.012em;
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(226, 232, 240, 0.9);
+    }
+
+    .testimonial-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy) 0%, #1B5A94 100%);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.03em;
+      box-shadow: 0 6px 16px rgba(13, 31, 60, 0.18);
+      flex-shrink: 0;
+    }
+
+    .testimonial-name {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.3;
+    }
+
+    .testimonial-role {
+      font-size: 13.5px;
+      color: var(--ink-muted);
+      margin-top: 2px;
+    }
+
+    .proof-stats-stack {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .kpi-card {
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: 16px;
+      padding: 24px 26px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      box-shadow:
+        0 6px 20px rgba(13, 31, 60, 0.045),
+        0 1px 3px rgba(13, 31, 60, 0.025);
+      transition: transform 0.26s var(--ease), border-color 0.25s ease, box-shadow 0.26s var(--ease);
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(41, 171, 226, 0.36);
+      box-shadow:
+        0 14px 30px rgba(13, 31, 60, 0.085),
+        0 4px 10px rgba(13, 31, 60, 0.04);
+    }
+
+    .kpi-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .kpi-icon svg {
+      width: 21px;
+      height: 21px;
+    }
+
+    .kpi-icon.is-blue {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.94) 0%, rgba(235, 248, 255, 0.84) 55%, rgba(41, 171, 226, 0.16) 100%);
+      border: 1px solid rgba(41, 171, 226, 0.30);
+      box-shadow: 0 8px 18px rgba(41, 171, 226, 0.12), inset 0 1px 1.5px rgba(255, 255, 255, 0.96);
+      color: #1686BA;
+    }
+
+    .kpi-icon.is-orange {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 247, 236, 0.84) 55%, rgba(247, 148, 29, 0.18) 100%);
+      border: 1px solid rgba(247, 148, 29, 0.32);
+      box-shadow: 0 8px 18px rgba(247, 148, 29, 0.13), inset 0 1px 1.5px rgba(255, 255, 255, 0.96);
+      color: #D87A0B;
+    }
+
+    .kpi-icon.is-navy {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.94) 0%, rgba(237, 243, 251, 0.85) 55%, rgba(13, 31, 60, 0.11) 100%);
+      border: 1px solid rgba(13, 31, 60, 0.18);
+      box-shadow: 0 8px 18px rgba(13, 31, 60, 0.10), inset 0 1px 1.5px rgba(255, 255, 255, 0.96);
+      color: var(--navy);
+    }
+
+    .kpi-meta {
+      min-width: 0;
+    }
+
+    .kpi-value {
+      font-size: 2.05rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .kpi-value em {
+      font-style: normal;
+      color: var(--orange);
+    }
+
+    .kpi-label {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink-secondary);
+      margin-top: 4px;
+    }
+
+    #proof .section-footer-link {
+      border-radius: var(--r-lg);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      box-shadow: 0 6px 20px rgba(13, 31, 60, 0.045), 0 1px 3px rgba(13, 31, 60, 0.03);
+    }
+
+    /* ── WHY CHOOSE US (5-CARD BALANCED BENTO) ───────────────────────────── */
+    .why-us-section .container {
+      max-width: 1280px;
+    }
+
+    .features-bento {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .feature-card {
+      grid-column: span 2;
+      position: relative;
+      overflow: hidden;
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: 18px;
+      padding: 32px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow:
+        0 6px 20px rgba(13, 31, 60, 0.045),
+        0 1px 3px rgba(13, 31, 60, 0.025);
+      transition: opacity 0.65s var(--ease), transform 0.28s var(--ease), border-color 0.25s ease, box-shadow 0.28s var(--ease);
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--orange) 0%, var(--blue) 100%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .feature-card.span-3 {
+      grid-column: span 3;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 32px 34px;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(41, 171, 226, 0.36);
+      transform: translateY(-4px);
+      box-shadow:
+        0 16px 36px rgba(13, 31, 60, 0.085),
+        0 4px 12px rgba(41, 171, 226, 0.06);
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-glass-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: transform 0.28s var(--ease);
+    }
+
+    .feature-card:hover .feature-glass-icon {
+      transform: translateY(-1px);
+    }
+
+    .feature-glass-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .feature-glass-icon.is-orange {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 247, 236, 0.84) 55%, rgba(247, 148, 29, 0.18) 100%);
+      border: 1px solid rgba(247, 148, 29, 0.32);
+      box-shadow: 0 8px 18px rgba(247, 148, 29, 0.13), inset 0 1px 1.5px rgba(255, 255, 255, 0.96);
+      color: #D87A0B;
+    }
+
+    .feature-glass-icon.is-blue {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.94) 0%, rgba(235, 248, 255, 0.84) 55%, rgba(41, 171, 226, 0.16) 100%);
+      border: 1px solid rgba(41, 171, 226, 0.30);
+      box-shadow: 0 8px 18px rgba(41, 171, 226, 0.12), inset 0 1px 1.5px rgba(255, 255, 255, 0.96);
+      color: #1686BA;
+    }
+
+    .feature-glass-icon.is-navy {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.94) 0%, rgba(237, 243, 251, 0.85) 55%, rgba(13, 31, 60, 0.12) 100%);
+      border: 1px solid rgba(13, 31, 60, 0.18);
+      box-shadow: 0 8px 18px rgba(13, 31, 60, 0.10), inset 0 1px 1.5px rgba(255, 255, 255, 0.96);
+      color: var(--navy);
+    }
+
+    .feature-copy h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.014em;
+      line-height: 1.32;
+      margin-bottom: 8px;
+    }
+
+    .feature-copy p {
+      font-size: 14.5px;
+      color: var(--ink-secondary);
+      line-height: 1.7;
+    }
+
+    /* ── FINAL CTA BAND ──────────────────────────────────────────────────── */
+    #submit {
+      padding: 24px 0 88px;
+      background: var(--white);
+    }
+
+    #submit .container {
+      max-width: 1280px;
+    }
+
+    #submit .cta-band-card {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0D1F3C 0%, #12294D 58%, #09172E 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      padding: 68px 56px;
+      text-align: center;
+      box-shadow:
+        0 28px 64px rgba(7, 20, 38, 0.24),
+        0 0 0 1px rgba(41, 171, 226, 0.12);
+    }
+
+    #submit .cta-band-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--orange) 0%, var(--blue) 100%);
+    }
+
+    #submit .cta-band-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(520px 300px at 14% 12%, rgba(41, 171, 226, 0.16) 0%, transparent 72%),
+        radial-gradient(520px 300px at 88% 92%, rgba(247, 148, 29, 0.18) 0%, transparent 72%);
+      pointer-events: none;
+    }
+
+    #submit .cta-band-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 660px;
+      margin: 0 auto;
+    }
+
+    #submit h2 {
+      color: var(--white);
+      font-size: clamp(2.05rem, 3.6vw, 2.85rem);
+      font-weight: 800;
+      letter-spacing: -0.026em;
+      line-height: 1.14;
+      margin-bottom: 16px;
+    }
+
+    #submit p {
+      color: rgba(226, 232, 240, 0.86);
+      font-size: 1.06rem;
+      line-height: 1.72;
+      margin: 0 auto 34px;
+      max-width: 560px;
+    }
+
+    #submit .cta-band-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    #submit .btn-primary {
+      padding: 16px 34px;
+      border-radius: 12px;
+      font-size: 15.5px;
+      box-shadow: 0 12px 28px rgba(247, 148, 29, 0.32);
+    }
+
+    #submit .btn-ghost-light {
+      padding: 15px 28px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    #submit .btn-ghost-light:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(41, 171, 226, 0.55);
+    }
+
+    /* ── FAQ SECTION (ASYMMETRIC 2-COLUMN DESKTOP) ───────────────────────── */
+    #faq {
+      background: var(--surface-alt);
+      border-top: 1px solid rgba(226, 232, 240, 0.85);
+    }
+
+    #faq .container {
+      max-width: 1280px;
+    }
+
+    .faq-layout {
+      display: grid;
+      grid-template-columns: 0.78fr 1.22fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .faq-sticky {
+      position: sticky;
+      top: 108px;
+    }
+
+    .faq-sticky .section-header {
+      margin-bottom: 0;
+    }
+
+    #faq .accordion-list {
+      gap: 14px;
+    }
+
+    #faq .accordion-item {
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: 16px;
+      box-shadow:
+        0 4px 16px rgba(13, 31, 60, 0.035),
+        0 1px 2px rgba(13, 31, 60, 0.02);
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    #faq .accordion-item:hover {
+      border-color: rgba(41, 171, 226, 0.30);
+    }
+
+    #faq .accordion-item.is-open {
+      border-color: rgba(41, 171, 226, 0.42);
+      box-shadow:
+        0 12px 28px rgba(13, 31, 60, 0.075),
+        0 3px 8px rgba(41, 171, 226, 0.06);
+    }
+
+    #faq .accordion-trigger {
+      padding: 23px 26px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--navy);
+    }
+
+    #faq .accordion-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(145deg, #FFFFFF 0%, #EBF8FF 100%);
+      border: 1px solid rgba(41, 171, 226, 0.28);
+      color: #1686BA;
+    }
+
+    #faq .accordion-item.is-open .accordion-icon {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: var(--white);
+    }
+
+    #faq .accordion-body {
+      padding: 0 26px 24px;
+      font-size: 14.5px;
+      line-height: 1.78;
+      color: var(--ink-secondary);
+    }
+
+    /* ── HOMEPAGE FOOTER POLISH (1280PX RAIL) ────────────────────────────── */
+    .home-footer {
+      position: relative;
+      background: linear-gradient(180deg, #09172E 0%, #071224 100%);
+      border-top: none;
+      padding: 80px 0 34px;
+    }
+
+    .home-footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--orange) 0%, var(--blue) 100%);
+    }
+
+    .home-footer .container {
+      max-width: 1280px;
+    }
+
+    .home-footer .footer-grid {
+      grid-template-columns: 1.65fr 1fr 1fr 0.9fr 1.35fr;
+      gap: 44px;
+      padding-bottom: 52px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+    }
+
+    .home-footer .footer-brand img {
+      height: 44px;
+      margin-bottom: 18px;
+    }
+
+    .home-footer .footer-brand p {
+      font-size: 13.8px;
+      color: rgba(226, 232, 240, 0.72);
+      max-width: 295px;
+    }
+
+    .home-footer .footer-col h3 {
+      color: var(--white);
+      margin-bottom: 18px;
+    }
+
+    .home-footer .footer-col a {
+      font-size: 13.8px;
+      color: rgba(226, 232, 240, 0.72);
+      margin-bottom: 11px;
+    }
+
+    .home-footer .footer-col a:hover {
+      color: var(--white);
+    }
+
+    .home-footer .footer-contact-item {
+      font-size: 13.8px;
+      color: rgba(226, 232, 240, 0.76);
+    }
+
+    .home-footer .footer-contact-item a {
+      color: #5AC4F0;
+    }
+
+    .home-footer .footer-contact-item a:hover {
+      color: var(--white);
+    }
+
+    .home-footer .footer-bottom {
+      font-size: 13px;
+      color: rgba(226, 232, 240, 0.56);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .kpi-card,
+      .feature-card,
+      .feature-card::before,
+      .feature-glass-icon {
+        transition: none;
+      }
+      .kpi-card:hover,
+      .feature-card:hover,
+      .feature-card:hover .feature-glass-icon {
+        transform: none;
+      }
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────────────────── */
+    @media (max-width: 1280px) {
+      .hero-left-panel {
+        width: 49%;
+        padding: 0 24px;
+      }
+      .hero-copy {
+        max-width: 515px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .hero {
+        min-height: 575px;
+        padding: 48px 0 52px;
+      }
+      .hero-left-panel {
+        width: 48%;
+        padding: 0 20px;
+      }
+      .hero-copy {
+        max-width: 435px;
+      }
+      .hero h1 {
+        font-size: 2.88rem;
+      }
+      .hero-subtitle {
+        max-width: 420px;
+        font-size: 0.96rem;
+      }
+      .hero-ctas .btn-lg {
+        padding: 13px 18px;
+        font-size: 13.5px;
+      }
+      .hero-visual {
+        width: 53%;
+      }
+      .risk-strip {
+        padding: 36px 0;
+      }
+      .risk-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .risk-item {
+        padding: 20px 24px;
+        border-right: 1px solid rgba(255, 255, 255, 0.12);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .risk-item:nth-child(odd) {
+        padding-left: 0;
+      }
+      .risk-item:nth-child(even) {
+        padding-right: 0;
+        border-right: none;
+      }
+      .risk-item:nth-child(n+3) {
+        border-bottom: none;
+        padding-bottom: 4px;
+      }
+      .risk-item:nth-child(-n+2) {
+        padding-top: 4px;
+      }
+      .mini-faq-grid,
+      .steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
+      }
+      .types-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+      .map-frame-shell {
+        height: 580px;
+      }
+      .proof-layout {
+        grid-template-columns: 1.12fr 0.88fr;
+        gap: 22px;
+      }
+      .testimonial-card {
+        padding: 34px 32px;
+      }
+      .features-bento {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .feature-card,
+      .feature-card.span-3 {
+        grid-column: span 1;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .feature-card:last-child {
+        grid-column: span 2;
+        flex-direction: row;
+      }
+      .faq-layout {
+        grid-template-columns: 0.72fr 1.28fr;
+        gap: 36px;
+      }
+      .home-footer .footer-grid {
+        grid-template-columns: 1.4fr 1fr 1fr 0.9fr 1.25fr;
+        gap: 28px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: auto;
+        padding: 48px 0 48px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 28px;
+        background:
+          radial-gradient(520px 380px at 18% 12%, rgba(41, 171, 226, 0.16) 0%, transparent 70%),
+          linear-gradient(168deg, #05162C 0%, #0A254B 54%, #103A70 84%, #1C5594 100%);
+      }
+      .hero::before {
+        -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.45) 55%, transparent 88%);
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.45) 55%, transparent 88%);
+      }
+      .hero-left-panel {
+        width: 100%;
+        padding: 0 24px;
+        justify-content: flex-start;
+      }
+      .hero-copy {
+        max-width: 100%;
+      }
+      .hero h1 {
+        font-size: 3.35rem;
+      }
+      .hero-subtitle {
+        max-width: 600px;
+      }
+      .hero-visual {
+        position: relative;
+        top: auto;
+        right: auto;
+        bottom: auto;
+        width: calc(100% - 48px);
+        max-width: 720px;
+        margin: 0 auto;
+        aspect-ratio: 16 / 11;
+        border-radius: 18px;
+        border: none;
+        box-shadow: 0 24px 54px rgba(4, 14, 30, 0.42);
+        -webkit-mask-image: none;
+        mask-image: none;
+        z-index: 3;
+      }
+      .hero-visual img {
+        object-position: center 62%;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .proof-layout,
+      .faq-layout {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .faq-sticky {
+        position: static;
+      }
+      .home-footer .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+      }
+      .home-footer .footer-brand {
+        grid-column: span 2;
+      }
+      .map-header-row {
+        align-items: flex-start;
+      }
+      #submit .cta-band-card {
+        padding: 52px 32px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .hero {
+        min-height: auto;
+        padding: 36px 0 42px;
+        gap: 24px;
+      }
+      .hero-left-panel {
+        padding: 0 18px;
+      }
+      .hero-visual {
+        width: calc(100% - 36px);
+        border-radius: 16px;
+        aspect-ratio: 16 / 11;
+      }
+      .hero h1 {
+        font-size: clamp(2.25rem, 9.6vw, 2.95rem);
+        margin-bottom: 14px;
+      }
+      .hero-subtitle {
+        font-size: 0.96rem;
+        line-height: 1.68;
+        margin-bottom: 24px;
+      }
+      .hero-ctas {
+        width: 100%;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+      .hero-ctas .btn {
+        width: 100%;
+      }
+      .hero-bridge {
+        width: 100%;
+        border-radius: 14px;
+        padding: 12px 15px;
+        margin-bottom: 28px;
+        font-size: 12.5px;
+        gap: 6px 10px;
+      }
+      .hero-metrics {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px 12px;
+        padding-top: 22px;
+      }
+      .hero-metric strong {
+        font-size: 1.24rem;
+      }
+      .hero-metric small {
+        font-size: 11.5px;
+        line-height: 1.35;
+      }
+      .risk-strip {
+        padding: 28px 0;
+      }
+      .risk-item,
+      .risk-item:nth-child(odd),
+      .risk-item:nth-child(even),
+      .risk-item:nth-child(n+3),
+      .risk-item:nth-child(-n+2) {
+        padding: 18px 0;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .risk-item:first-child {
+        padding-top: 4px;
+      }
+      .risk-item:last-child {
+        padding-bottom: 4px;
+        border-bottom: none;
+      }
+      .mini-faq-card {
+        padding: 26px 22px;
+      }
+      .fit-grid {
+        gap: 14px;
+      }
+      .fit-card {
+        padding: 20px 18px;
+        gap: 14px;
+      }
+      .fit-check {
+        width: 36px;
+        height: 36px;
+      }
+      /* Preserve Mobile How It Works Vertical Timeline */
+      .steps-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding-left: 26px;
+      }
+      .steps-grid::before {
+        content: '';
+        position: absolute;
+        left: 7px;
+        top: 38px;
+        bottom: 110px;
+        width: 2px;
+        background: linear-gradient(180deg, rgba(247, 148, 29, 0.45) 0%, rgba(41, 171, 226, 0.38) 50%, rgba(247, 148, 29, 0.50) 100%);
+        border-radius: 2px;
+        pointer-events: none;
+      }
+      .step-card {
+        padding: 22px 20px;
+      }
+      .step-card::after,
+      .step-card:not(:nth-child(3n))::after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: -25px;
+        right: auto;
+        top: 32px;
+        transform: none;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--white);
+        border: 2.5px solid var(--blue);
+        box-shadow: 0 0 0 3px var(--surface-alt);
+      }
+      .step-card:first-child::after,
+      .step-card.is-final::after {
+        border-color: var(--orange);
+      }
+      .section-footer-link {
+        margin-top: 26px;
+        padding: 20px 18px;
+        flex-direction: column;
+        align-items: stretch;
+        text-align: left;
+      }
+      .section-footer-link .btn {
+        width: 100%;
+      }
+      .types-grid {
+        gap: 12px;
+      }
+      .type-card {
+        padding: 16px 18px;
+        min-height: 74px;
+        gap: 14px;
+      }
+      .type-card .type-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+      }
+      .type-card span {
+        font-size: 15px;
+      }
+      #buyers {
+        padding: 52px 0 58px;
+      }
+      #buyers .btn-ghost-light {
+        width: 100%;
+      }
+      .map-frame-shell {
+        height: 540px;
+        border-radius: 16px;
+      }
+      .testimonial-card {
+        padding: 28px 22px;
+      }
+      .testimonial-quote {
+        font-size: 1.04rem;
+        line-height: 1.68;
+        margin-bottom: 24px;
+      }
+      .kpi-card {
+        padding: 18px 20px;
+        gap: 14px;
+      }
+      .kpi-value {
+        font-size: 1.72rem;
+      }
+      .feature-card,
+      .feature-card.span-3,
+      .feature-card:last-child {
+        grid-column: span 1;
+        flex-direction: column;
+        gap: 14px;
+        padding: 24px 20px;
+      }
+      #submit {
+        padding: 16px 0 60px;
+      }
+      #submit .cta-band-card {
+        padding: 40px 22px;
+        border-radius: 20px;
+      }
+      #submit h2 {
+        font-size: clamp(1.7rem, 7.2vw, 2.2rem);
+      }
+      #submit p {
+        font-size: 0.96rem;
+        margin-bottom: 24px;
+      }
+      #submit .cta-band-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      #submit .btn-primary,
+      #submit .btn-ghost-light {
+        width: 100%;
+        padding: 14px 22px;
+      }
+      #faq .accordion-trigger {
+        padding: 18px 18px;
+        font-size: 14.8px;
+      }
+      #faq .accordion-body {
+        padding: 0 18px 18px;
+        font-size: 14px;
+      }
+      .home-footer {
+        padding: 56px 0 68px;
+      }
+      .home-footer .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding-bottom: 36px;
+      }
+      .home-footer .footer-brand {
+        grid-column: auto;
+      }
+      .risk-grid,
+      .mini-faq-grid,
+      .fit-grid,
+      .steps-grid,
+      .types-grid,
+      .features-bento {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVBAR ─────────────────────────────────────────────────────────── -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-brand" aria-label="Dispo Buddy Home">
+        <img src="assets/img/logo-dark.svg" alt="Dispo Buddy">
+      </a>
+      <nav class="navbar-links" aria-label="Primary Navigation">
+        <a href="#how-it-works">How It Works</a>
+        <a href="#fit">Is Your Deal a Fit?</a>
+        <a href="#buyers">Active Buyers</a>
+        <a href="#proof">Proof</a>
+        <a href="faq.html">FAQ</a>
+        <a href="what-we-look-for.html">Criteria</a>
+        <a href="https://termsforsale.com/deals.html" target="_blank" rel="noopener" class="external-link">
+          Buy Deals
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
+      </nav>
+      <div class="navbar-actions">
+        <a href="submit-deal.html" class="btn btn-primary">
+          Submit a Deal
+          <svg class="arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <button class="hamburger" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── MOBILE MENU ────────────────────────────────────────────────────── -->
+  <div class="mobile-menu" aria-hidden="true">
+    <a href="#how-it-works">How It Works</a>
+    <a href="#fit">Is Your Deal a Fit?</a>
+    <a href="#buyers">Active Buyers</a>
+    <a href="#proof">Proof</a>
+    <a href="faq.html">FAQ</a>
+    <a href="what-we-look-for.html">Criteria</a>
+    <a href="process.html">Our Process</a>
+    <a href="https://termsforsale.com/deals.html" target="_blank" rel="noopener">Buy Deals ↗</a>
+    <div class="mobile-cta-wrap">
+      <a href="submit-deal.html" class="btn btn-primary btn-lg">Submit a Deal</a>
+      <a href="join.html" class="btn btn-secondary btn-lg">Join Network</a>
+    </div>
+  </div>
+
+  <main>
+    <!-- ── HERO (SPLIT ARCHITECTURAL COMPOSITION — REAL HTML/CSS + EXTRACTED HOUSE PHOTO) -->
+    <section class="hero">
+      <div class="hero-left-panel">
+        <div class="hero-copy reveal">
+          <h1>You lock it up.<br><em>We sell it.</em></h1>
+          <p class="hero-subtitle">Stop leaving deals on the table. Partner with Dispo Buddy and get your locked-up deals in front of 500+ active buyers. 50/50 split, no upfront fees, 24-48hr review.</p>
+          <div class="hero-ctas">
+            <a href="submit-deal.html" class="btn btn-primary btn-lg">
+              Submit Your First Deal
+              <svg class="arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a href="what-we-look-for.html" class="btn btn-secondary btn-lg">See What We Buy</a>
+          </div>
+          <div class="hero-bridge">
+            <span>Looking to buy deals instead?</span>
+            <a href="https://termsforsale.com/deals.html" target="_blank" rel="noopener">
+              Browse on Terms For Sale
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div class="hero-metrics tabular">
+            <div class="hero-metric">
+              <strong>4.9<span>★</span></strong>
+              <small>partner rating</small>
+            </div>
+            <div class="hero-metric">
+              <strong>$1.7M<span>+</span></strong>
+              <small>in funded assignment fees</small>
+            </div>
+            <div class="hero-metric">
+              <strong>200<span>+</span></strong>
+              <small>deals assigned</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="assets/img/hero-house-photo.jpg" alt="Modern twilight craftsman residence" width="648" height="576" loading="eager" fetchpriority="high" decoding="sync">
+      </div>
+    </section>
+
+    <!-- ── RISK REVERSAL STRIP ──────────────────────────────────────────── -->
+    <section class="risk-strip" aria-label="Core Partnership Guarantees">
+      <div class="container">
+        <h2 class="sr-only">Core Partnership Guarantees</h2>
+        <div class="risk-grid">
+          <div class="risk-item">
+            <div class="risk-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <div>
+              <h3>No Upfront Fees</h3>
+              <p>We don't charge application or processing fees. You only pay when we close.</p>
+            </div>
+          </div>
+          <div class="risk-item">
+            <div class="risk-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div>
+              <h3>24-48 Hour Review</h3>
+              <p>We assess every deal and give you real feedback within 2 business days.</p>
+            </div>
+          </div>
+          <div class="risk-item">
+            <div class="risk-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3"/><path d="m15 9 6-6"/></svg>
+            </div>
+            <div>
+              <h3>Non-Exclusive</h3>
+              <p>Sell to other partners too. Whoever closes first wins. That simple.</p>
+            </div>
+          </div>
+          <div class="risk-item">
+            <div class="risk-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></svg>
+            </div>
+            <div>
+              <h3>Performance-Based Splits</h3>
+              <p>Hit $25k in closed fees in a quarter? Upgrade to 70/30 in your favor.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── MINI FAQ ─────────────────────────────────────────────────────── -->
+    <section class="section section-alt" id="mini-faq">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Common Questions</span>
+          <h2 class="section-title">The 3 Things Partners Ask Most</h2>
+          <p class="section-desc">We get asked the same questions by every wholesaler and bird dog. Here's the straight answer on each.</p>
+        </div>
+        <div class="mini-faq-grid stagger-group">
+          <article class="mini-faq-card reveal">
+            <div class="glass-icon-wrap is-blue">
+              <div class="glass-icon glass-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4" fill="rgba(41,171,226,0.16)"/><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" fill="rgba(41,171,226,0.12)"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+            </div>
+            <h3>Who Are Your Buyers?</h3>
+            <p>Mix of cash buyers, DSCR lenders, subject-to specialists, and creative finance investors across 15 states. 500+ contacts, all pre-vetted.</p>
+          </article>
+          <article class="mini-faq-card reveal">
+            <div class="glass-icon-wrap is-orange">
+              <div class="glass-icon glass-orange">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" fill="rgba(247,148,29,0.15)"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+            </div>
+            <h3>How Long Does Close Take?</h3>
+            <p>Once we match you with a buyer, close timelines vary. Cash deals close in 7-21 days. Owner-finance and SubTo deals take 30-60 days depending on docs.</p>
+          </article>
+          <article class="mini-faq-card reveal">
+            <div class="glass-icon-wrap is-navy">
+              <div class="glass-icon glass-navy">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" fill="rgba(41,171,226,0.14)"/><path d="m9 12 2 2 4-4" stroke="#F7941D" stroke-width="2.2"/></svg>
+              </div>
+            </div>
+            <h3>What If My Deal Doesn't Close?</h3>
+            <p>No payment owed to us if the deal falls apart. You only share fees if we bring the buyer who actually closes. Simple risk-share.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FIT CHECKLIST ────────────────────────────────────────────────── -->
+    <section class="section" id="fit">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Qualification</span>
+          <h2 class="section-title">Is Your Deal a Fit?</h2>
+          <p class="section-desc">We work with wholesalers, bird dogs, and agents who have locked-up deals. Check these 6 boxes and you're good to go.</p>
+        </div>
+        <div class="fit-grid stagger-group">
+          <div class="fit-card reveal">
+            <div class="fit-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <div>
+              <h3>Property Under Contract or Assigned</h3>
+              <p>You have equitable interest or an assignment agreement.</p>
+            </div>
+          </div>
+          <div class="fit-card reveal">
+            <div class="fit-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <div>
+              <h3>On-Market or Off-Market</h3>
+              <p>Listed with an agent or off-market, we work both. If you've got it under contract, bring it.</p>
+            </div>
+          </div>
+          <div class="fit-card reveal">
+            <div class="fit-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <div>
+              <h3>Property is Real Estate (Residential or Commercial)</h3>
+              <p>Single-family, multi-unit, commercial, mobile home, raw land. We work with most types.</p>
+            </div>
+          </div>
+          <div class="fit-card reveal">
+            <div class="fit-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <div>
+              <h3>You Can Provide Basic Docs</h3>
+              <p>Contract, estimates, pictures. Nothing fancy, just enough for buyers to evaluate.</p>
+            </div>
+          </div>
+          <div class="fit-card reveal">
+            <div class="fit-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <div>
+              <h3>Deal Info is Accurate</h3>
+              <p>Numbers, condition, address, all honest. Misrepresented deals get you banned.</p>
+            </div>
+          </div>
+          <div class="fit-card reveal">
+            <div class="fit-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <div>
+              <h3>You're Ready to Communicate</h3>
+              <p>Answer buyer questions fast. Responsiveness closes deals.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── HOW IT WORKS ─────────────────────────────────────────────────── -->
+    <section class="section section-alt" id="how-it-works">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">The Process</span>
+          <h2 class="section-title">How It Works in 6 Steps</h2>
+          <p class="section-desc">From submission to close, here's exactly how we move your deal.</p>
+        </div>
+        <div class="steps-grid stagger-group">
+          <div class="step-card reveal">
+            <div class="step-top">
+              <div class="step-glass-icon is-orange">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="rgba(247,148,29,0.12)"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="m9 15 3-3 3 3"/></svg>
+              </div>
+              <span class="step-badge tabular">Step 01</span>
+            </div>
+            <h3>Submit Deal</h3>
+            <p>Fill out the form. Basic info, numbers, pics.</p>
+          </div>
+          <div class="step-card reveal">
+            <div class="step-top">
+              <div class="step-glass-icon is-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7" fill="rgba(41,171,226,0.13)"/><path d="m20 20-3.5-3.5"/><path d="m8.5 11 1.7 1.7 3.3-3.4"/></svg>
+              </div>
+              <span class="step-badge tabular">Step 02</span>
+            </div>
+            <h3>We Review</h3>
+            <p>24-48 hours. We assess fit and viability.</p>
+          </div>
+          <div class="step-card reveal">
+            <div class="step-top">
+              <div class="step-glass-icon is-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" fill="rgba(41,171,226,0.13)"/></svg>
+              </div>
+              <span class="step-badge tabular">Step 03</span>
+            </div>
+            <h3>Sign JV Docs</h3>
+            <p>Accepted? We send you the partnership agreement.</p>
+          </div>
+          <div class="step-card reveal">
+            <div class="step-top">
+              <div class="step-glass-icon is-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.5" fill="rgba(41,171,226,0.22)"/><path d="M16.24 7.76a6 6 0 0 1 0 8.48"/><path d="M7.76 16.24a6 6 0 0 1 0-8.48"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 19.07a10 10 0 0 1 0-14.14"/></svg>
+              </div>
+              <span class="step-badge tabular">Step 04</span>
+            </div>
+            <h3>We Market</h3>
+            <p>Push to our 500+ buyers via email, SMS, private network.</p>
+          </div>
+          <div class="step-card reveal">
+            <div class="step-top">
+              <div class="step-glass-icon is-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="rgba(41,171,226,0.13)"/><path d="M8 9h8"/><path d="M8 13h5"/></svg>
+              </div>
+              <span class="step-badge tabular">Step 05</span>
+            </div>
+            <h3>Buyers Engage</h3>
+            <p>Questions, offers, follow-ups. We coordinate.</p>
+          </div>
+          <div class="step-card is-final reveal">
+            <div class="step-top">
+              <div class="step-glass-icon is-orange">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5" fill="rgba(247,148,29,0.14)"/><path d="m8.5 12.2 2.3 2.3 4.7-4.8" stroke-width="2.2"/></svg>
+              </div>
+              <span class="step-badge tabular">Step 06</span>
+            </div>
+            <h3>Close &amp; Split</h3>
+            <p>Buyer closes. We split the assignment fee 50/50.</p>
+          </div>
+        </div>
+        <div class="section-footer-link reveal">
+          <p>Want the full step-by-step breakdown of timelines, docs, and JV terms?</p>
+          <a href="process.html" class="btn btn-secondary">
+            Explore Our Full Process
+            <svg class="arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── DEAL TYPES ───────────────────────────────────────────────────── -->
+    <section class="section deal-types-section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">We Buy</span>
+          <h2 class="section-title">Deal Types We Move</h2>
+          <p class="section-desc">Our buyer network spans multiple strategies. On-market or off-market, if the numbers work, we work it.</p>
+        </div>
+        <div class="types-grid stagger-group">
+          <div class="type-card tone-orange reveal">
+            <div class="type-icon is-orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="12" x="2" y="6" rx="2" fill="rgba(247,148,29,0.12)"/><circle cx="12" cy="12" r="2.2"/><path d="M6 12h.01M18 12h.01"/></svg></div>
+            <span>Cash Deals</span>
+          </div>
+          <div class="type-card reveal">
+            <div class="type-icon is-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="rgba(41,171,226,0.12)"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/></svg></div>
+            <span>Subject-To</span>
+          </div>
+          <div class="type-card reveal">
+            <div class="type-icon is-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" fill="rgba(41,171,226,0.13)"/></svg></div>
+            <span>Seller Finance</span>
+          </div>
+          <div class="type-card reveal">
+            <div class="type-icon is-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+            <span>Wrap-Around</span>
+          </div>
+          <div class="type-card tone-orange reveal">
+            <div class="type-icon is-orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg></div>
+            <span>Hybrid / Morby</span>
+          </div>
+          <div class="type-card tone-navy reveal">
+            <div class="type-icon is-navy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" ry="2" fill="rgba(13,31,60,0.08)"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/></svg></div>
+            <span>Commercial</span>
+          </div>
+          <div class="type-card reveal">
+            <div class="type-icon is-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5" fill="rgba(41,171,226,0.13)"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg></div>
+            <span>Lease Options</span>
+          </div>
+          <div class="type-card tone-navy reveal">
+            <div class="type-icon is-navy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14" fill="rgba(13,31,60,0.08)"/><path d="M9 21v-4h6v4"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01"/></svg></div>
+            <span>Multi-Unit</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ACTIVE BUYERS MAP ────────────────────────────────────────────── -->
+    <section class="section section-navy" id="buyers">
+      <div class="container">
+        <div class="map-header-row reveal">
+          <div class="section-header">
+            <span class="eyebrow">Active Markets</span>
+            <h2 class="section-title">500+ Buyers Across 15 States</h2>
+            <p class="section-desc">Real-time map of our active buyer network. That's the reach behind every deal you submit.</p>
+          </div>
+          <a href="buyers-map.html" class="btn btn-ghost-light">
+            Open Fullscreen Map
+            <svg class="arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+          </a>
+        </div>
+        <div class="map-frame-shell reveal">
+          <iframe src="buyers-map.html" title="Dispo Buddy Active Buyers Map across 15 states" loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PROOF SECTION ────────────────────────────────────────────────── -->
+    <section class="section section-alt" id="proof">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Social Proof</span>
+          <h2 class="section-title">Partners Who've Done It</h2>
+          <p class="section-desc">These are real wholesalers and bird dogs who locked up deals and got them sold through Dispo Buddy.</p>
+        </div>
+        <div class="proof-layout">
+          <div class="testimonial-card reveal">
+            <div>
+              <div class="testimonial-quote-mark">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z"/></svg>
+              </div>
+              <p class="testimonial-quote">"I was stuck with three deals. Submitted them Tuesday, got buyer feedback by Thursday. All three moved within 90 days. Easiest $18k I've made."</p>
+            </div>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">JR</div>
+              <div>
+                <div class="testimonial-name">Jeremy R.</div>
+                <div class="testimonial-role">Wholesaler, Phoenix AZ</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="proof-stats-stack stagger-group tabular">
+            <div class="kpi-card reveal">
+              <div class="kpi-icon is-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              </div>
+              <div class="kpi-meta">
+                <div class="kpi-value">200<em>+</em></div>
+                <div class="kpi-label">deals assigned</div>
+              </div>
+            </div>
+            <div class="kpi-card reveal">
+              <div class="kpi-icon is-orange">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5" fill="rgba(247,148,29,0.12)"/><polyline points="12 7 12 12 15.5 14"/></svg>
+              </div>
+              <div class="kpi-meta">
+                <div class="kpi-value">&lt;16 <em>days</em></div>
+                <div class="kpi-label">avg time to close</div>
+              </div>
+            </div>
+            <div class="kpi-card reveal">
+              <div class="kpi-icon is-navy">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <div class="kpi-meta">
+                <div class="kpi-value">$1.7M<em>+</em></div>
+                <div class="kpi-label">in funded assignment fees</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section-footer-link reveal">
+          <p>See closed deal breakdowns across cash, subject-to, and creative finance structures</p>
+          <a href="proof.html" class="btn btn-secondary">
+            View Deal Proof
+            <svg class="arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── WHY CHOOSE US ────────────────────────────────────────────────── -->
+    <section class="section why-us-section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Why Us</span>
+          <h2 class="section-title">Not Your Average Dispo Partner</h2>
+          <p class="section-desc">We're wholesalers too. We know what it takes to move deals fast and honestly.</p>
+        </div>
+        <div class="features-bento stagger-group">
+          <article class="feature-card reveal">
+            <div class="feature-glass-icon is-orange">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="rgba(247,148,29,0.14)"/></svg>
+            </div>
+            <div class="feature-copy">
+              <h3>Speed &amp; Decisiveness</h3>
+              <p>24-48hr turnaround, not weeks. Yes or no, fast feedback so you can pivot if needed.</p>
+            </div>
+          </article>
+          <article class="feature-card reveal">
+            <div class="feature-glass-icon is-blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4" fill="rgba(41,171,226,0.14)"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="feature-copy">
+              <h3>Real Buyer Network</h3>
+              <p>500+ pre-vetted buyers across 15 states. Not a list. Active, funded, closing deals.</p>
+            </div>
+          </article>
+          <article class="feature-card reveal">
+            <div class="feature-glass-icon is-navy">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="rgba(13,31,60,0.08)"/><path d="M8 9h8"/><path d="M8 13h5"/></svg>
+            </div>
+            <div class="feature-copy">
+              <h3>Transparent Comms</h3>
+              <p>We tell you why we pass. We update you weekly if your deal's in the pipeline. No ghosting.</p>
+            </div>
+          </article>
+          <article class="feature-card span-3 reveal">
+            <div class="feature-glass-icon is-orange">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" fill="rgba(247,148,29,0.14)"/></svg>
+            </div>
+            <div class="feature-copy">
+              <h3>Performance Rewards</h3>
+              <p>Close 3 deals or hit $25k in one quarter? Move to 70/30 in your favor immediately.</p>
+            </div>
+          </article>
+          <article class="feature-card span-3 reveal">
+            <div class="feature-glass-icon is-blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" fill="rgba(41,171,226,0.14)"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <div class="feature-copy">
+              <h3>Seller Confidentiality</h3>
+              <p>Your seller's name and contact info stays private. Buyers see the deal, not the intermediary.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── MAIN CTA BAND ────────────────────────────────────────────────── -->
+    <section class="cta-band" id="submit">
+      <div class="container">
+        <div class="cta-band-card reveal">
+          <div class="cta-band-inner">
+            <h2>Ready to Move Your Deal?</h2>
+            <p>Submit your first deal and let our buyer network go to work. We review in 24-48 hours and move fast.</p>
+            <div class="cta-band-actions">
+              <a href="submit-deal.html" class="btn btn-primary btn-lg">
+                Submit a Deal Now
+                <svg class="arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+              <a href="join.html" class="btn btn-ghost-light btn-lg">Join Network</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FAQ ACCORDION ────────────────────────────────────────────────── -->
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="faq-layout">
+          <div class="faq-sticky">
+            <div class="section-header reveal">
+              <span class="eyebrow">FAQ</span>
+              <h2 class="section-title">Frequently Asked Questions</h2>
+              <p class="section-desc">Real answers to the questions every partner asks</p>
+            </div>
+          </div>
+          <div class="accordion-list reveal">
+            <div class="accordion-item is-open">
+              <button class="accordion-trigger" type="button" aria-expanded="true">
+                <span>What if the deal falls through after you start marketing?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">You owe us nothing. We only earn when we bring the buyer who closes. If the deal dies (financing fails, seller changes mind, title issue), zero payment. That's the whole point of the 50/50 risk-share.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>Do I have to work exclusive with Dispo Buddy?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">No, non-exclusive. You can market the same deal to other dispo partners, sell it yourself, or list it. Whoever brings the closing buyer wins. We only get paid if we close it.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>How much does a JV partnership cost to set up?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">Zero. No application fees, no membership dues, no hidden costs. We send you a simple JV agreement when we accept your deal. Both parties sign. That's it.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>Can I upgrade to a better split percentage?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">Yes. Hit either milestone in a calendar quarter and you move to 30/70 (30% to us, 70% to you) on all future deals: (1) $25,000 in funded assignment fees or (2) close 3 deals. Automatic upgrade, no reapplication.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>How fast do we actually get paid?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">When the buyer closes, the assignment fee typically clears from the title company in 3-5 business days. We split it and wire your portion immediately. Most partners see payment within a week of close.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" type="button" aria-expanded="false">
+                <span>What kinds of deals do you NOT work with?</span>
+                <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  <div class="accordion-body">Properties without clear title, wholesalers we can't vet, and anything that feels like a bait-and-switch. We also skip deals where you don't have real equitable interest (just a rumor, no contract). On-market deals are welcome. We regularly get listed properties under contract with agents. Otherwise, we're open.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+  <footer class="site-footer home-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/img/logo-light.svg" alt="Dispo Buddy" loading="lazy" decoding="async">
+          <p>JV disposition partner for wholesalers, agents, and bird dogs. Fast review, real buyers, fair splits.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Product</h3>
+          <a href="index.html#how-it-works">How It Works</a>
+          <a href="index.html#fit">Is Your Deal a Fit?</a>
+          <a href="what-we-look-for.html">What We Look For</a>
+          <a href="submit-deal.html">Submit a Deal</a>
+        </div>
+        <div class="footer-col">
+          <h3>Company</h3>
+          <a href="process.html">Our Process</a>
+          <a href="proof.html">Proof</a>
+          <a href="join.html">Join Network</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <a href="terms.html">Terms of Service</a>
+          <a href="privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <div class="footer-contact-list">
+            <div class="footer-contact-item"><strong>Email:</strong> <a href="mailto:deals@dispobuddy.com">deals@dispobuddy.com</a></div>
+            <div class="footer-contact-item"><strong>Phone:</strong> <a href="tel:+14808425332">(480) 842-5332</a></div>
+            <div class="footer-contact-item"><strong>Hours:</strong> 9am–6pm AZ Time</div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Dispo Buddy by Deal Pros LLC. All rights reserved.</p>
+        <p>Also available: <a href="https://termsforsale.com/" target="_blank" rel="noopener">Terms For Sale</a></p>
+      </div>
+      <div class="footer-demo-note">
+        <span>Redesign Concept Demo Proposal for DispoBuddy.com. Not the live production website</span>
+        <span>Interactive forms run locally in demo mode only</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Discreet Redesign Concept Badge -->
+  <div class="demo-pill" role="status" aria-label="Redesign Concept Demo">
+    Redesign Concept Demo
+  </div>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/vendor/gsap.min.js"></script>
+  <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
+  <script src="assets/js/motion.js"></script>
+</body>
+</html>
+

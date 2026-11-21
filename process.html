@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How It Works — Dispo Buddy | From Submit to Paid in 6 Steps</title>
+  <link rel="icon" href="assets/img/favicon.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/design-system.css">
+  <style>
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: var(--r-pill);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .hero-pill b { color: var(--orange); }
+
+    .timeline-list {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .timeline-card {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      gap: 28px;
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: 18px;
+      padding: 36px 38px;
+      box-shadow: 0 6px 20px rgba(13, 31, 60, 0.045), 0 1px 3px rgba(13, 31, 60, 0.025);
+      transition: transform 0.28s var(--ease), box-shadow 0.28s var(--ease), border-color 0.25s ease;
+    }
+
+    .timeline-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--orange) 0%, var(--blue) 100%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .timeline-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 36px rgba(13, 31, 60, 0.085), 0 4px 12px rgba(41, 171, 226, 0.06);
+      border-color: rgba(41, 171, 226, 0.34);
+    }
+
+    .timeline-card:hover::before {
+      opacity: 1;
+    }
+
+    .timeline-num-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .timeline-num {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: linear-gradient(145deg, #152D55 0%, var(--navy) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 10px 22px rgba(13, 31, 60, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      color: var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .timeline-content h3 {
+      font-size: 20.5px;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.015em;
+      margin-bottom: 10px;
+    }
+
+    .timeline-content > p {
+      font-size: 15px;
+      color: var(--ink-secondary);
+      line-height: 1.75;
+      margin-bottom: 18px;
+    }
+
+    .timeline-callout {
+      background: #F8FAFC;
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-left: 3.5px solid var(--orange);
+      border-radius: 10px;
+      padding: 18px 22px;
+    }
+
+    .timeline-callout-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--orange);
+      margin-bottom: 6px;
+    }
+
+    .timeline-callout p {
+      font-size: 13.8px;
+      color: var(--ink-secondary);
+      line-height: 1.7;
+    }
+
+    .needs-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 52px;
+      align-items: start;
+    }
+
+    .needs-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .needs-item {
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: 14px;
+      padding: 20px 22px;
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+      font-size: 14.3px;
+      color: var(--ink-secondary);
+      line-height: 1.65;
+      box-shadow: 0 5px 16px rgba(13, 31, 60, 0.04), 0 1px 2px rgba(13, 31, 60, 0.02);
+      transition: transform 0.24s var(--ease), border-color 0.24s ease, box-shadow 0.24s var(--ease);
+    }
+
+    .needs-item:hover {
+      transform: translateY(-2px);
+      border-color: rgba(41, 171, 226, 0.34);
+      box-shadow: 0 10px 24px rgba(13, 31, 60, 0.07);
+    }
+
+    .needs-item strong { color: var(--navy); }
+
+    .needs-check {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 247, 236, 0.88) 55%, rgba(247, 148, 29, 0.18) 100%);
+      border: 1px solid rgba(247, 148, 29, 0.32);
+      box-shadow: 0 6px 14px rgba(247, 148, 29, 0.12), inset 0 1px 1.5px rgba(255, 255, 255, 0.96);
+      color: #D87A0B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .needs-check svg { width: 15px; height: 15px; }
+
+    @media (max-width: 900px) {
+      .timeline-card {
+        grid-template-columns: 76px 1fr;
+        gap: 22px;
+        padding: 28px;
+      }
+      .needs-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .hero-pills {
+        gap: 10px;
+        margin-top: 22px;
+      }
+      .hero-pill {
+        padding: 7px 14px;
+        font-size: 12.5px;
+      }
+      .timeline-list {
+        gap: 18px;
+      }
+      .timeline-card {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 22px 18px;
+        border-radius: 16px;
+      }
+      .timeline-num-col {
+        align-items: flex-start;
+      }
+      .timeline-num {
+        width: 52px;
+        height: 52px;
+        border-radius: 13px;
+        font-size: 20px;
+      }
+      .timeline-content h3 {
+        font-size: 18px;
+      }
+      .timeline-content > p {
+        font-size: 14.2px;
+        margin-bottom: 14px;
+      }
+      .timeline-callout {
+        padding: 15px 16px;
+      }
+      .needs-item {
+        padding: 16px 16px;
+        gap: 12px;
+        font-size: 13.8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-brand" aria-label="Dispo Buddy Home">
+        <img src="assets/img/logo-dark.svg" alt="Dispo Buddy">
+      </a>
+      <nav class="navbar-links" aria-label="Primary Navigation">
+        <a href="process.html" class="active">How It Works</a>
+        <a href="what-we-look-for.html">Criteria</a>
+        <a href="buyers-map.html">Active Buyers</a>
+        <a href="proof.html">Proof</a>
+        <a href="faq.html">FAQ</a>
+        <a href="https://termsforsale.com/deals.html" target="_blank" rel="noopener" class="external-link">
+          Buy Deals
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
+      </nav>
+      <div class="navbar-actions">
+        <a href="submit-deal.html" class="btn btn-primary">Submit a Deal</a>
+        <button class="hamburger" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" aria-hidden="true">
+    <a href="index.html">Home</a>
+    <a href="process.html" class="active">How It Works</a>
+    <a href="what-we-look-for.html">Criteria</a>
+    <a href="buyers-map.html">Active Buyers</a>
+    <a href="proof.html">Proof</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://termsforsale.com/deals.html" target="_blank" rel="noopener" class="external-link">Buy Deals ↗</a>
+    <div class="mobile-cta-wrap">
+      <a href="submit-deal.html" class="btn btn-primary btn-lg">Submit a Deal</a>
+      <a href="join.html" class="btn btn-secondary btn-lg">Join Network</a>
+    </div>
+  </div>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">The Disposition Process</span>
+        <h1>Six steps. <em>You get paid</em> at step six.</h1>
+        <p class="lead">No mystery. No runaround. Here's exactly what happens from the moment you submit a deal to the moment you cash a check.</p>
+        <div class="hero-pills tabular">
+          <span class="hero-pill"><b>5 min</b> to submit</span>
+          <span class="hero-pill"><b>24-48hr</b> review</span>
+          <span class="hero-pill"><b>50/50</b> at close</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container-narrow">
+        <div class="section-header reveal">
+          <span class="eyebrow">Step-by-Step</span>
+          <h2 class="section-title">The full breakdown. No surprises, no fine print.</h2>
+          <p class="section-desc">Every deal follows the same process. We built it to be fast, transparent, and painless for both sides.</p>
+        </div>
+
+        <div class="timeline-list stagger-group">
+          <article class="timeline-card reveal">
+            <div class="timeline-num-col"><div class="timeline-num tabular">01</div></div>
+            <div class="timeline-content">
+              <h3>Submit your deal</h3>
+              <p>Fill out our deal form. Address, numbers, photos, contract details, deal type. Takes about 5 minutes. If you've submitted before, it's even faster.</p>
+              <div class="timeline-callout">
+                <div class="timeline-callout-label">What happens</div>
+                <p>You get a confirmation email immediately. Your deal enters our review queue. We do NOT share your deal info before a JV agreement is signed.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-card reveal">
+            <div class="timeline-num-col"><div class="timeline-num tabular">02</div></div>
+            <div class="timeline-content">
+              <h3>We review and underwrite it</h3>
+              <p>Within 24-48 hours, our team digs into the numbers. We pull comps, check marketability, verify the spread, and make sure this thing can actually sell.</p>
+              <div class="timeline-callout">
+                <div class="timeline-callout-label">What happens</div>
+                <p>If we need more info, we call or text you. If the numbers don't work, we'll tell you why and what would need to change. No ghosting.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-card reveal">
+            <div class="timeline-num-col"><div class="timeline-num tabular">03</div></div>
+            <div class="timeline-content">
+              <h3>Sign the JV agreement</h3>
+              <p>Simple, non-exclusive, one-page agreement. Lays out the split (50/50 or 30/70 depending on your tier) and who does what. You can still market the deal yourself the entire time.</p>
+              <div class="timeline-callout">
+                <div class="timeline-callout-label">What happens</div>
+                <p>Sent via DocuSign. Takes 2 minutes to review and sign. No hidden clauses. If your buyer closes first, no penalty. We only get paid if we bring the buyer.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-card reveal">
+            <div class="timeline-num-col"><div class="timeline-num tabular">04</div></div>
+            <div class="timeline-content">
+              <h3>We package and market the deal</h3>
+              <p>We build a professional deal sheet with financial breakdown, photos, and property details. Then we push it directly to matched buyers in our network.</p>
+              <div class="timeline-callout">
+                <div class="timeline-callout-label">What happens</div>
+                <p>Targeted outreach to active buyers who match the deal type, market, and price point. Not a Facebook blast. Real, direct outreach to vetted investors.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-card reveal">
+            <div class="timeline-num-col"><div class="timeline-num tabular">05</div></div>
+            <div class="timeline-content">
+              <h3>Negotiate and push to close</h3>
+              <p>We handle buyer inquiries, field offers, negotiate terms, and coordinate with title. You stay in the loop on every major update.</p>
+              <div class="timeline-callout">
+                <div class="timeline-callout-label">What happens</div>
+                <p>You get updates when offers come in, when a buyer is under contract, and when we're headed to close. We handle the heavy lifting. You approve the final terms.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-card reveal">
+            <div class="timeline-num-col"><div class="timeline-num tabular">06</div></div>
+            <div class="timeline-content">
+              <h3>You get paid</h3>
+              <p>Core split is 50/50 of the net assignment fee, paid through title at close. No invoicing, no chasing, no 30-day wire waits. <strong>Hit $25K in funded fees or 3 closed deals in a single quarter</strong> and your split bumps to 30/70 on all future deals.</p>
+              <div class="timeline-callout">
+                <div class="timeline-callout-label">What happens</div>
+                <p>Title company handles the disbursement. Your share hits your account at close. Then you submit your next deal and we do it again.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="needs-layout">
+          <div class="reveal">
+            <span class="eyebrow">Submission Checklist</span>
+            <h2 class="section-title">What we need from you.</h2>
+            <p class="section-desc">The better your submission, the faster we move. Here's the checklist for a complete deal submission.</p>
+          </div>
+          <div class="needs-list stagger-group">
+            <div class="needs-item reveal"><div class="needs-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></div><span><strong>Property address</strong> and basic details (beds, baths, sqft, lot size)</span></div>
+            <div class="needs-item reveal"><div class="needs-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></div><span><strong>Contract price</strong> or asking price and the deal structure (cash, sub-to, seller finance, etc.)</span></div>
+            <div class="needs-item reveal"><div class="needs-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></div><span><strong>ARV or comp data</strong> so we can verify the spread</span></div>
+            <div class="needs-item reveal"><div class="needs-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></div><span><strong>Photos</strong> of the property (interior + exterior, even phone pics work)</span></div>
+            <div class="needs-item reveal"><div class="needs-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></div><span><strong>Repair estimate</strong> if it's a rehab deal</span></div>
+            <div class="needs-item reveal"><div class="needs-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></div><span><strong>Existing mortgage info</strong> for subject-to or creative deals</span></div>
+            <div class="needs-item reveal"><div class="needs-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></div><span><strong>Timeline</strong> — when does the contract expire or when does the seller need to close?</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="container">
+        <div class="cta-band-card reveal">
+          <h2>Ready? Send us the deal.</h2>
+          <p>Five minutes to submit. 24-48 hours to review. Zero upfront cost. That's the whole pitch.</p>
+          <div class="cta-band-actions">
+            <a href="submit-deal.html" class="btn btn-primary btn-lg">Submit a Deal</a>
+            <a href="what-we-look-for.html" class="btn btn-ghost-light btn-lg">Review Deal Criteria</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/img/logo-light.svg" alt="Dispo Buddy" loading="lazy" decoding="async">
+          <p>JV disposition partner for wholesalers, agents, and bird dogs. Fast review. Real buyers. Fair splits.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Product</h3>
+          <a href="index.html#how-it-works">How It Works</a>
+          <a href="index.html#fit">Is Your Deal a Fit?</a>
+          <a href="what-we-look-for.html">What We Look For</a>
+          <a href="submit-deal.html">Submit a Deal</a>
+        </div>
+        <div class="footer-col">
+          <h3>Company</h3>
+          <a href="process.html">Our Process</a>
+          <a href="proof.html">Proof</a>
+          <a href="join.html">Join Network</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <a href="terms.html">Terms of Service</a>
+          <a href="privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <div class="footer-contact-list">
+            <div class="footer-contact-item"><strong>Email:</strong> <a href="mailto:deals@dispobuddy.com">deals@dispobuddy.com</a></div>
+            <div class="footer-contact-item"><strong>Phone:</strong> <a href="tel:+14808425332">(480) 842-5332</a></div>
+            <div class="footer-contact-item"><strong>Hours:</strong> 9am–6pm AZ Time</div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Dispo Buddy by Deal Pros LLC. All rights reserved.</p>
+        <p>Also available: <a href="https://termsforsale.com/" target="_blank" rel="noopener">Terms For Sale</a></p>
+      </div>
+      <div class="footer-demo-note">
+        <span>Redesign Concept — Demo Proposal for DispoBuddy.com. Not the live production website.</span>
+        <span>Interactive forms run locally in demo mode only.</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="demo-pill" role="status"><span class="demo-pill-dot"></span>Redesign Concept — Demo</div>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/vendor/gsap.min.js"></script>
+  <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
+  <script src="assets/js/motion.js"></script>
+</body>
+</html>
+

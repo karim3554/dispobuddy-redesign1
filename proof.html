@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proof — Deals Moved. Partners Paid. | Dispo Buddy</title>
+  <link rel="icon" href="assets/img/favicon.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/design-system.css">
+  <style>
+    .stats-bar {
+      background: var(--navy);
+      border-top: 1px solid rgba(255, 255, 255, 0.10);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+      padding: 44px 0;
+    }
+    .stats-bar-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      text-align: center;
+    }
+    .stats-bar-grid > div {
+      padding: 4px 20px;
+      border-right: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .stats-bar-grid > div:last-child {
+      border-right: none;
+    }
+    .stats-bar-num {
+      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      font-weight: 800;
+      color: var(--orange);
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+    }
+    .stats-bar-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: rgba(255, 255, 255, 0.74);
+      margin-top: 7px;
+      font-weight: 600;
+    }
+
+    /* ── PROOF DEAL-TYPE & MARKET TICKER ─────────────────────────────────── */
+    .proof-ticker {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(90deg, #E68310 0%, #F7941D 35%, #F7941D 65%, #E68310 100%);
+      border-top: 1px solid rgba(255, 255, 255, 0.24);
+      border-bottom: 1px solid rgba(13, 31, 60, 0.14);
+      box-shadow: 0 6px 20px rgba(13, 31, 60, 0.08);
+      padding: 13px 0;
+    }
+
+    .proof-ticker::before,
+    .proof-ticker::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 64px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .proof-ticker::before {
+      left: 0;
+      background: linear-gradient(90deg, #E68310 0%, rgba(230, 131, 16, 0) 100%);
+    }
+
+    .proof-ticker::after {
+      right: 0;
+      background: linear-gradient(270deg, #E68310 0%, rgba(230, 131, 16, 0) 100%);
+    }
+
+    .proof-ticker-track {
+      display: flex;
+      width: max-content;
+      will-change: transform;
+      animation: proof-marquee 55s linear infinite;
+    }
+
+    .proof-ticker:hover .proof-ticker-track {
+      animation-play-state: paused;
+    }
+
+    .proof-ticker-group {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      gap: 16px;
+      padding-right: 16px;
+    }
+
+    .proof-ticker-item {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 18px;
+      border-radius: var(--r-pill);
+      background: rgba(13, 31, 60, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      color: var(--white);
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    @keyframes proof-marquee {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .proof-ticker-track {
+        animation: none;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 0 24px;
+      }
+      .proof-ticker-group[aria-hidden="true"],
+      .proof-ticker-item[aria-hidden="true"] {
+        display: none;
+      }
+      .proof-ticker-group {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-right: 0;
+      }
+      .proof-ticker::before,
+      .proof-ticker::after {
+        display: none;
+      }
+    }
+
+    .featured-quote {
+      position: relative;
+      overflow: hidden;
+      max-width: 880px;
+      margin: 0 auto;
+      text-align: center;
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: 20px;
+      padding: 44px 48px;
+      box-shadow: 0 10px 30px rgba(13, 31, 60, 0.055), 0 1px 3px rgba(13, 31, 60, 0.03);
+    }
+    .featured-quote::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3.5px;
+      background: linear-gradient(90deg, var(--orange) 0%, var(--blue) 100%);
+    }
+    .featured-quote blockquote {
+      font-size: clamp(1.15rem, 2.2vw, 1.48rem);
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: -0.012em;
+      line-height: 1.72;
+      margin-bottom: 22px;
+    }
+    .featured-quote-attr {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .featured-quote-note {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 7px 16px;
+      border-radius: var(--r-pill);
+      background: var(--surface-alt);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+
+    .deals-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .deal-card {
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 6px 20px rgba(13, 31, 60, 0.045), 0 1px 3px rgba(13, 31, 60, 0.025);
+      transition: transform 0.28s var(--ease), box-shadow 0.28s var(--ease), border-color 0.25s ease;
+    }
+    .deal-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(13, 31, 60, 0.085), 0 4px 12px rgba(41, 171, 226, 0.06);
+      border-color: rgba(41, 171, 226, 0.36);
+    }
+    .deal-card-head {
+      padding: 18px 24px;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+      background: #FAFCFF;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .deal-badge {
+      padding: 4px 11px;
+      border-radius: var(--r-pill);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-cash { background: #DCFCE7; color: #166534; }
+    .badge-subto { background: #EDE9FE; color: #5B21B6; }
+    .badge-sf { background: #FEF3C7; color: #92400E; }
+    .badge-hybrid { background: #E0F2FE; color: #075985; }
+    .deal-market {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-secondary);
+    }
+    .deal-card-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .deal-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 16px;
+      margin-bottom: 16px;
+    }
+    .deal-metrics dt {
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink-muted);
+      font-weight: 600;
+    }
+    .deal-metrics dd {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-top: 2px;
+    }
+    .deal-summary {
+      font-size: 13.5px;
+      color: var(--ink-secondary);
+      line-height: 1.65;
+      padding-top: 14px;
+      margin-top: auto;
+      border-top: 1px solid rgba(226, 232, 240, 0.9);
+    }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .compare-box {
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: 18px;
+      padding: 34px;
+      box-shadow: 0 8px 24px rgba(13, 31, 60, 0.05), 0 1px 3px rgba(13, 31, 60, 0.025);
+    }
+    .compare-box.good { border-top: 4px solid var(--success); }
+    .compare-box.bad { border-top: 4px solid var(--danger); }
+    .compare-box h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+    .compare-box ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .compare-box li {
+      font-size: 14.2px;
+      color: var(--ink-secondary);
+      padding-left: 26px;
+      position: relative;
+      line-height: 1.6;
+    }
+    .compare-box.good li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--success);
+      font-weight: 800;
+    }
+    .compare-box.bad li::before {
+      content: '✕';
+      position: absolute;
+      left: 0;
+      color: var(--danger);
+      font-weight: 800;
+    }
+
+    @media (max-width: 960px) {
+      .deals-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+      .compare-grid { gap: 20px; }
+      .compare-box { padding: 28px 24px; }
+      .featured-quote { padding: 36px 32px; }
+    }
+    @media (max-width: 860px) {
+      .stats-bar { padding: 32px 0; }
+      .stats-bar-grid { grid-template-columns: repeat(2, 1fr); gap: 0; }
+      .stats-bar-grid > div {
+        padding: 16px 14px;
+        border-right: 1px solid rgba(255, 255, 255, 0.12);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .stats-bar-grid > div:nth-child(even) { border-right: none; }
+      .stats-bar-grid > div:nth-child(n+3) { border-bottom: none; }
+    }
+    @media (max-width: 767px) {
+      .stats-bar { padding: 28px 0; }
+      .stats-bar-grid > div { padding: 14px 12px; }
+      .stats-bar-num { font-size: 1.45rem; }
+      .stats-bar-label { font-size: 10.5px; }
+      .proof-ticker { padding: 11px 0; }
+      .proof-ticker::before,
+      .proof-ticker::after { width: 28px; }
+      .proof-ticker-group { gap: 10px; padding-right: 10px; }
+      .proof-ticker-item { padding: 6px 14px; font-size: 11.5px; }
+      .featured-quote { padding: 28px 20px; border-radius: 16px; }
+      .featured-quote blockquote { font-size: 1.05rem; line-height: 1.68; margin-bottom: 16px; }
+      .deals-grid, .compare-grid { grid-template-columns: 1fr; gap: 16px; }
+      .deal-card-head { padding: 15px 18px; }
+      .deal-card-body { padding: 18px; }
+      .compare-box { padding: 24px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-brand" aria-label="Dispo Buddy Home">
+        <img src="assets/img/logo-dark.svg" alt="Dispo Buddy">
+      </a>
+      <nav class="navbar-links" aria-label="Primary Navigation">
+        <a href="process.html">How It Works</a>
+        <a href="what-we-look-for.html">Criteria</a>
+        <a href="buyers-map.html">Active Buyers</a>
+        <a href="proof.html" class="active">Proof</a>
+        <a href="faq.html">FAQ</a>
+        <a href="https://termsforsale.com/deals.html" target="_blank" rel="noopener" class="external-link">
+          Buy Deals
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
+      </nav>
+      <div class="navbar-actions">
+        <a href="submit-deal.html" class="btn btn-primary">Submit a Deal</a>
+        <button class="hamburger" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" aria-hidden="true">
+    <a href="index.html">Home</a>
+    <a href="process.html">How It Works</a>
+    <a href="what-we-look-for.html">Criteria</a>
+    <a href="buyers-map.html">Active Buyers</a>
+    <a href="proof.html" class="active">Proof</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://termsforsale.com/deals.html" target="_blank" rel="noopener" class="external-link">Buy Deals ↗</a>
+    <div class="mobile-cta-wrap">
+      <a href="submit-deal.html" class="btn btn-primary btn-lg">Submit a Deal</a>
+      <a href="join.html" class="btn btn-secondary btn-lg">Join Network</a>
+    </div>
+  </div>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Track Record</span>
+        <h1>Deals moved. <em>Partners paid.</em></h1>
+        <p class="lead">We're not here to talk about what we could do. Here's what we've actually done.</p>
+      </div>
+    </section>
+
+    <section class="stats-bar tabular">
+      <div class="container">
+        <div class="stats-bar-grid">
+          <div><div class="stats-bar-num">200+</div><div class="stats-bar-label">Deals Closed</div></div>
+          <div><div class="stats-bar-num">24-48hr</div><div class="stats-bar-label">Avg Review Time</div></div>
+          <div><div class="stats-bar-num">Nationwide</div><div class="stats-bar-label">Buyer Network</div></div>
+          <div><div class="stats-bar-num">Up to 30/70</div><div class="stats-bar-label">Proven Partner Split</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── MOVING DEAL-TYPE & MARKET TICKER ────────────────────────────── -->
+    <div class="proof-ticker" role="region" aria-label="Deal types and active markets">
+      <div class="proof-ticker-track">
+        <div class="proof-ticker-group">
+          <span class="proof-ticker-item">Cash Deals</span>
+          <span class="proof-ticker-item">Subject-To</span>
+          <span class="proof-ticker-item">Seller Finance</span>
+          <span class="proof-ticker-item">Hybrid</span>
+          <span class="proof-ticker-item">Novation</span>
+          <span class="proof-ticker-item">Morby Method</span>
+          <span class="proof-ticker-item">Phoenix</span>
+          <span class="proof-ticker-item">Dallas</span>
+          <span class="proof-ticker-item">Tampa</span>
+          <span class="proof-ticker-item">Atlanta</span>
+          <span class="proof-ticker-item" aria-hidden="true">Cash Deals</span>
+          <span class="proof-ticker-item" aria-hidden="true">Subject-To</span>
+          <span class="proof-ticker-item" aria-hidden="true">Seller Finance</span>
+          <span class="proof-ticker-item" aria-hidden="true">Hybrid</span>
+          <span class="proof-ticker-item" aria-hidden="true">Novation</span>
+          <span class="proof-ticker-item" aria-hidden="true">Morby Method</span>
+          <span class="proof-ticker-item" aria-hidden="true">Phoenix</span>
+          <span class="proof-ticker-item" aria-hidden="true">Dallas</span>
+          <span class="proof-ticker-item" aria-hidden="true">Tampa</span>
+          <span class="proof-ticker-item" aria-hidden="true">Atlanta</span>
+        </div>
+        <div class="proof-ticker-group" aria-hidden="true">
+          <span class="proof-ticker-item">Cash Deals</span>
+          <span class="proof-ticker-item">Subject-To</span>
+          <span class="proof-ticker-item">Seller Finance</span>
+          <span class="proof-ticker-item">Hybrid</span>
+          <span class="proof-ticker-item">Novation</span>
+          <span class="proof-ticker-item">Morby Method</span>
+          <span class="proof-ticker-item">Phoenix</span>
+          <span class="proof-ticker-item">Dallas</span>
+          <span class="proof-ticker-item">Tampa</span>
+          <span class="proof-ticker-item">Atlanta</span>
+          <span class="proof-ticker-item">Cash Deals</span>
+          <span class="proof-ticker-item">Subject-To</span>
+          <span class="proof-ticker-item">Seller Finance</span>
+          <span class="proof-ticker-item">Hybrid</span>
+          <span class="proof-ticker-item">Novation</span>
+          <span class="proof-ticker-item">Morby Method</span>
+          <span class="proof-ticker-item">Phoenix</span>
+          <span class="proof-ticker-item">Dallas</span>
+          <span class="proof-ticker-item">Tampa</span>
+          <span class="proof-ticker-item">Atlanta</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container">
+        <div class="featured-quote reveal">
+          <blockquote>"I submitted on a Tuesday, had a JV agreement by Wednesday, and a buyer under contract by the following week. I've never had a dispo partner move that fast. The deal packaging alone was worth the split."</blockquote>
+          <div class="featured-quote-attr">— JV Partner, Arizona</div>
+          <span class="featured-quote-note">Representative of the typical partner experience</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Pipeline Examples</span>
+          <h2 class="section-title">Deals we've worked</h2>
+          <p class="section-desc">Real deal structures. Real numbers. Here's what flows through our pipeline.</p>
+        </div>
+
+        <div class="deals-grid stagger-group tabular">
+          <article class="deal-card reveal">
+            <div class="deal-card-head">
+              <span class="deal-badge badge-cash">Cash</span>
+              <span class="deal-market">Phoenix, AZ</span>
+            </div>
+            <div class="deal-card-body">
+              <dl class="deal-metrics">
+                <div><dt>Contract</dt><dd>$155K</dd></div>
+                <div><dt>Listed At</dt><dd>$175K</dd></div>
+                <div><dt>ARV</dt><dd>$220K</dd></div>
+                <div><dt>Time to Buyer</dt><dd>5 days</dd></div>
+              </dl>
+              <p class="deal-summary">3/2 SFR flip opportunity. Clean title, good photos, priced right from day one. Buyer came from our Arizona network.</p>
+            </div>
+          </article>
+
+          <article class="deal-card reveal">
+            <div class="deal-card-head">
+              <span class="deal-badge badge-subto">Subject-To</span>
+              <span class="deal-market">Mesa, AZ</span>
+            </div>
+            <div class="deal-card-body">
+              <dl class="deal-metrics">
+                <div><dt>Loan Balance</dt><dd>$185K</dd></div>
+                <div><dt>Rate</dt><dd>3.25%</dd></div>
+                <div><dt>Entry Fee</dt><dd>$22K</dd></div>
+                <div><dt>Monthly CF</dt><dd>$400+</dd></div>
+              </dl>
+              <p class="deal-summary">Low-rate SubTo, rental-ready, strong cash flow. Targeted to creative finance buyers specifically looking for sub-4% rates.</p>
+            </div>
+          </article>
+
+          <article class="deal-card reveal">
+            <div class="deal-card-head">
+              <span class="deal-badge badge-sf">Seller Finance</span>
+              <span class="deal-market">Dallas, TX</span>
+            </div>
+            <div class="deal-card-body">
+              <dl class="deal-metrics">
+                <div><dt>SF Amount</dt><dd>$210K</dd></div>
+                <div><dt>Rate</dt><dd>5%</dd></div>
+                <div><dt>Entry</dt><dd>$25K</dd></div>
+                <div><dt>Monthly</dt><dd>$1,128</dd></div>
+              </dl>
+              <p class="deal-summary">Clean seller carry, no balloon, long-term hold. Marketed to buy-and-hold investors in the DFW corridor.</p>
+            </div>
+          </article>
+
+          <article class="deal-card reveal">
+            <div class="deal-card-head">
+              <span class="deal-badge badge-hybrid">Hybrid</span>
+              <span class="deal-market">Tampa, FL</span>
+            </div>
+            <div class="deal-card-body">
+              <dl class="deal-metrics">
+                <div><dt>Underlying</dt><dd>$145K @ 2.9%</dd></div>
+                <div><dt>Seller Carry</dt><dd>$40K @ 0%</dd></div>
+                <div><dt>Entry</dt><dd>$18K</dd></div>
+                <div><dt>Total Pmt</dt><dd>$1,050/mo</dd></div>
+              </dl>
+              <p class="deal-summary">Creative stack — SubTo plus seller carry at 0%. Required detailed packaging to explain the structure. Moved in 10 days.</p>
+            </div>
+          </article>
+
+          <article class="deal-card reveal">
+            <div class="deal-card-head">
+              <span class="deal-badge badge-cash">Cash</span>
+              <span class="deal-market">Louisville, KY</span>
+            </div>
+            <div class="deal-card-body">
+              <dl class="deal-metrics">
+                <div><dt>Contract</dt><dd>$65K</dd></div>
+                <div><dt>Listed At</dt><dd>$79K</dd></div>
+                <div><dt>ARV</dt><dd>$120K</dd></div>
+                <div><dt>Time to Buyer</dt><dd>8 days</dd></div>
+              </dl>
+              <p class="deal-summary">BRRRR candidate in a strong rental market. Buyer came from our Kentucky investor network. Low entry, big upside.</p>
+            </div>
+          </article>
+
+          <article class="deal-card reveal">
+            <div class="deal-card-head">
+              <span class="deal-badge badge-sf">Seller Finance</span>
+              <span class="deal-market">Atlanta, GA</span>
+            </div>
+            <div class="deal-card-body">
+              <dl class="deal-metrics">
+                <div><dt>SF Amount</dt><dd>$175K</dd></div>
+                <div><dt>Rate</dt><dd>4.5%</dd></div>
+                <div><dt>Entry</dt><dd>$15K</dd></div>
+                <div><dt>Monthly</dt><dd>$886</dd></div>
+              </dl>
+              <p class="deal-summary">Growth market, low entry point. Matched to a rental portfolio buyer expanding in the Southeast.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Execution Standards</span>
+          <h2 class="section-title">What separates deals that close</h2>
+          <p class="section-desc">Not every deal moves. Here's the honest breakdown of what works and what doesn't.</p>
+        </div>
+        <div class="compare-grid">
+          <div class="compare-box good reveal">
+            <h3>Deals that move</h3>
+            <ul>
+              <li>Realistic pricing with real margin for buyers</li>
+              <li>Complete info and decent photos on day one</li>
+              <li>Responsive partner who picks up the phone</li>
+              <li>Creative deals with terms that actually make sense</li>
+              <li>Markets where we have active buyer demand</li>
+            </ul>
+          </div>
+          <div class="compare-box bad reveal" style="--reveal-delay: 100ms;">
+            <h3>Deals that stall</h3>
+            <ul>
+              <li>Overpriced with no room for the buyer to profit</li>
+              <li>No photos, missing contract details, vague numbers</li>
+              <li>Partner disappears after submitting</li>
+              <li>Complex structure with zero documentation to back it up</li>
+              <li>Rural or hyper-niche market with no buyer base</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="container">
+        <div class="cta-band-card reveal">
+          <h2>You've got the deal. We've got the buyers.</h2>
+          <p>No upfront cost. No exclusivity. 50/50 at close — 30/70 for proven partners.</p>
+          <div class="cta-band-actions">
+            <a href="submit-deal.html" class="btn btn-primary btn-lg">Submit a Deal</a>
+            <a href="join.html" class="btn btn-ghost-light btn-lg">Join the Network</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/img/logo-light.svg" alt="Dispo Buddy" loading="lazy" decoding="async">
+          <p>JV disposition partner for wholesalers, agents, and bird dogs. Fast review. Real buyers. Fair splits.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Product</h3>
+          <a href="index.html#how-it-works">How It Works</a>
+          <a href="index.html#fit">Is Your Deal a Fit?</a>
+          <a href="what-we-look-for.html">What We Look For</a>
+          <a href="submit-deal.html">Submit a Deal</a>
+        </div>
+        <div class="footer-col">
+          <h3>Company</h3>
+          <a href="process.html">Our Process</a>
+          <a href="proof.html">Proof</a>
+          <a href="join.html">Join Network</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <a href="terms.html">Terms of Service</a>
+          <a href="privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <div class="footer-contact-list">
+            <div class="footer-contact-item"><strong>Email:</strong> <a href="mailto:deals@dispobuddy.com">deals@dispobuddy.com</a></div>
+            <div class="footer-contact-item"><strong>Phone:</strong> <a href="tel:+14808425332">(480) 842-5332</a></div>
+            <div class="footer-contact-item"><strong>Hours:</strong> 9am–6pm AZ Time</div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Dispo Buddy by Deal Pros LLC. All rights reserved.</p>
+        <p>Also available: <a href="https://termsforsale.com/" target="_blank" rel="noopener">Terms For Sale</a></p>
+      </div>
+      <div class="footer-demo-note">
+        <span>Redesign Concept — Demo Proposal for DispoBuddy.com. Not the live production website.</span>
+        <span>Interactive forms run locally in demo mode only.</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="demo-pill" role="status"><span class="demo-pill-dot"></span>Redesign Concept — Demo</div>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/vendor/gsap.min.js"></script>
+  <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
+  <script src="assets/js/motion.js"></script>
+</body>
+</html>
+

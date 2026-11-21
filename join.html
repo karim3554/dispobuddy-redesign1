@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join the Network | Dispo Buddy</title>
+  <link rel="icon" href="assets/img/favicon.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/design-system.css">
+  <style>
+    .join-layout {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 44px;
+      align-items: start;
+    }
+
+    .info-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .info-card {
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: 18px;
+      padding: 28px 30px;
+      box-shadow: 0 6px 20px rgba(13, 31, 60, 0.045), 0 1px 3px rgba(13, 31, 60, 0.025);
+    }
+
+    .info-card h2 {
+      font-size: 16.5px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+
+    .info-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .info-list li {
+      font-size: 13.8px;
+      color: var(--ink-secondary);
+      padding-left: 22px;
+      position: relative;
+      line-height: 1.58;
+    }
+
+    .info-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--orange);
+      font-weight: 800;
+    }
+
+    .trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .trust-chip {
+      padding: 8px 14px;
+      border-radius: var(--r-pill);
+      background: var(--blue-soft);
+      border: 1px solid var(--blue-border);
+      color: var(--navy);
+      font-size: 12.5px;
+      font-weight: 600;
+    }
+
+    .form-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--white);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      border-radius: 20px;
+      padding: 40px 42px;
+      box-shadow: 0 12px 34px rgba(13, 31, 60, 0.065), 0 2px 6px rgba(13, 31, 60, 0.03);
+    }
+
+    .form-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3.5px;
+      background: linear-gradient(90deg, var(--orange) 0%, var(--blue) 100%);
+    }
+
+    .form-card h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .form-card .form-sub {
+      font-size: 14px;
+      color: var(--ink-secondary);
+      margin-bottom: 24px;
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .check-option,
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 13px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-sm);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--navy);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .check-option:hover,
+    .radio-option:hover {
+      border-color: var(--blue);
+      background: var(--blue-tint);
+    }
+
+    .check-option:has(input:checked),
+    .radio-option:has(input:checked) {
+      border-color: var(--navy);
+      background: rgba(13, 31, 60, 0.05);
+      font-weight: 600;
+    }
+
+    .check-option:active,
+    .radio-option:active {
+      transform: scale(0.985);
+    }
+
+    .radio-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .consent-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 12.5px;
+      color: var(--ink-secondary);
+      line-height: 1.6;
+      padding: 14px;
+      background: var(--surface-alt);
+      border-radius: var(--r-sm);
+      border: 1px solid var(--border);
+    }
+
+    .consent-row input { margin-top: 3px; flex-shrink: 0; }
+
+    .demo-notice-bar {
+      font-size: 12px;
+      color: var(--blue-hover);
+      background: var(--blue-soft);
+      border: 1px solid var(--blue-border);
+      border-radius: var(--r-sm);
+      padding: 10px 14px;
+      font-weight: 500;
+    }
+
+    .success-card { display: none; text-align: center; padding: 24px 8px; }
+    .success-card.is-visible { display: block; }
+    .success-icon {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: var(--success-soft); color: var(--success);
+      display: inline-flex; align-items: center; justify-content: center; margin-bottom: 18px;
+    }
+    .success-card h3 { font-size: 24px; font-weight: 800; color: var(--navy); margin-bottom: 10px; }
+    .success-card p { font-size: 14.5px; color: var(--ink-secondary); line-height: 1.7; max-width: 440px; margin: 0 auto 24px; }
+
+    @media (max-width: 900px) {
+      .join-layout { grid-template-columns: 1fr; gap: 28px; }
+      .form-card { padding: 34px 30px; }
+    }
+    @media (max-width: 767px) {
+      .info-card { padding: 22px 18px; border-radius: 16px; }
+      .form-card { padding: 26px 18px; border-radius: 16px; }
+      .form-card h2 { font-size: 20px; }
+      .form-grid-2, .check-grid, .radio-row { grid-template-columns: 1fr; }
+      .check-option, .radio-option { min-height: 46px; padding: 11px 14px; font-size: 14px; }
+      .check-option input, .radio-option input, .consent-row input { width: 18px; height: 18px; }
+      .trust-chip { font-size: 12px; padding: 7px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-brand" aria-label="Dispo Buddy Home">
+        <img src="assets/img/logo-dark.svg" alt="Dispo Buddy">
+      </a>
+      <nav class="navbar-links" aria-label="Primary Navigation">
+        <a href="process.html">How It Works</a>
+        <a href="what-we-look-for.html">Criteria</a>
+        <a href="buyers-map.html">Active Buyers</a>
+        <a href="proof.html">Proof</a>
+        <a href="faq.html">FAQ</a>
+        <a href="https://termsforsale.com/deals.html" target="_blank" rel="noopener" class="external-link">
+          Buy Deals
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
+      </nav>
+      <div class="navbar-actions">
+        <a href="submit-deal.html" class="btn btn-primary">Submit a Deal</a>
+        <button class="hamburger" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" aria-hidden="true">
+    <a href="index.html">Home</a>
+    <a href="process.html">How It Works</a>
+    <a href="what-we-look-for.html">Criteria</a>
+    <a href="buyers-map.html">Active Buyers</a>
+    <a href="proof.html">Proof</a>
+    <a href="faq.html">FAQ</a>
+    <a href="join.html" class="active">Join Network</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://termsforsale.com/deals.html" target="_blank" rel="noopener" class="external-link">Buy Deals ↗</a>
+    <div class="mobile-cta-wrap">
+      <a href="submit-deal.html" class="btn btn-primary btn-lg">Submit a Deal</a>
+    </div>
+  </div>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Partner Onboarding</span>
+        <h1>Join the <em>Network</em></h1>
+        <p class="lead">We're building a nationwide network of deal finders. If you bring deals, we bring buyers. Simple as that.</p>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="join-layout">
+          <div class="info-stack reveal">
+            <div class="info-card">
+              <h2>Who this is for</h2>
+              <ul class="info-list">
+                <li>Wholesalers with more contracts than buyers</li>
+                <li>Bird dogs finding deals but lacking a dispo channel</li>
+                <li>Agents with listings or off-market inventory they need to move</li>
+                <li>Investors looking for a JV partner on overflow deals</li>
+                <li>Anyone who locks up deals and needs help selling them</li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h2>Why join</h2>
+              <ul class="info-list">
+                <li>Access to our active, nationwide buyer network</li>
+                <li>Professional deal packaging and targeted marketing</li>
+                <li>50/50 core split at close (bumps to 30/70 for proven partners) — no upfront fees, ever</li>
+                <li>Non-exclusive — keep marketing deals yourself</li>
+                <li>Priority review on submitted deals</li>
+                <li>Repeat partners get faster turnaround</li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h2>What happens after you join</h2>
+              <ul class="info-list">
+                <li>We review your application within 24 hours</li>
+                <li>Quick onboarding call to align on deal criteria</li>
+                <li>You start submitting deals immediately</li>
+                <li>We handle dispo — you focus on acquisitions</li>
+              </ul>
+            </div>
+
+            <div class="trust-row">
+              <span class="trust-chip">Free to join</span>
+              <span class="trust-chip">No commitment</span>
+              <span class="trust-chip">Non-exclusive</span>
+            </div>
+          </div>
+
+          <div class="form-card reveal" style="--reveal-delay: 100ms;">
+            <div id="joinFormHeader">
+              <h2>Partner Application</h2>
+              <p class="form-sub">Takes about 2 minutes. We'll be in touch within 24 hours.</p>
+            </div>
+
+            <form id="joinForm" class="form-stack" novalidate>
+              <div class="demo-notice-bar">Local Preview Mode: Form validates and simulates submission locally — does not send data to live DispoBuddy backend.</div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="jFullName">Full Name <span class="req">*</span></label>
+                  <input class="form-input" id="jFullName" name="fullName" type="text" required placeholder="Your full name">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="jEmail">Email <span class="req">*</span></label>
+                  <input class="form-input" id="jEmail" name="email" type="email" required placeholder="you@example.com">
+                </div>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="jPhone">Phone <span class="req">*</span></label>
+                  <input class="form-input" id="jPhone" name="phone" type="tel" required placeholder="(555) 123-4567">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="jCompany">Company</label>
+                  <input class="form-input" id="jCompany" name="company" type="text" placeholder="Optional">
+                </div>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="jRole">What describes you best? <span class="req">*</span></label>
+                  <select class="form-select" id="jRole" name="role" required>
+                    <option value="">Select one</option>
+                    <option>Wholesaler</option>
+                    <option>Bird Dog</option>
+                    <option>Agent</option>
+                    <option>Investor</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="jVolume">Monthly Deal Volume <span class="req">*</span></label>
+                  <select class="form-select" id="jVolume" name="volume" required>
+                    <option value="">Select range</option>
+                    <option>1-3 deals</option>
+                    <option>4-10 deals</option>
+                    <option>11-25 deals</option>
+                    <option>25+ deals</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="jMarkets">Primary Markets</label>
+                <input class="form-input" id="jMarkets" name="markets" type="text" placeholder="e.g. Phoenix AZ, Dallas TX, Tampa FL">
+              </div>
+
+              <div class="form-group">
+                <span class="form-label">Deal Types You Work With</span>
+                <div class="check-grid">
+                  <label class="check-option"><input type="checkbox" name="dealTypes" value="Cash Assignments"> Cash Assignments</label>
+                  <label class="check-option"><input type="checkbox" name="dealTypes" value="Subject-To"> Subject-To</label>
+                  <label class="check-option"><input type="checkbox" name="dealTypes" value="Seller Finance"> Seller Finance</label>
+                  <label class="check-option"><input type="checkbox" name="dealTypes" value="Novation"> Novation</label>
+                  <label class="check-option"><input type="checkbox" name="dealTypes" value="Lease Option"> Lease Option</label>
+                  <label class="check-option"><input type="checkbox" name="dealTypes" value="Hybrid / Creative"> Hybrid / Creative</label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <span class="form-label">Got a deal ready now? <span class="req">*</span></span>
+                <div class="radio-row">
+                  <label class="radio-option"><input type="radio" name="dealReady" value="Yes" required> Yes</label>
+                  <label class="radio-option"><input type="radio" name="dealReady" value="No"> No</label>
+                  <label class="radio-option"><input type="radio" name="dealReady" value="Soon"> Soon</label>
+                </div>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="jSource">How'd you hear about us?</label>
+                  <select class="form-select" id="jSource" name="source">
+                    <option value="">Select one</option>
+                    <option>Social Media</option>
+                    <option>Referral</option>
+                    <option>Google Search</option>
+                    <option>Facebook Group</option>
+                    <option>YouTube</option>
+                    <option>Podcast</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="jRef">Referred by (optional)</label>
+                  <input class="form-input" id="jRef" name="referredBy" type="text" maxlength="120" placeholder="Who sent you to us? e.g. Matt Pace" autocomplete="off">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="jNotes">Notes</label>
+                <textarea class="form-textarea" id="jNotes" name="notes" placeholder="Anything else we should know? Current pipeline, specific needs, etc."></textarea>
+              </div>
+
+              <label class="consent-row">
+                <input type="checkbox" id="consent" name="consent" required>
+                <span>I agree to receive SMS and email communications from Dispo Buddy regarding my partner application and deal opportunities. Message &amp; data rates may apply. Reply STOP to opt out.</span>
+              </label>
+
+              <div id="joinError" class="form-error">Please complete all required fields and accept the communications consent.</div>
+
+              <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Join the Network</button>
+            </form>
+
+            <div id="joinSuccess" class="success-card" role="status">
+              <div class="success-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+              </div>
+              <h3>You're In</h3>
+              <p>Application received. We'll review it and reach out within 24 hours to get you set up. If you have a deal ready now, go ahead and <a href="submit-deal.html" style="color:var(--orange);font-weight:700;">submit it</a>.</p>
+              <p style="font-size:12px;color:#6C7F93;margin-top:-12px;">(Local preview mode — no data was transmitted to live production.)</p>
+              <a href="submit-deal.html" class="btn btn-primary">Submit a Deal</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/img/logo-light.svg" alt="Dispo Buddy" loading="lazy" decoding="async">
+          <p>JV dispo partner for wholesalers, bird dogs, and agents. A Deal Pros LLC brand.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Product</h3>
+          <a href="process.html">How It Works</a>
+          <a href="what-we-look-for.html">What We Look For</a>
+          <a href="submit-deal.html">Submit a Deal</a>
+          <a href="buyers-map.html">Active Buyers</a>
+        </div>
+        <div class="footer-col">
+          <h3>Company</h3>
+          <a href="proof.html">Proof</a>
+          <a href="join.html">Join Network</a>
+          <a href="faq.html">FAQ</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h3>Legal</h3>
+          <a href="terms.html">Terms of Service</a>
+          <a href="privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <div class="footer-contact-list">
+            <div class="footer-contact-item"><strong>Email:</strong> <a href="mailto:info@dispobuddy.com">info@dispobuddy.com</a></div>
+            <div class="footer-contact-item"><strong>Phone:</strong> <a href="tel:+14808425332">(480) 842-5332</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Dispo Buddy by Deal Pros LLC. All rights reserved.</p>
+        <p>Also available: <a href="https://termsforsale.com/" target="_blank" rel="noopener">Terms For Sale</a></p>
+      </div>
+      <div class="footer-demo-note">
+        <span>Redesign Concept — Demo Proposal for DispoBuddy.com. Not the live production website.</span>
+        <span>Interactive forms run locally in preview mode only.</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="demo-pill" role="status"><span class="demo-pill-dot"></span>Redesign Concept — Demo</div>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/vendor/gsap.min.js"></script>
+  <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
+  <script src="assets/js/motion.js"></script>
+  <script src="assets/js/affiliate-preview.js"></script>
+  <script>
+    document.getElementById('joinForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const form = e.target;
+      const err = document.getElementById('joinError');
+      err.classList.remove('visible');
+      if (!form.checkValidity()) {
+        err.classList.add('visible');
+        form.reportValidity();
+        return;
+      }
+      form.style.display = 'none';
+      document.getElementById('joinFormHeader').style.display = 'none';
+      document.getElementById('joinSuccess').classList.add('is-visible');
+    });
+  </script>
+</body>
+</html>
