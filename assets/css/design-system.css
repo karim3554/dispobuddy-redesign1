@@ -1105,13 +1105,22 @@ button, input, select, textarea {
 .db-line-mask {
   display: block;
   overflow: hidden;
-  padding-bottom: 0.08em;
-  margin-bottom: -0.08em;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+
+.db-line-mask.is-revealed {
+  overflow: visible;
 }
 
 .db-line-inner {
   display: block;
   will-change: transform, opacity;
+}
+
+.db-line-inner em {
+  display: inline-block;
+  vertical-align: baseline;
 }
 
 /* Restrained WebGL canvas layer for the homepage showcase photo (desktop fine-pointer only) */

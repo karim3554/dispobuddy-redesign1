@@ -58,9 +58,14 @@
           if (entry.tween.scrollTrigger) entry.tween.scrollTrigger.kill();
           entry.tween.kill();
         }
+        if (entry.emTween) {
+          if (entry.emTween.scrollTrigger) entry.emTween.scrollTrigger.kill();
+          entry.emTween.kill();
+        }
         if (entry.el && entry.el.dataset.dbOrigHtml) {
           entry.el.innerHTML = entry.el.dataset.dbOrigHtml;
           delete entry.el.dataset.dbLinesReady;
+          delete entry.el.dataset.dbHeadingBound;
         }
       } catch (e) {}
     }
@@ -224,6 +229,140 @@
     return safeArray('.db-line-inner', el);
   }
 
+  function markHeadingMasksRevealed(el) {
+    safeArray('.db-line-mask', el).forEach(function (mask) {
+      mask.classList.add('is-revealed');
+    });
+  }
+
+  function buildHeadingTweens(entry, lines) {
+    var style = entry.style || 'masked-rise';
+    var isHero = entry.isHero;
+    var el = entry.el;
+    var scrollCfg = isHero
+      ? undefined
+      : {
+          trigger: entry.trigger || el,
+          start: 'top 92%',
+          once: true,
+          fastScrollEnd: true,
+        };
+
+    var fromVars;
+    var toVars;
+
+    if (style === 'clip-wipe') {
+      // Style B: Horizontal directional clip wipe
+      fromVars = {
+        clipPath: 'inset(0% 100% 0% 0%)',
+        x: -10,
+        opacity: 0.25,
+      };
+      toVars = {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        x: 0,
+        opacity: 1,
+        duration: entry.duration || 0.66,
+        stagger: entry.stagger || 0.075,
+        ease: 'power3.out',
+        clearProps: 'clipPath,transform,opacity',
+        overwrite: 'auto',
+        scrollTrigger: scrollCfg,
+        onStart: function () {
+          entry.revealed = true;
+        },
+        onComplete: function () {
+          entry.revealed = true;
+          markHeadingMasksRevealed(el);
+        },
+      };
+    } else if (style === 'stagger-rise') {
+      // Style C: Staggered sequential line rise
+      fromVars = { yPercent: 94, opacity: 0.01 };
+      toVars = {
+        yPercent: 0,
+        opacity: 1,
+        duration: entry.duration || 0.64,
+        stagger: entry.stagger || 0.085,
+        ease: 'power3.out',
+        clearProps: 'transform,opacity',
+        overwrite: 'auto',
+        scrollTrigger: scrollCfg,
+        onStart: function () {
+          entry.revealed = true;
+        },
+        onComplete: function () {
+          entry.revealed = true;
+          markHeadingMasksRevealed(el);
+        },
+      };
+    } else if (style === 'hero') {
+      // Style E: Stronger editorial hero entrance (zero cold-load flicker on homepage hero)
+      var isHomeHero = !!el.closest('.hero');
+      fromVars = isHomeHero
+        ? { yPercent: 34, opacity: 0.9 }
+        : { yPercent: 46, opacity: 0.01 };
+      toVars = {
+        yPercent: 0,
+        opacity: 1,
+        duration: entry.duration || 0.72,
+        stagger: entry.stagger || 0.09,
+        ease: 'power4.out',
+        clearProps: 'transform,opacity',
+        overwrite: 'auto',
+        onStart: function () {
+          entry.revealed = true;
+        },
+        onComplete: function () {
+          entry.revealed = true;
+          markHeadingMasksRevealed(el);
+        },
+      };
+    } else {
+      // Style A (primary): Masked vertical reveal
+      fromVars = { yPercent: 108, opacity: 0.01 };
+      toVars = {
+        yPercent: 0,
+        opacity: 1,
+        duration: entry.duration || 0.68,
+        stagger: entry.stagger || 0.075,
+        ease: 'power3.out',
+        clearProps: 'transform,opacity',
+        overwrite: 'auto',
+        scrollTrigger: scrollCfg,
+        onStart: function () {
+          entry.revealed = true;
+        },
+        onComplete: function () {
+          entry.revealed = true;
+          markHeadingMasksRevealed(el);
+        },
+      };
+    }
+
+    entry.tween = window.gsap.fromTo(lines, fromVars, toVars);
+
+    // Style D: Subtle independent highlight reveal for orange <em> brand words
+    var ems = safeArray('.db-line-inner em', el);
+    if (ems.length && style !== 'clip-wipe') {
+      entry.emTween = window.gsap.fromTo(
+        ems,
+        { clipPath: 'inset(0% 100% 0% 0%)', opacity: 0.72 },
+        {
+          clipPath: 'inset(0% 0% 0% 0%)',
+          opacity: 1,
+          duration: 0.56,
+          delay: isHero ? 0.18 : 0.14,
+          stagger: 0.06,
+          ease: 'power3.out',
+          clearProps: 'clipPath,opacity',
+          overwrite: 'auto',
+          scrollTrigger: scrollCfg,
+        }
+      );
+    }
+  }
+
   function scheduleHeadingReflow() {
     if (headingResizeTimer) clearTimeout(headingResizeTimer);
     headingResizeTimer = setTimeout(function () {
@@ -249,38 +388,25 @@
           entry.tween.kill();
           entry.tween = null;
         }
+        if (entry.emTween) {
+          if (entry.emTween.scrollTrigger) entry.emTween.scrollTrigger.kill();
+          entry.emTween.kill();
+          entry.emTween = null;
+        }
 
         var lines = splitHeadingIntoLines(entry.el, true);
         if (!lines || !lines.length) return;
 
-        // Never hide already-revealed or currently visible headings during resize
+        // Never hide already-revealed, hero, or visible/passed headings during resize
         var rect = entry.el.getBoundingClientRect();
-        if (entry.revealed || entry.isHero || rect.top < window.innerHeight * 0.96) {
+        var atOrAboveView = rect.top < window.innerHeight + 60;
+        var nearBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 40;
+        if (entry.revealed || entry.isHero || atOrAboveView || nearBottom) {
           entry.revealed = true;
-          window.gsap.set(lines, { clearProps: 'transform,opacity' });
+          window.gsap.set(lines, { clearProps: 'clipPath,transform,opacity' });
+          markHeadingMasksRevealed(entry.el);
         } else {
-          entry.tween = window.gsap.fromTo(
-            lines,
-            { yPercent: 105, opacity: 0.01 },
-            {
-              yPercent: 0,
-              opacity: 1,
-              duration: entry.duration,
-              stagger: entry.stagger,
-              ease: 'power3.out',
-              clearProps: 'transform,opacity',
-              overwrite: 'auto',
-              onComplete: function () {
-                entry.revealed = true;
-              },
-              scrollTrigger: {
-                trigger: entry.trigger || entry.el,
-                start: 'top 89%',
-                once: true,
-                fastScrollEnd: true,
-              },
-            }
-          );
+          buildHeadingTweens(entry, lines);
         }
       });
 
@@ -306,13 +432,16 @@
 
   function revealHeadingLines(el, opts) {
     if (!el || !isVisibleInLayout(el)) return;
+    if (el.classList.contains('sr-only') || el.dataset.dbHeadingBound === '1') return;
+
     var lines = splitHeadingIntoLines(el, false);
     if (!lines || !lines.length) return;
 
+    el.dataset.dbHeadingBound = '1';
+
     var cfg = opts || {};
     var isHero = !!cfg.hero;
-    var duration = cfg.duration || (isHero ? 0.64 : 0.68);
-    var stagger = cfg.stagger || 0.075;
+    var style = cfg.style || (isHero ? 'hero' : 'masked-rise');
     var observeTarget = el.parentElement || el;
 
     var entry = {
@@ -321,40 +450,16 @@
       lastWidth: Math.round(observeTarget.getBoundingClientRect().width),
       lastFontSize: window.getComputedStyle(el).fontSize,
       isHero: isHero,
+      style: style,
       trigger: cfg.trigger || el,
-      duration: duration,
-      stagger: stagger,
+      duration: cfg.duration,
+      stagger: cfg.stagger,
       revealed: false,
       tween: null,
+      emTween: null,
     };
 
-    var fromVars = isHero
-      ? { yPercent: 28, opacity: 0.88 }
-      : { yPercent: 105, opacity: 0.01 };
-
-    var toVars = {
-      yPercent: 0,
-      opacity: 1,
-      duration: duration,
-      stagger: stagger,
-      ease: 'power3.out',
-      clearProps: 'transform,opacity',
-      overwrite: 'auto',
-      onComplete: function () {
-        entry.revealed = true;
-      },
-    };
-
-    if (!isHero) {
-      toVars.scrollTrigger = {
-        trigger: entry.trigger,
-        start: 'top 89%',
-        once: true,
-        fastScrollEnd: true,
-      };
-    }
-
-    entry.tween = window.gsap.fromTo(lines, fromVars, toVars);
+    buildHeadingTweens(entry, lines);
     trackedHeadings.push(entry);
 
     ensureHeadingResizeObserver();
@@ -557,16 +662,18 @@
 
     function resize() {
       if (destroyed) return;
-      var rect = visual.getBoundingClientRect();
+      var cssW = visual.offsetWidth || Math.round(visual.getBoundingClientRect().width);
+      var cssH = visual.offsetHeight || Math.round(visual.getBoundingClientRect().height);
+      if (!cssW || !cssH) return;
       var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      var w = Math.max(1, Math.round(rect.width * dpr));
-      var h = Math.max(1, Math.round(rect.height * dpr));
+      var w = Math.max(1, Math.round(cssW * dpr));
+      var h = Math.max(1, Math.round(cssH * dpr));
       if (canvas.width !== w || canvas.height !== h) {
         canvas.width = w;
         canvas.height = h;
       }
       gl.viewport(0, 0, canvas.width, canvas.height);
-      gl.uniform2f(uRes, rect.width, rect.height);
+      gl.uniform2f(uRes, cssW, cssH);
       drawFrame();
     }
 
@@ -620,8 +727,11 @@
         gl.bindTexture(gl.TEXTURE_2D, tex);
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
         gl.uniform2f(uImgRes, img.naturalWidth, img.naturalHeight);
-        visual.appendChild(canvas);
+        // Size and paint the first WebGL frame before attaching to DOM (prevents cold-load blank flash)
         resize();
+        if (!canvas.parentNode) {
+          visual.appendChild(canvas);
+        }
         wake();
       } catch (e) {
         teardown();
@@ -693,24 +803,51 @@
       var homeHeroVisual = document.querySelector('.hero .hero-visual');
       if (homeHeroVisual && isVisibleInLayout(homeHeroVisual)) {
         var isMobile = window.matchMedia('(max-width: 767px)').matches;
-        window.gsap.fromTo(
-          homeHeroVisual,
-          {
-            opacity: 0.96,
-            clipPath: isMobile ? 'inset(0% 0% 8% 0%)' : 'inset(0% 0% 0% 10%)',
-            scale: isMobile ? 1.03 : 1.035,
-          },
-          {
-            opacity: 1,
-            clipPath: 'inset(0% 0% 0% 0%)',
-            scale: 1,
-            duration: 0.86,
-            ease: 'power3.out',
-            clearProps: 'clipPath,transform,opacity',
-            overwrite: 'auto',
+        if (isMobile) {
+          window.gsap.fromTo(
+            homeHeroVisual,
+            {
+              opacity: 0.96,
+              clipPath: 'inset(0% 0% 8% 0%)',
+              scale: 1.03,
+            },
+            {
+              opacity: 1,
+              clipPath: 'inset(0% 0% 0% 0%)',
+              scale: 1,
+              duration: 0.86,
+              ease: 'power3.out',
+              clearProps: 'clipPath,transform,opacity',
+              overwrite: 'auto',
+            }
+          );
+        } else {
+          // Desktop: keep the masked .hero-visual container stationary so its soft left
+          // gradient mask never shifts or gets sliced by a hard clip-path seam.
+          // Animate the inner media cleanly inside the stationary masked frame.
+          setupHeroWebGL();
+          var mediaTargets = safeArray('img, .hero-webgl-canvas', homeHeroVisual);
+          if (mediaTargets.length) {
+            window.gsap.fromTo(
+              mediaTargets,
+              {
+                opacity: 0.95,
+                scale: 1.042,
+                x: 12,
+                transformOrigin: 'right center',
+              },
+              {
+                opacity: 1,
+                scale: 1,
+                x: 0,
+                duration: 0.86,
+                ease: 'power3.out',
+                clearProps: 'transform,opacity',
+                overwrite: 'auto',
+              }
+            );
           }
-        );
-        setupHeroWebGL();
+        }
       }
       return;
     }
@@ -746,12 +883,29 @@
     }
   }
 
-  /* ── 5. SHARED SECTIONS (TYPOGRAPHY + CTA BANDS) ────────────────────────── */
+  /* ── 5. SHARED SECTIONS (CURATED TYPOGRAPHY REVEALS + CTA BANDS) ────────── */
+  function pickSectionTitleStyle(titleEl, index) {
+    var hasEm = !!titleEl.querySelector('em');
+    var hasBr = !!titleEl.querySelector('br');
+    var words = (titleEl.textContent || '').trim().split(/\s+/).filter(Boolean);
+    // Keep <em> headings on vertical reveals so Style D highlight wipe stands out
+    if (!hasEm && !hasBr && words.length <= 5 && index % 2 === 1) {
+      return 'clip-wipe';
+    }
+    if (words.length >= 7) {
+      return 'stagger-rise';
+    }
+    return 'masked-rise';
+  }
+
   function setupSharedSections() {
-    safeArray('main .section-header').forEach(function (header) {
+    safeArray('main .section-header').forEach(function (header, idx) {
       var title = header.querySelector('.section-title');
       if (title) {
-        revealHeadingLines(title, { trigger: header, duration: 0.66, stagger: 0.07 });
+        revealHeadingLines(title, {
+          trigger: header,
+          style: pickSectionTitleStyle(title, idx),
+        });
       }
       var others = Array.prototype.slice.call(header.children).filter(function (ch) {
         return ch !== title;
@@ -759,6 +913,16 @@
       if (others.length) {
         animateOnScroll(others, header, { y: 14, duration: 0.54, stagger: 0.06 });
       }
+    });
+
+    // Catch standalone .section-title headings outside .section-header
+    // (e.g., Homepage #faq .section-title, Process .needs-layout .section-title)
+    safeArray('main .section-title').forEach(function (title) {
+      if (title.dataset.dbHeadingBound === '1') return;
+      revealHeadingLines(title, {
+        trigger: title,
+        style: 'stagger-rise',
+      });
     });
 
     safeArray('main .section-footer-link').forEach(function (bar) {
@@ -775,7 +939,7 @@
       });
       var ctaH2 = card.querySelector('h2');
       if (ctaH2) {
-        revealHeadingLines(ctaH2, { trigger: card, duration: 0.64, stagger: 0.07 });
+        revealHeadingLines(ctaH2, { trigger: card, style: 'stagger-rise' });
       }
     });
   }
@@ -1094,12 +1258,19 @@
     if (joinLayout) {
       var joinCards = safeArray('.info-card, .trust-row, .form-card', joinLayout);
       animateOnScroll(joinCards, joinLayout, { y: 16, duration: 0.56, stagger: 0.075 });
+      safeArray('.info-card h2, .form-card h2', joinLayout).forEach(function (h2) {
+        revealHeadingLines(h2, { trigger: h2, style: 'clip-wipe' });
+      });
     }
 
     var contactLayout = document.querySelector('.contact-layout');
     if (contactLayout) {
       var contactCards = safeArray('.contact-card, .form-card', contactLayout);
       animateOnScroll(contactCards, contactLayout, { y: 16, duration: 0.56, stagger: 0.085 });
+      var contactTitle = document.getElementById('contactTitle');
+      if (contactTitle) {
+        revealHeadingLines(contactTitle, { trigger: contactTitle, style: 'clip-wipe' });
+      }
     }
   }
 
@@ -1149,6 +1320,11 @@
     var isEmbedded = document.body.classList.contains('is-embedded') || window.self !== window.top;
     if (!sidebar || isEmbedded) return;
 
+    var mapTitle = sidebar.querySelector('.sidebar-title h1');
+    if (mapTitle) {
+      revealHeadingLines(mapTitle, { hero: true, style: 'clip-wipe', duration: 0.58 });
+    }
+
     var chromeEls = safeArray('.sidebar-header, .filters, .stats-row', sidebar);
     animateEntrance(chromeEls, { y: 8, duration: 0.45, stagger: 0.05 });
 
@@ -1168,7 +1344,7 @@
     safeArray('.faq-content-section .faq-group').forEach(function (group) {
       var title = group.querySelector('.faq-group-title');
       if (title) {
-        animateOnScroll(title, group, { y: 14, duration: 0.5 });
+        revealHeadingLines(title, { trigger: group, style: 'clip-wipe', duration: 0.64 });
       }
       var items = safeArray('.accordion-item', group);
       if (items.length) {
@@ -1179,6 +1355,10 @@
     var stillCard = document.querySelector('.still-card');
     if (stillCard) {
       animateOnScroll(stillCard, stillCard, { y: 16, duration: 0.56 });
+      var stillH2 = stillCard.querySelector('h2');
+      if (stillH2) {
+        revealHeadingLines(stillH2, { trigger: stillCard, style: 'stagger-rise' });
+      }
     }
   }
 
