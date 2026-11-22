@@ -30,11 +30,164 @@
     }
     .hero-pill b { color: var(--orange); }
 
+    /* ── DESKTOP STICKY SCROLL STORYTELLING (DEGRADES NATURALLY ON MOBILE) ── */
+    .process-story-grid {
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr);
+      gap: 44px;
+      align-items: start;
+    }
+
+    .process-stage {
+      position: sticky;
+      top: calc(var(--nav-h) + 28px);
+      background:
+        radial-gradient(280px 220px at 14% 12%, rgba(41, 171, 226, 0.16) 0%, transparent 72%),
+        linear-gradient(155deg, #071933 0%, var(--navy) 58%, #13315E 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 22px;
+      padding: 30px 26px 26px;
+      color: var(--white);
+      box-shadow: 0 22px 48px rgba(13, 31, 60, 0.18);
+      overflow: hidden;
+    }
+
+    .process-stage::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(41, 171, 226, 0.09) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(41, 171, 226, 0.09) 1px, transparent 1px);
+      background-size: 32px 32px;
+      -webkit-mask-image: linear-gradient(160deg, rgba(0, 0, 0, 0.85) 0%, transparent 78%);
+      mask-image: linear-gradient(160deg, rgba(0, 0, 0, 0.85) 0%, transparent 78%);
+      pointer-events: none;
+    }
+
+    .process-stage-inner {
+      position: relative;
+      z-index: 2;
+    }
+
+    .process-stage-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #63CBF5;
+      margin-bottom: 18px;
+    }
+
+    .process-stage-kicker::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--orange);
+      box-shadow: 0 0 0 4px rgba(247, 148, 29, 0.22);
+    }
+
+    .process-stage-num {
+      font-size: 3.4rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--orange);
+      margin-bottom: 10px;
+      transition: transform 0.3s var(--ease), opacity 0.24s ease;
+    }
+
+    .process-stage-title {
+      font-size: 1.22rem;
+      font-weight: 800;
+      line-height: 1.3;
+      color: var(--white);
+      margin-bottom: 10px;
+      min-height: 3.1rem;
+    }
+
+    .process-stage-meta {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: var(--r-pill);
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(41, 171, 226, 0.34);
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 24px;
+    }
+
+    .process-stage-bar {
+      width: 100%;
+      height: 5px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.12);
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+
+    .process-stage-bar-fill {
+      width: 100%;
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--orange) 0%, var(--blue) 100%);
+      transform-origin: left center;
+      transform: scaleX(0.166);
+      transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .process-stage-steps {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 6px;
+    }
+
+    .process-stage-dot {
+      appearance: none;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.72);
+      border-radius: 8px;
+      height: 34px;
+      font-family: inherit;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.22s ease, border-color 0.22s ease, color 0.22s ease, transform 0.2s var(--ease);
+    }
+
+    .process-stage-dot:hover {
+      background: rgba(255, 255, 255, 0.14);
+      color: var(--white);
+    }
+
+    .process-stage-dot.is-active {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+
     .timeline-list {
       position: relative;
       display: flex;
       flex-direction: column;
       gap: 28px;
+    }
+
+    .timeline-card.is-active-step {
+      border-color: rgba(41, 171, 226, 0.48);
+      box-shadow: 0 18px 40px rgba(13, 31, 60, 0.095), 0 4px 12px rgba(41, 171, 226, 0.08);
+    }
+
+    .timeline-card.is-active-step::before {
+      opacity: 1;
     }
 
     .timeline-card {
@@ -187,6 +340,16 @@
 
     .needs-check svg { width: 15px; height: 15px; }
 
+    @media (max-width: 1023px) {
+      .process-story-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .process-stage {
+        display: none;
+      }
+    }
+
     @media (max-width: 900px) {
       .timeline-card {
         grid-template-columns: 76px 1fr;
@@ -301,12 +464,33 @@
     </section>
 
     <section class="section">
-      <div class="container-narrow">
+      <div class="container">
         <div class="section-header reveal">
           <span class="eyebrow">Step-by-Step</span>
           <h2 class="section-title">The full breakdown. No surprises, no fine print.</h2>
           <p class="section-desc">Every deal follows the same process. We built it to be fast, transparent, and painless for both sides.</p>
         </div>
+
+        <div class="process-story-grid">
+          <aside class="process-stage" aria-label="Process step progress">
+            <div class="process-stage-inner">
+              <div class="process-stage-kicker">Step <span id="processStageCount" class="tabular">01</span> of 06</div>
+              <div class="process-stage-num tabular" id="processStageNum">01</div>
+              <div class="process-stage-title" id="processStageTitle">Submit your deal</div>
+              <div class="process-stage-meta" id="processStageMeta">~5 min deal form</div>
+              <div class="process-stage-bar" aria-hidden="true">
+                <div class="process-stage-bar-fill" id="processStageBar"></div>
+              </div>
+              <div class="process-stage-steps" role="tablist" aria-label="Jump to process step">
+                <button type="button" class="process-stage-dot is-active" data-step-target="0" aria-label="Step 1: Submit your deal">01</button>
+                <button type="button" class="process-stage-dot" data-step-target="1" aria-label="Step 2: We review and underwrite it">02</button>
+                <button type="button" class="process-stage-dot" data-step-target="2" aria-label="Step 3: Sign the JV agreement">03</button>
+                <button type="button" class="process-stage-dot" data-step-target="3" aria-label="Step 4: We package and market the deal">04</button>
+                <button type="button" class="process-stage-dot" data-step-target="4" aria-label="Step 5: Negotiate and push to close">05</button>
+                <button type="button" class="process-stage-dot" data-step-target="5" aria-label="Step 6: You get paid">06</button>
+              </div>
+            </div>
+          </aside>
 
         <div class="timeline-list stagger-group">
           <article class="timeline-card reveal">
@@ -380,6 +564,7 @@
               </div>
             </div>
           </article>
+        </div>
         </div>
       </div>
     </section>
