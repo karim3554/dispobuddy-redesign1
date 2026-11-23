@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Active Buyers Map — Dispo Buddy</title>
+  <link rel="icon" href="assets/img/favicon.png" type="image/png" sizes="48x48">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="style-variant.css">
+  <style>
+    html, body { height: 100%; overflow: hidden; background: var(--sv-bg); }
+    .sv-map-page {
+      display: flex;
+      height: calc(100vh - var(--sv-nav-h) - 56px);
+      height: calc(100dvh - var(--sv-nav-h) - 56px);
+      margin-top: var(--sv-nav-h);
+      position: relative;
+    }
+    .sidebar {
+      width: 370px; min-width: 370px;
+      background: #E9EDF3; border-right: 1px solid #D3DCE8;
+      display: flex; flex-direction: column; overflow: hidden; z-index: 10;
+    }
+    .sidebar-header {
+      padding: 18px 20px 14px;
+      background: linear-gradient(155deg, var(--sv-navy) 0%, var(--sv-bg) 100%);
+      border-bottom: 1px solid var(--sv-border);
+    }
+    .sidebar-title { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+    .sidebar-title h1 { font-family: var(--sv-font-display); font-size: 28px; text-transform: uppercase; letter-spacing: 0.02em; color: #F5F7FA; line-height: 1; }
+    .buyer-badge {
+      padding: 4px 12px; border-radius: 999px; background: var(--sv-orange); color: var(--sv-orange-ink);
+      font-size: 13px; font-weight: 700;
+    }
+    .sidebar-sub { font-size: 12.5px; color: #9DB2CC; line-height: 1.45; }
+    .filters {
+      display: grid; grid-template-columns: 1fr; gap: 8px;
+      padding: 12px 16px; border-bottom: 1px solid #DCE2EC; background: #FFFFFF;
+    }
+    .filter-select {
+      width: 100%; background: #F5F6F8; color: #0D1F3C;
+      border: 1px solid #C3CFE0; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-weight: 600;
+    }
+    .filter-select:focus { outline: none; border-color: var(--sv-orange); background: #FFFFFF; }
+    .stats-row {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      background: #DCE2EC; border-bottom: 1px solid #DCE2EC;
+    }
+    .stat-card { background: #FFFFFF; padding: 12px 10px; text-align: center; }
+    .stat-num { font-family: var(--sv-font-display); font-size: 22px; color: #0D1F3C; line-height: 1.05; }
+    .stat-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.12em; color: #4A5E7A; margin-top: 3px; }
+    .market-list { flex: 1; overflow-y: auto; padding: 12px 14px 20px; display: flex; flex-direction: column; gap: 10px; }
+    .market-card {
+      background: #FFFFFF; border: 1px solid #DCE2EC; border-radius: 6px; padding: 14px 14px;
+      cursor: pointer; transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .market-card:hover, .market-card.active { border-color: var(--sv-blue); background: #EFF8FD; transform: translateY(-1px); box-shadow: 0 8px 18px rgba(13, 31, 60, 0.08); }
+    .mc-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+    .mc-name { font-size: 14.5px; font-weight: 700; color: #0D1F3C; }
+    .mc-count { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: #D97706; }
+    .mc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sv-blue); }
+    .mc-dot.hot { background: var(--sv-orange); }
+    .mc-pills { display: flex; flex-wrap: wrap; gap: 5px; }
+    .mc-pill { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: #EFF8FD; color: #0369A1; border: 1px solid rgba(41, 171, 226, 0.34); }
+    .mc-pill-prop { background: #F1F5F9; color: #475569; border-color: #DCE2EC; }
+    .mc-price { margin-top: 7px; font-size: 11.5px; color: #4A5E7A; }
+    .map-wrap { flex: 1; position: relative; min-width: 0; }
+    #map { width: 100%; height: 100%; z-index: 1; }
+    .loading-overlay {
+      position: absolute; inset: 0; z-index: 500; background: rgba(7, 19, 38, 0.86);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+      color: var(--sv-fg); transition: opacity 0.25s ease;
+    }
+    .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+    .spinner { width: 32px; height: 32px; border-radius: 50%; border: 3px solid var(--sv-border-bright); border-top-color: var(--sv-orange); animation: sv-spin 0.8s linear infinite; }
+    @keyframes sv-spin { to { transform: rotate(360deg); } }
+    .error-msg { color: var(--sv-muted); font-size: 13.5px; padding: 18px; text-align: center; }
+    .bottom-banner {
+      height: 56px; padding: 0 24px; background: var(--sv-navy); border-top: 1px solid var(--sv-border);
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+    }
+    .bottom-banner p { font-size: 13.5px; font-weight: 600; color: var(--sv-fg); }
+    .mobile-toggle {
+      display: none; position: fixed; bottom: 68px; right: 16px; z-index: 600;
+      padding: 10px 18px; border-radius: 999px; background: var(--sv-orange); color: var(--sv-orange-ink);
+      border: none; font-size: 13px; font-weight: 700; box-shadow: var(--sv-orange-glow);
+    }
+    .leaflet-popup-content-wrapper { background: var(--sv-navy); color: var(--sv-fg); border: 1px solid var(--sv-border-bright); border-radius: 8px; }
+    .leaflet-popup-tip { background: var(--sv-navy); }
+    .popup-title { font-family: var(--sv-font-display); font-size: 22px; text-transform: uppercase; color: var(--sv-fg); }
+    .popup-count { font-size: 12.5px; font-weight: 700; color: var(--sv-orange); margin-bottom: 10px; }
+    .popup-section { margin-bottom: 8px; }
+    .popup-section-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--sv-muted); margin-bottom: 4px; }
+    .popup-deals { display: flex; flex-wrap: wrap; gap: 4px; }
+    .popup-deal-tag { font-size: 11px; padding: 2px 7px; border-radius: 4px; background: rgba(247, 148, 29, 0.16); color: var(--sv-orange); }
+    .popup-price { font-size: 12.5px; font-weight: 700; color: var(--sv-fg); }
+    .popup-cta { display: inline-block; margin-top: 8px; padding: 7px 14px; border-radius: 999px; background: var(--sv-orange); color: var(--sv-orange-ink) !important; font-size: 12px; font-weight: 700; }
+    @media (max-width: 840px) {
+      .sidebar { position: absolute; inset: 0; width: 100%; min-width: 0; border-right: none; transition: transform 0.28s var(--sv-ease); }
+      .sidebar.collapsed { transform: translateX(-100%); }
+      .mobile-toggle { display: inline-flex; align-items: center; }
+      .bottom-banner { padding: 0 14px; }
+      .bottom-banner p { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="sv-header">
+    <div class="sv-container sv-header-inner">
+      <a href="index.html" class="sv-brand" aria-label="Dispo Buddy Home"><img src="assets/img/logo-light.svg" alt="Dispo Buddy"></a>
+      <nav class="sv-nav" aria-label="Primary Navigation">
+        <a href="process.html">Process</a>
+        <a href="what-we-look-for.html">Criteria</a>
+        <a href="buyers-map.html" class="active">Buyers</a>
+        <a href="proof.html">Proof</a>
+        <a href="faq.html">FAQ</a>
+        <a href="join.html">Join</a>
+        <a href="https://termsforsale.com/deals.html" target="_blank" rel="noopener" class="sv-nav-ext">Buy Deals &#8599;</a>
+      </nav>
+      <div class="sv-header-actions">
+        <a href="submit-deal.html" class="sv-btn sv-btn-orange sv-btn-sm">Submit a Deal</a>
+        <button type="button" class="sv-burger" id="svBurger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="svDrawer">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="sv-mobile-drawer" id="svDrawer" aria-hidden="true">
+    <a href="index.html">Home</a>
+    <a href="process.html">Process</a>
+    <a href="what-we-look-for.html">Criteria</a>
+    <a href="buyers-map.html" class="active">Buyers</a>
+    <a href="proof.html">Proof</a>
+    <a href="faq.html">FAQ</a>
+    <a href="join.html">Join</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://termsforsale.com/deals.html" target="_blank" rel="noopener">Buy Deals &#8599;</a>
+    <div class="sv-drawer-ctas">
+      <a href="submit-deal.html" class="sv-btn sv-btn-orange">Submit a Deal &#8594;</a>
+      <a href="join.html" class="sv-btn sv-btn-outline">Join Network</a>
+    </div>
+  </div>
+
+  <main class="sv-map-page" id="main-content">
+    <aside class="sidebar" id="sidebar" aria-label="Active buyer markets and filters">
+      <div class="sidebar-header">
+        <div class="sidebar-title">
+          <h1>Active Buyers</h1>
+          <span class="buyer-badge tabular" id="buyerBadge">--</span>
+        </div>
+        <p class="sidebar-sub">Real-time buyer demand from our network No personal info shown</p>
+      </div>
+      <div class="filters">
+        <select class="filter-select" id="filterState" aria-label="Filter by state"><option value="">All States</option></select>
+        <select class="filter-select" id="filterDeal" aria-label="Filter by deal type"><option value="">All Deal Types</option></select>
+        <select class="filter-select" id="filterTimeline" aria-label="Filter by timeline"><option value="">All Timelines</option></select>
+      </div>
+      <div class="stats-row tabular" id="statsRow">
+        <div class="stat-card sv-reveal"><div class="stat-num" id="statBuyers">--</div><div class="stat-label">Buyers</div></div>
+        <div class="stat-card sv-reveal"><div class="stat-num" id="statMarkets">--</div><div class="stat-label">Markets</div></div>
+        <div class="stat-card sv-reveal"><div class="stat-num" id="statTopDeal">--</div><div class="stat-label">Top Type</div></div>
+      </div>
+      <div class="market-list" id="marketList"></div>
+    </aside>
+
+    <div class="map-wrap">
+      <div id="map"></div>
+      <div class="loading-overlay" id="loading" role="status" aria-live="polite">
+        <div class="spinner"></div>
+        <div class="loading-text">Loading live buyer data from Dispo Buddy...</div>
+      </div>
+    </div>
+  </main>
+
+  <button class="mobile-toggle" id="mobileToggle" type="button">Show Map</button>
+
+  <div class="bottom-banner">
+    <p>Have a deal in one of these markets?</p>
+    <a href="submit-deal.html" class="sv-btn sv-btn-orange sv-btn-sm">Submit a Deal &#8594;</a>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="buyers-map-core.js"></script>
+  <script src="style-variant.js"></script>
+  <script>
+    (function () {
+      if (window.self !== window.top) {
+        document.body.classList.add('is-embedded');
+      }
+
+      var DBMap = window.DispoBuddyMap;
+
+      function pillClass(type) {
+        var t = type.toLowerCase();
+        if (t.includes('cash')) return 'cash';
+        if (t.includes('sub')) return 'subto';
+        if (t.includes('seller') || t.includes('finance')) return 'sf';
+        return '';
+      }
+
+      function dotClass(count) {
+        if (count >= 15) return 'high';
+        if (count >= 5) return 'medium';
+        return 'low';
+      }
+
+      var map = DBMap.createBaseMap('map', { zoomControl: true, attributionControl: true });
+
+      var allData = null;
+      var markers = [];
+      var activeCard = null;
+
+      async function loadData() {
+        var json = await DBMap.fetchBuyerDemand();
+        if (json && json.markets && json.markets.length > 0) {
+          allData = json;
+          populateFilters();
+          renderAll();
+          document.getElementById('loading').classList.add('hidden');
+          return;
+        }
+        document.getElementById('loading').innerHTML =
+          '<div class="error-msg">Buyer data is loading. Check back shortly.</div>';
+      }
+
+      function populateFilters() {
+        var stateSelect = document.getElementById('filterState');
+        var dealSelect = document.getElementById('filterDeal');
+        var timelineSelect = document.getElementById('filterTimeline');
+
+        if (allData.statesSummary) {
+          allData.statesSummary
+            .slice()
+            .sort(function (a, b) { return b.buyerCount - a.buyerCount; })
+            .forEach(function (s) {
+              var o = document.createElement('option');
+              o.value = s.state;
+              o.textContent = s.state + ' (' + s.buyerCount + ' buyers)';
+              stateSelect.appendChild(o);
+            });
+        }
+        if (allData.dealTypesSummary) {
+          Object.entries(allData.dealTypesSummary)
+            .sort(function (a, b) { return b[1] - a[1]; })
+            .forEach(function (entry) {
+              var o = document.createElement('option');
+              o.value = entry[0];
+              o.textContent = entry[0] + ' (' + entry[1] + ')';
+              dealSelect.appendChild(o);
+            });
+        }
+        if (allData.timelinesSummary) {
+          Object.entries(allData.timelinesSummary).forEach(function (entry) {
+            var o = document.createElement('option');
+            o.value = entry[0];
+            o.textContent = DBMap.shortTimelineLabel(entry[0]) + ' (' + entry[1] + ')';
+            timelineSelect.appendChild(o);
+          });
+        }
+      }
+
+      function getFilteredMarkets() {
+        if (!allData) return [];
+        var markets = allData.markets;
+        var stateVal = document.getElementById('filterState').value;
+        var dealVal = document.getElementById('filterDeal').value;
+        var timelineVal = document.getElementById('filterTimeline').value;
+
+        if (stateVal) markets = markets.filter(function (m) { return m.state === stateVal; });
+        if (dealVal) markets = markets.filter(function (m) { return m.dealTypes && m.dealTypes[dealVal] > 0; });
+        if (timelineVal) markets = markets.filter(function (m) { return m.timelines && m.timelines[timelineVal] > 0; });
+
+        return markets.slice().sort(function (a, b) { return b.buyerCount - a.buyerCount; });
+      }
+
+      function renderAll() {
+        var markets = getFilteredMarkets();
+        renderStats(markets);
+        renderMarketList(markets);
+        DBMap.renderMarketMarkers(map, markets, markers, '_top').then(function (created) {
+          markers = created;
+        });
+      }
+
+      function renderStats(markets) {
+        var totalBuyers = markets.reduce(function (s, m) { return s + m.buyerCount; }, 0);
+        document.getElementById('buyerBadge').textContent = allData.totalBuyers;
+        document.getElementById('statBuyers').textContent = totalBuyers;
+        document.getElementById('statMarkets').textContent = markets.length;
+
+        var dealCounts = {};
+        markets.forEach(function (m) {
+          if (m.dealTypes) {
+            Object.entries(m.dealTypes).forEach(function (entry) {
+              dealCounts[entry[0]] = (dealCounts[entry[0]] || 0) + entry[1];
+            });
+          }
+        });
+        var topDeal = Object.entries(dealCounts).sort(function (a, b) { return b[1] - a[1]; })[0];
+        document.getElementById('statTopDeal').textContent = topDeal
+          ? topDeal[0].replace('Subject To', 'SubTo').replace('Seller Finance', 'SF')
+          : '--';
+      }
+
+      function renderMarketList(markets) {
+        var list = document.getElementById('marketList');
+        list.innerHTML = '';
+        if (markets.length === 0) {
+          list.innerHTML = '<div class="error-msg">No markets match your filters.</div>';
+          return;
+        }
+        markets.forEach(function (m, i) {
+          var card = document.createElement('div');
+          card.className = 'market-card';
+          card.dataset.index = i;
+
+          var pills = m.dealTypes
+            ? Object.entries(m.dealTypes).map(function (entry) {
+                var label = entry[0].replace('Subject To', 'SubTo').replace('Seller Finance', 'SF');
+                return '<span class="mc-pill ' + pillClass(entry[0]) + '">' + label + ' (' + entry[1] + ')</span>';
+              }).join('')
+            : '';
+
+          var propPills = m.propertyTypes
+            ? Object.entries(m.propertyTypes).map(function (entry) {
+                return '<span class="mc-pill mc-pill-prop">' + entry[0] + ' (' + entry[1] + ')</span>';
+              }).join('')
+            : '';
+
+          var priceStr = m.priceRange ? DBMap.fmtK(m.priceRange.min) + ' - ' + DBMap.fmtK(m.priceRange.max) : '';
+
+          card.innerHTML =
+            '<div class="mc-top">' +
+              '<span class="mc-name">' + m.label + '</span>' +
+              '<span class="mc-count"><span class="mc-dot ' + dotClass(m.buyerCount) + '"></span>' + m.buyerCount + ' buyers</span>' +
+            '</div>' +
+            '<div class="mc-pills">' + pills + '</div>' +
+            (propPills ? '<div class="mc-pills" style="margin-top:4px">' + propPills + '</div>' : '') +
+            (priceStr ? '<div class="mc-price">Price range: ' + priceStr + '</div>' : '');
+
+          card.setAttribute('tabindex', '0');
+          card.setAttribute('role', 'button');
+          card.setAttribute('aria-label', m.label + ', ' + m.buyerCount + ' buyers');
+          card.addEventListener('click', function () { flyToMarket(m, card); });
+          card.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              flyToMarket(m, card);
+            }
+          });
+          list.appendChild(card);
+        });
+      }
+
+      async function flyToMarket(market, card) {
+        if (activeCard) activeCard.classList.remove('active');
+        card.classList.add('active');
+        activeCard = card;
+
+        if (window.innerWidth <= 840 && sidebarVisible) {
+          sidebarVisible = false;
+          sidebar.classList.add('collapsed');
+          mobileToggle.textContent = 'Show Markets';
+          setTimeout(function () { map.invalidateSize(); }, 320);
+        }
+
+        var coords = await DBMap.getCoords(market.city, market.state);
+        if (coords) {
+          map.flyTo(coords, 10, { duration: 1 });
+          markers.forEach(function (obj) {
+            if (obj.label === market.label) obj.marker.openPopup();
+          });
+        }
+      }
+
+      document.getElementById('filterState').addEventListener('change', renderAll);
+      document.getElementById('filterDeal').addEventListener('change', renderAll);
+      document.getElementById('filterTimeline').addEventListener('change', renderAll);
+
+      var mobileToggle = document.getElementById('mobileToggle');
+      var sidebar = document.getElementById('sidebar');
+      var sidebarVisible = window.innerWidth > 840;
+      if (!sidebarVisible) {
+        sidebar.classList.add('collapsed');
+        mobileToggle.textContent = 'Show Markets';
+      }
+      mobileToggle.addEventListener('click', function () {
+        sidebarVisible = !sidebarVisible;
+        sidebar.classList.toggle('collapsed', !sidebarVisible);
+        mobileToggle.textContent = sidebarVisible ? 'Show Map' : 'Show Markets';
+        setTimeout(function () { map.invalidateSize(); }, 320);
+      });
+
+      setTimeout(function () { map.invalidateSize(); }, 200);
+      window.addEventListener('resize', function () { map.invalidateSize(); });
+
+      loadData();
+    })();
+  </script>
+</body>
+</html>

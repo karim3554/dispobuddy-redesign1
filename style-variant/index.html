@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dispo Buddy — You Lock It Up. We Sell It.</title>
+  <meta name="description" content="Partner with Dispo Buddy and get your locked-up real estate deals in front of 500+ active buyers across 15 states. 50/50 split, no upfront fees, 24-48hr review.">
+  <link rel="icon" href="assets/img/favicon.png" type="image/png" sizes="48x48">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="style-variant.css">
+  <link rel="preload" as="image" href="assets/img/hero-house-twilight.webp" type="image/webp" fetchpriority="high">
+</head>
+<body>
+
+  <header class="sv-header">
+    <div class="sv-container sv-header-inner">
+      <a href="index.html" class="sv-brand" aria-label="Dispo Buddy Home">
+        <img src="assets/img/logo-light.svg" alt="Dispo Buddy">
+      </a>
+      <nav class="sv-nav" aria-label="Primary Navigation">
+        <a href="process.html">Process</a>
+        <a href="what-we-look-for.html">Criteria</a>
+        <a href="buyers-map.html">Buyers</a>
+        <a href="proof.html">Proof</a>
+        <a href="faq.html">FAQ</a>
+        <a href="join.html">Join</a>
+        <a href="https://termsforsale.com/deals.html" target="_blank" rel="noopener" class="sv-nav-ext">Buy Deals &#8599;</a>
+      </nav>
+      <div class="sv-header-actions">
+        <a href="submit-deal.html" class="sv-btn sv-btn-orange sv-btn-sm">Submit a Deal</a>
+        <button type="button" class="sv-burger" id="svBurger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="svDrawer">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="sv-mobile-drawer" id="svDrawer" aria-hidden="true">
+    <a href="index.html" class="active">Home</a>
+    <a href="process.html">Process</a>
+    <a href="what-we-look-for.html">Criteria</a>
+    <a href="buyers-map.html">Buyers</a>
+    <a href="proof.html">Proof</a>
+    <a href="faq.html">FAQ</a>
+    <a href="join.html">Join</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://termsforsale.com/deals.html" target="_blank" rel="noopener">Buy Deals &#8599;</a>
+    <div class="sv-drawer-ctas">
+      <a href="submit-deal.html" class="sv-btn sv-btn-orange">Submit a Deal &#8594;</a>
+      <a href="join.html" class="sv-btn sv-btn-outline">Join Network</a>
+    </div>
+  </div>
+
+  <main>
+    <!-- ── 1. FULL-BLEED HERO ───────────────────────────────────────────── -->
+    <section class="sv-hero">
+      <div class="sv-hero-media">
+        <img src="assets/img/hero-house-twilight.webp" alt="Modern American twilight craftsman residence with warm exterior lighting" width="2560" height="1706" loading="eager" decoding="sync" fetchpriority="high">
+      </div>
+      <div class="sv-container sv-hero-inner">
+        <span class="sv-eyebrow sv-eyebrow-orange">500+ ACTIVE BUYERS &middot; 15 STATES</span>
+        <h1 class="sv-hero-h1">
+          YOU LOCK<br>
+          IT UP<span class="sv-orange">.</span>
+          <span class="sv-stroke">WE SELL IT.</span>
+        </h1>
+        <div class="sv-hero-bottom">
+          <div class="sv-hero-copy">
+            <p>Stop leaving deals on the table Partner with Dispo Buddy and get your locked-up deals in front of 500+ active buyers 50/50 split, no upfront fees, 24-48hr review</p>
+            <div class="sv-hero-bridge">
+              Looking to buy deals instead? <a href="https://termsforsale.com/deals.html" target="_blank" rel="noopener">Browse on Terms For Sale</a>
+            </div>
+          </div>
+          <div class="sv-hero-ctas">
+            <a href="submit-deal.html" class="sv-btn sv-btn-orange">Submit Your First Deal &#8594;</a>
+            <a href="what-we-look-for.html" class="sv-btn sv-btn-outline">See What We Buy</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TILTED ORANGE MARQUEE RIBBON ─────────────────────────────────── -->
+    <div class="sv-marquee-wrap" aria-hidden="true">
+      <div class="sv-marquee-track">
+        <span class="sv-marquee-item">CASH DEALS <span>&#10022;</span> SUBJECT-TO <span>&#10022;</span> SELLER FINANCE <span>&#10022;</span> WRAP-AROUND <span>&#10022;</span> HYBRID / MORBY <span>&#10022;</span> COMMERCIAL <span>&#10022;</span> LEASE OPTIONS <span>&#10022;</span> MULTI-UNIT <span>&#10022;</span></span>
+        <span class="sv-marquee-item">CASH DEALS <span>&#10022;</span> SUBJECT-TO <span>&#10022;</span> SELLER FINANCE <span>&#10022;</span> WRAP-AROUND <span>&#10022;</span> HYBRID / MORBY <span>&#10022;</span> COMMERCIAL <span>&#10022;</span> LEASE OPTIONS <span>&#10022;</span> MULTI-UNIT <span>&#10022;</span></span>
+      </div>
+    </div>
+
+    <!-- ── 2. METRICS HAIRLINE STRIP (MIDNIGHT NAVY) ────────────────────── -->
+    <section class="sv-metrics-strip sv-midnight tabular" aria-label="Dispo Buddy Key Metrics">
+      <div class="sv-metric-cell sv-reveal">
+        <div class="sv-metric-val">4.9<span>&#9733;</span></div>
+        <div class="sv-metric-lbl">Partner Rating</div>
+      </div>
+      <div class="sv-metric-cell sv-reveal">
+        <div class="sv-metric-val">$1.7M<span>+</span></div>
+        <div class="sv-metric-lbl">In Funded Assignment Fees</div>
+      </div>
+      <div class="sv-metric-cell sv-reveal">
+        <div class="sv-metric-val">200<span>+</span></div>
+        <div class="sv-metric-lbl">Deals Assigned</div>
+      </div>
+    </section>
+
+    <!-- ── 3. CORE GUARANTEES (SOFT GRAY ISLAND + WHITE CARDS) ──────────── -->
+    <section class="sv-section sv-island">
+      <div class="sv-container">
+        <div class="sv-sec-head sv-reveal">
+          <span class="sv-eyebrow">Risk Reversal</span>
+          <h2 class="sv-display sv-display-section">CORE<span class="sv-stroke">GUARANTEES</span></h2>
+          <p class="sv-lead">Simple risk-share built for wholesalers, agents, and bird dogs who want fast execution</p>
+        </div>
+        <div class="sv-grid-4">
+          <article class="sv-card sv-reveal">
+            <div class="sv-card-num">01</div>
+            <h3>No Upfront Fees</h3>
+            <p>Zero retainers, zero marketing charges We only earn when we bring the buyer who closes</p>
+          </article>
+          <article class="sv-card sv-reveal">
+            <div class="sv-card-num">02</div>
+            <h3>24-48h Review</h3>
+            <p>Fast, straight underwriting feedback so you know where your deal stands without waiting weeks</p>
+          </article>
+          <article class="sv-card sv-reveal">
+            <div class="sv-card-num">03</div>
+            <h3>Non-Exclusive</h3>
+            <p>Keep marketing your deal yourself If your own buyer closes first, you owe us nothing</p>
+          </article>
+          <article class="sv-card sv-reveal">
+            <div class="sv-card-num">04</div>
+            <h3>Performance Splits</h3>
+            <p>Start at 50/50 Close 3 deals or hit $25K in funded fees in a quarter to unlock 70/30 in your favor</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 4. THE 3 THINGS PARTNERS ASK MOST (DEEP NAVY) ────────────────── -->
+    <section class="sv-section">
+      <div class="sv-container">
+        <div class="sv-sec-head sv-reveal">
+          <span class="sv-eyebrow">Straight Answers</span>
+          <h2 class="sv-display sv-display-section">THE 3 THINGS<span class="sv-stroke">PARTNERS ASK MOST</span></h2>
+        </div>
+        <div class="sv-grid-3">
+          <article class="sv-card sv-reveal">
+            <div class="sv-card-num">01</div>
+            <h3>Who are your buyers?</h3>
+            <p>500+ pre-vetted, active cash and creative finance investors across 15 states Real buyers who actually close — not a recycled blast list</p>
+          </article>
+          <article class="sv-card sv-reveal">
+            <div class="sv-card-num">02</div>
+            <h3>How long does close take?</h3>
+            <p>Average time to close is under 16 days once underwritten and packaged We review submissions within 24–48 hours</p>
+          </article>
+          <article class="sv-card sv-reveal">
+            <div class="sv-card-num">03</div>
+            <h3>What if it doesn't close?</h3>
+            <p>No payment owed to us if the deal falls apart You only share fees if we bring the buyer who actually closes Simple risk-share</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 5. QUALIFICATION — IS YOUR DEAL A FIT? (MIDNIGHT BLUEPRINT) ──── -->
+    <section class="sv-section sv-midnight sv-blueprint" id="fit">
+      <div class="sv-container">
+        <div class="sv-sec-head sv-reveal">
+          <span class="sv-eyebrow">Qualification</span>
+          <h2 class="sv-display sv-display-section">IS YOUR DEAL<span class="sv-stroke">A FIT?</span></h2>
+          <p class="sv-lead">We work with wholesalers, bird dogs, and agents who have locked-up deals Check these 6 boxes and you're good to go</p>
+        </div>
+        <div class="sv-grid-2">
+          <div class="sv-fit-card sv-reveal">
+            <div class="sv-fit-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <div>
+              <h3>Property under contract or assigned</h3>
+              <p>You have equitable interest or an assignment agreement</p>
+            </div>
+          </div>
+          <div class="sv-fit-card sv-reveal">
+            <div class="sv-fit-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <div>
+              <h3>On-market or off-market</h3>
+              <p>Listed with an agent or off-market, we work both</p>
+            </div>
+          </div>
+          <div class="sv-fit-card sv-reveal">
+            <div class="sv-fit-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <div>
+              <h3>Residential or commercial</h3>
+              <p>Single-family, multi-unit, commercial, mobile home, raw land</p>
+            </div>
+          </div>
+          <div class="sv-fit-card sv-reveal">
+            <div class="sv-fit-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <div>
+              <h3>You can provide basic docs</h3>
+              <p>Contract, estimates, pictures Just enough for buyers to evaluate</p>
+            </div>
+          </div>
+          <div class="sv-fit-card sv-reveal">
+            <div class="sv-fit-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <div>
+              <h3>Deal info is accurate</h3>
+              <p>Real numbers, honest comps, and clear property condition</p>
+            </div>
+          </div>
+          <div class="sv-fit-card sv-reveal">
+            <div class="sv-fit-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M20 6 9 17l-5-5"/></svg></div>
+            <div>
+              <h3>You're ready to communicate</h3>
+              <p>Responsive on buyer questions and offer approvals so deals don't stall</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 6. 6 STEPS TO PAID (DEEP NAVY + DOT-GRAIN) ───────────────────── -->
+    <section class="sv-section sv-grain" id="how-it-works">
+      <div class="sv-container">
+        <div class="sv-sec-head sv-reveal">
+          <span class="sv-eyebrow sv-eyebrow-orange">The Disposition Process</span>
+          <h2 class="sv-display sv-display-xl">6 STEPS<span class="sv-stroke sv-orange">TO PAID</span></h2>
+        </div>
+        <div class="sv-steps-list">
+          <div class="sv-step-row sv-reveal">
+            <span class="sv-step-num tabular">01</span>
+            <h3>Submit Deal</h3>
+            <p>Fill out our 5-minute deal form with address, numbers, photos, and contract details</p>
+          </div>
+          <div class="sv-step-row sv-reveal">
+            <span class="sv-step-num tabular">02</span>
+            <h3>We Review</h3>
+            <p>Within 24–48 hours we pull comps, verify spread, and confirm buyer demand</p>
+          </div>
+          <div class="sv-step-row sv-reveal">
+            <span class="sv-step-num tabular">03</span>
+            <h3>Sign JV Docs</h3>
+            <p>Simple, non-exclusive one-page JV agreement sent via DocuSign Takes 2 minutes</p>
+          </div>
+          <div class="sv-step-row sv-reveal">
+            <span class="sv-step-num tabular">04</span>
+            <h3>We Market</h3>
+            <p>We package a clean deal sheet and push directly to matched, vetted investors</p>
+          </div>
+          <div class="sv-step-row sv-reveal">
+            <span class="sv-step-num tabular">05</span>
+            <h3>Negotiate &amp; Close</h3>
+            <p>Questions, offers, follow-ups, and title coordination — we handle the heavy lifting</p>
+          </div>
+          <div class="sv-step-row sv-reveal">
+            <span class="sv-step-num tabular">06</span>
+            <h3>Get Paid</h3>
+            <p>Buyer closes through title and we split the net assignment fee 50/50 at closing</p>
+          </div>
+        </div>
+        <div class="sv-sec-foot sv-reveal">
+          <p>Want the full step-by-step breakdown of timelines, docs, and JV terms?</p>
+          <a href="process.html" class="sv-btn sv-btn-outline">Explore Our Full Process &#8594;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 7. DEAL TYPES WE MOVE (SOFT GRAY ISLAND + NAVY PILLS) ────────── -->
+    <section class="sv-section sv-island">
+      <div class="sv-container">
+        <div class="sv-sec-head sv-reveal">
+          <span class="sv-eyebrow">We Buy</span>
+          <h2 class="sv-display sv-display-section">DEAL TYPES<span class="sv-stroke">WE MOVE</span></h2>
+          <p class="sv-lead">Our buyer network spans multiple strategies On-market or off-market, if the numbers work, we work it</p>
+        </div>
+        <div class="sv-types-grid">
+          <div class="sv-type-tile sv-reveal"><span class="sv-type-tag">01</span><span class="sv-type-name">Cash Deals</span></div>
+          <div class="sv-type-tile sv-reveal"><span class="sv-type-tag">02</span><span class="sv-type-name">Subject-To</span></div>
+          <div class="sv-type-tile sv-reveal"><span class="sv-type-tag">03</span><span class="sv-type-name">Seller Finance</span></div>
+          <div class="sv-type-tile sv-reveal"><span class="sv-type-tag">04</span><span class="sv-type-name">Wrap-Around</span></div>
+          <div class="sv-type-tile sv-reveal"><span class="sv-type-tag">05</span><span class="sv-type-name">Hybrid / Morby</span></div>
+          <div class="sv-type-tile sv-reveal"><span class="sv-type-tag">06</span><span class="sv-type-name">Commercial</span></div>
+          <div class="sv-type-tile sv-reveal"><span class="sv-type-tag">07</span><span class="sv-type-name">Lease Options</span></div>
+          <div class="sv-type-tile sv-reveal"><span class="sv-type-tag">08</span><span class="sv-type-name">Multi-Unit</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 8. ACTIVE MARKETS — 500+ BUYERS / 15 STATES (DEEP NAVY + LIVE MAP) -->
+    <section class="sv-section sv-section-border-top" id="buyers">
+      <div class="sv-container">
+        <div class="sv-markets-layout sv-markets-with-map">
+          <div class="sv-markets-copy sv-reveal">
+            <span class="sv-eyebrow">Active Markets</span>
+            <h2 class="sv-display sv-display-xl">
+              <span class="sv-orange">500+</span> BUYERS
+              <span class="sv-stroke-blue">15 STATES</span>
+            </h2>
+            <p class="sv-lead">Real-time map of our active buyer network That's the reach behind every deal you submit</p>
+            <div class="sv-states-grid sv-states-compact" aria-label="Active buyer states">
+              <a href="buyers-map.html" class="sv-state-box">AZ</a>
+              <a href="buyers-map.html" class="sv-state-box">TX</a>
+              <a href="buyers-map.html" class="sv-state-box">FL</a>
+              <a href="buyers-map.html" class="sv-state-box is-accent">KY</a>
+              <a href="buyers-map.html" class="sv-state-box is-accent">TN</a>
+              <a href="buyers-map.html" class="sv-state-box is-accent">GA</a>
+              <a href="buyers-map.html" class="sv-state-box is-accent">OH</a>
+              <a href="buyers-map.html" class="sv-state-box is-accent">IN</a>
+              <a href="buyers-map.html" class="sv-state-box is-accent">NC</a>
+              <a href="buyers-map.html" class="sv-state-box is-accent">SC</a>
+              <a href="buyers-map.html" class="sv-state-box is-accent">AL</a>
+              <a href="buyers-map.html" class="sv-state-box is-accent">MO</a>
+              <a href="buyers-map.html" class="sv-state-box is-accent">NV</a>
+              <a href="buyers-map.html" class="sv-state-box is-accent">CO</a>
+              <a href="buyers-map.html" class="sv-state-box is-accent">MI</a>
+              <a href="buyers-map.html" class="sv-state-box">MAP &#8599;</a>
+            </div>
+            <div class="sv-markets-actions">
+              <a href="buyers-map.html" class="sv-btn sv-btn-orange">Open Full Buyers Map &#8594;</a>
+            </div>
+          </div>
+          <div class="sv-home-map-card sv-reveal" aria-label="Interactive Active Buyers Map">
+            <div class="sv-home-map-bar">
+              <div class="sv-home-map-title">
+                <span class="sv-live-dot" aria-hidden="true"></span>
+                <span>Live Buyer Demand</span>
+                <span class="sv-home-map-count tabular" id="svHomeMapCount">Loading...</span>
+              </div>
+              <a href="buyers-map.html" class="sv-home-map-link">Full Map &#8599;</a>
+            </div>
+            <div class="sv-home-map-stage">
+              <div id="svHomeMap" class="sv-home-map-canvas" role="region" aria-label="Interactive US map showing active Dispo Buddy buyer markets"></div>
+              <div class="sv-home-map-loading" id="svHomeMapLoading" role="status" aria-live="polite">
+                <div class="sv-map-spinner" aria-hidden="true"></div>
+                <span>Loading live buyer demand...</span>
+              </div>
+            </div>
+            <div class="sv-home-map-foot">
+              <div class="sv-map-legend">
+                <span><i class="is-high"></i> 15+ buyers</span>
+                <span><i class="is-med"></i> 5–14 buyers</span>
+                <span><i class="is-low"></i> 1–4 buyers</span>
+              </div>
+              <span class="sv-map-hint">Click any market pin for demand details</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 9. PARTNERS WHO'VE DONE IT (SOFT GRAY ISLAND + WHITE CARDS) ──── -->
+    <section class="sv-section sv-island" id="proof">
+      <div class="sv-container">
+        <div class="sv-sec-head sv-reveal">
+          <span class="sv-eyebrow">Social Proof</span>
+          <h2 class="sv-display sv-display-section">PARTNERS WHO'VE<span class="sv-stroke">DONE IT</span></h2>
+          <p class="sv-lead">These are real wholesalers and bird dogs who locked up deals and got them sold through Dispo Buddy</p>
+        </div>
+        <div class="sv-proof-grid">
+          <div class="sv-quote-card sv-reveal">
+            <div>
+              <div class="sv-quote-mark" aria-hidden="true">&ldquo;</div>
+              <p class="sv-quote-text">"I was stuck with three deals Submitted them Tuesday, got buyer feedback by Thursday All three moved within 90 days Easiest $18k I've made"</p>
+            </div>
+            <div class="sv-quote-author">
+              <div class="sv-avatar" aria-hidden="true">JR</div>
+              <div>
+                <div class="sv-author-name">Jeremy R.</div>
+                <div class="sv-author-role">Wholesaler, Phoenix AZ</div>
+              </div>
+            </div>
+          </div>
+          <div class="sv-kpi-stack tabular">
+            <div class="sv-kpi-box sv-reveal">
+              <strong>200<span>+</span></strong>
+              <small>Deals Assigned</small>
+            </div>
+            <div class="sv-kpi-box sv-reveal">
+              <strong>&lt;16 <span>DAYS</span></strong>
+              <small>Avg Time to Close</small>
+            </div>
+            <div class="sv-kpi-box sv-reveal">
+              <strong>$1.7M<span>+</span></strong>
+              <small>In Funded Assignment Fees</small>
+            </div>
+          </div>
+        </div>
+        <div class="sv-sec-foot sv-reveal">
+          <p>See closed deal breakdowns across cash, subject-to, and creative finance structures</p>
+          <a href="proof.html" class="sv-btn sv-btn-outline">View Deal Proof &#8594;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 10. WHY CHOOSE DISPOBUDDY (MIDNIGHT NAVY BENTO) ──────────────── -->
+    <section class="sv-section sv-midnight">
+      <div class="sv-container">
+        <div class="sv-sec-head sv-reveal">
+          <span class="sv-eyebrow sv-eyebrow-orange">Why Us</span>
+          <h2 class="sv-display sv-display-section">NOT YOUR AVERAGE<span class="sv-stroke">DISPO PARTNER</span></h2>
+          <p class="sv-lead">We're wholesalers too We know what it takes to move deals fast and honestly</p>
+        </div>
+        <div class="sv-why-grid">
+          <article class="sv-card sv-reveal">
+            <h3>Speed &amp; Decisiveness</h3>
+            <p>24-48hr turnaround, not weeks Yes or no, fast feedback so you can pivot if needed</p>
+          </article>
+          <article class="sv-card sv-reveal">
+            <h3>Real Buyer Network</h3>
+            <p>500+ pre-vetted buyers across 15 states Not a list Active, funded, closing deals</p>
+          </article>
+          <article class="sv-card sv-reveal">
+            <h3>Transparent Comms</h3>
+            <p>We tell you why we pass We update you weekly if your deal's in the pipeline No ghosting</p>
+          </article>
+          <article class="sv-card sv-span-3 sv-reveal">
+            <h3>Performance Rewards</h3>
+            <p>Close 3 deals or hit $25k in one quarter? Move to 70/30 in your favor immediately</p>
+          </article>
+          <article class="sv-card sv-span-3 sv-reveal">
+            <h3>Seller Confidentiality</h3>
+            <p>Your seller's name and contact info stays private Buyers see the deal, not the intermediary</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 11. FREQUENTLY ASKED ─────────────────────────────────────────── -->
+    <section class="sv-section" id="faq">
+      <div class="sv-container">
+        <div class="sv-sec-head sv-reveal">
+          <span class="sv-eyebrow">FAQ</span>
+          <h2 class="sv-display sv-display-section">FREQUENTLY<span class="sv-stroke">ASKED</span></h2>
+          <p class="sv-lead">Real answers to the questions every partner asks</p>
+        </div>
+        <div class="sv-faq-list">
+          <div class="sv-faq-item sv-reveal is-open">
+            <button type="button" class="sv-faq-trigger" aria-expanded="true">
+              <span>What if the deal falls through after you start marketing?</span>
+              <span class="sv-faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="sv-faq-panel">
+              <div class="sv-faq-body">You owe us nothing We only earn when we bring the buyer who closes If the deal dies (financing fails, seller changes mind, title issue), zero payment That's the whole point of the 50/50 risk-share</div>
+            </div>
+          </div>
+          <div class="sv-faq-item sv-reveal">
+            <button type="button" class="sv-faq-trigger" aria-expanded="false">
+              <span>Do I have to give you exclusivity on my deal?</span>
+              <span class="sv-faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="sv-faq-panel">
+              <div class="sv-faq-body">No Our JV agreement is non-exclusive You can continue marketing the property to your own buyers while we work it If your buyer closes first, you owe us nothing</div>
+            </div>
+          </div>
+          <div class="sv-faq-item sv-reveal">
+            <button type="button" class="sv-faq-trigger" aria-expanded="false">
+              <span>How does the 50/50 split and 70/30 upgrade work?</span>
+              <span class="sv-faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="sv-faq-panel">
+              <div class="sv-faq-body">All new partners start at 50/50 of the net assignment fee paid through title at close Once you close 3 deals or generate $25K in funded fees in a single quarter, your split upgrades to 70/30 in your favor</div>
+            </div>
+          </div>
+          <div class="sv-faq-item sv-reveal">
+            <button type="button" class="sv-faq-trigger" aria-expanded="false">
+              <span>Will you contact my seller directly?</span>
+              <span class="sv-faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="sv-faq-panel">
+              <div class="sv-faq-body">Never without your permission Your seller relationship and contact details stay completely private Buyers see the deal sheet and property details, not your seller</div>
+            </div>
+          </div>
+          <div class="sv-faq-item sv-reveal">
+            <button type="button" class="sv-faq-trigger" aria-expanded="false">
+              <span>How fast do you review submitted deals?</span>
+              <span class="sv-faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="sv-faq-panel">
+              <div class="sv-faq-body">Every complete deal submission is reviewed within 24–48 hours If the numbers work, we send our one-page JV via DocuSign If not, we tell you why — no ghosting</div>
+            </div>
+          </div>
+          <div class="sv-faq-item sv-reveal">
+            <button type="button" class="sv-faq-trigger" aria-expanded="false">
+              <span>What types of deals do you move?</span>
+              <span class="sv-faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="sv-faq-panel">
+              <div class="sv-faq-body">Cash wholesale deals, Subject-To, Seller Finance, Wrap-Arounds, Hybrid/Morby structures, Lease Options, Commercial, and Multi-Unit properties across 15+ active states</div>
+            </div>
+          </div>
+        </div>
+        <div class="sv-sec-foot sv-reveal">
+          <p>Have more questions about splits, timelines, or creative finance structures?</p>
+          <a href="faq.html" class="sv-btn sv-btn-outline">Read All 25 FAQs &#8594;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 12. FULL-BLEED ORANGE CTA BAND ───────────────────────────────── -->
+    <section class="sv-cta-band">
+      <div class="sv-container sv-reveal">
+        <h2>READY TO MOVE YOUR DEAL?</h2>
+        <p>Five minutes to submit 24–48 hours to review 50/50 split with zero upfront fees</p>
+        <div class="sv-cta-actions">
+          <a href="submit-deal.html" class="sv-btn sv-btn-dark">Submit Your First Deal &#8594;</a>
+          <a href="what-we-look-for.html" class="sv-btn sv-btn-dark-outline">See What We Buy</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sv-footer">
+    <div class="sv-container">
+      <div class="sv-footer-grid">
+        <div class="sv-footer-brand">
+          <a href="index.html" class="sv-brand" aria-label="Dispo Buddy Home">
+            <img src="assets/img/logo-light.svg" alt="Dispo Buddy" loading="lazy" decoding="async">
+          </a>
+          <p>JV disposition partner for wholesalers, agents, and bird dogs Fast review Real buyers Fair splits</p>
+        </div>
+        <div class="sv-footer-col">
+          <h4>Navigate</h4>
+          <a href="process.html">Our Process</a>
+          <a href="what-we-look-for.html">Deal Criteria</a>
+          <a href="buyers-map.html">Active Buyers Map</a>
+          <a href="proof.html">Deal Proof</a>
+          <a href="faq.html">FAQ</a>
+        </div>
+        <div class="sv-footer-col">
+          <h4>Partner</h4>
+          <a href="submit-deal.html">Submit a Deal</a>
+          <a href="join.html">Join Network</a>
+          <a href="contact.html">Contact</a>
+          <a href="terms.html">Terms of Service</a>
+          <a href="privacy.html">Privacy Policy</a>
+        </div>
+        <div class="sv-footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:deals@dispobuddy.com">deals@dispobuddy.com</a>
+          <a href="tel:+14808425332">(480) 842-5332</a>
+          <span>Hours: 9am–6pm AZ Time</span>
+          <a href="https://termsforsale.com/deals.html" target="_blank" rel="noopener">Terms For Sale &#8599;</a>
+        </div>
+      </div>
+      <div class="sv-footer-bottom">
+        <span>&copy; 2026 Dispo Buddy by Deal Pros LLC All rights reserved</span>
+        <span>Dark Editorial Brand Variant &middot; Local Preview Only</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="buyers-map-core.js"></script>
+  <script src="style-variant.js"></script>
+</body>
+</html>
