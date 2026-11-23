@@ -160,14 +160,14 @@ img {
 
 .sv-stroke {
   display: block;
-  color: transparent;
-  -webkit-text-stroke: 1.6px var(--sv-orange);
+  color: var(--sv-fg);
+  -webkit-text-stroke: 0;
 }
 
 .sv-stroke-blue {
   display: block;
-  color: transparent;
-  -webkit-text-stroke: 1.6px var(--sv-blue);
+  color: var(--sv-blue);
+  -webkit-text-stroke: 0;
 }
 
 .sv-orange {
@@ -2053,12 +2053,12 @@ img {
   box-shadow: 0 8px 24px rgba(13, 31, 60, 0.055);
 }
 
-/* Strong, crisp Navy outline on light islands (never pale orange against light gray/white) */
+/* Solid Deep Navy headings on light islands for crisp readability */
 .sv-island .sv-stroke,
 .sv-light .sv-stroke,
 .sv-light-soft .sv-stroke {
-  color: transparent;
-  -webkit-text-stroke: 1.8px #0D1F3C;
+  color: #0D1F3C;
+  -webkit-text-stroke: 0;
 }
 
 .sv-island .sv-eyebrow,
