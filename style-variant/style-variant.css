@@ -521,6 +521,34 @@ img {
   filter: none;
 }
 
+.sv-hero-line {
+  display: block;
+  will-change: opacity, transform;
+}
+
+.sv-hero-line-1 {
+  animation: sv-hero-line-in 0.72s var(--sv-ease) 0.08s both;
+}
+
+.sv-hero-line-2 {
+  animation: sv-hero-line-in 0.72s var(--sv-ease) 0.20s both;
+}
+
+.sv-hero-line-3 {
+  animation: sv-hero-line-in 0.78s var(--sv-ease) 0.36s both;
+}
+
+@keyframes sv-hero-line-in {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .sv-hero-bottom {
   display: flex;
   align-items: flex-end;
@@ -2446,8 +2474,9 @@ img {
   html { scroll-behavior: auto; }
   .sv-marquee-track,
   .sv-hero-media img,
+  .sv-hero-line,
   .sv-state-box,
-  .sv-map-spinner { animation: none !important; }
+  .sv-map-spinner { animation: none !important; opacity: 1 !important; transform: none !important; }
   .sv-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
   *, *::before, *::after { transition-duration: 0.01ms !important; }
 }
